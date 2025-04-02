@@ -1,27 +1,30 @@
-# 🚗 EstacionaBoa - Ambiente CodeIgniter 4 com Docker no WSL2
+# 🚀 EstacionaBoa - CodeIgniter 4 com Docker no WSL2
 
-Este projeto configura um ambiente de desenvolvimento **CodeIgniter 4** utilizando **Docker** e **Docker Compose**, facilitando a configuração e o gerenciamento de dependências dentro do **WSL2 (Windows Subsystem for Linux 2)**.
+Este projeto configura um ambiente de desenvolvimento **CodeIgniter 4** usando **Docker** e **Docker Compose**, facilitando a configuração e o gerenciamento de dependências no **WSL2**.
 
-## 🛠️ Pré-requisitos
+---
 
-Antes de iniciar, certifique-se de ter instalado:
+## 📌 Pré-requisitos
 
-- **WSL2** habilitado no Windows ([Guia Oficial](https://learn.microsoft.com/pt-br/windows/wsl/install))
-- **Docker Desktop** configurado para usar WSL2
-- **Docker Compose** instalado
+- Docker e Docker Compose instalados em seu sistema.
+- WSL2 configurado corretamente.
+
+---
 
 ## 📂 Estrutura do Projeto
 
 ```
-estacionaboa/
-├── www/                # Arquivos do CodeIgniter 4
-├── docker-compose.yml  # Configuração dos containers
-└── Dockerfile          # Configuração do ambiente PHP/Apache
+estacionaboa-codeigniter/
+├── www/                  # Arquivos do CodeIgniter
+├── docker-compose.yml    # Configuração do Docker Compose
+└── Dockerfile            # Configuração do ambiente PHP e Apache
 ```
+
+---
 
 ## ⚙️ Configuração do Docker
 
-### `docker-compose.yml`
+### 📄 Arquivo `docker-compose.yml`
 
 ```yaml
 version: "3.8"
@@ -41,7 +44,7 @@ services:
     environment:
       TZ: America/Fortaleza
     networks:
-      - estacionaboa
+      - codeigniter
 
   db:
     image: mysql:8.0
@@ -49,32 +52,36 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: estacionaboa
-      MYSQL_ROOT_PASSWORD: senha123
+      MYSQL_ROOT_PASSWORD: jotahdev
     volumes:
-      - estacionaboa_mysql_data:/var/lib/mysql
+      - codeigniter_mysql_data:/var/lib/mysql
     networks:
-      - estacionaboa
+      - codeigniter
+    ports:
+      - "3306:3306"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: senha123
+      MYSQL_ROOT_PASSWORD: sextafeira
     ports:
       - "8080:80"
     networks:
-      - estacionaboa
+      - codeigniter
 
 volumes:
-  estacionaboa_mysql_data:
+  codeigniter_mysql_data:
 
 networks:
-  estacionaboa:
+  codeigniter:
     driver: bridge
 ```
 
-## 📜 `Dockerfile`
+---
+
+### 📄 Arquivo `Dockerfile`
 
 ```dockerfile
 FROM php:8.1-apache
@@ -103,8 +110,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Configurar Apache
 RUN a2enmod rewrite
 
-# Criar diretório writable e definir permissões
-RUN mkdir -p writable && chown -R www-data:www-data writable
+# Criar diretório writable e configurar permissões
+RUN mkdir -p /var/www/html/writable && chown -R www-data:www-data /var/www/html/writable
 
 # Definir diretório de trabalho
 WORKDIR /var/www/html
@@ -115,72 +122,74 @@ COPY . /var/www/html
 # Configurar Apache para apontar para o diretório public
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
-# Expor porta 80
+# Expor a porta 80
 EXPOSE 80
 
 # Comando para iniciar o Apache
 CMD ["apache2-foreground"]
 ```
 
+---
+
 ## 🚀 Instalação e Execução
 
-1. **Clone este repositório:**
+1. **Clone este repositório**:
    ```sh
-   git clone https://github.com/seu-usuario/estacionaboa.git
-   cd estacionaboa
+   git clone https://github.com/seuusuario/estacionaboa-codeigniter.git
    ```
-2. **Inicie os contêineres:**
+2. **Navegue até o diretório do projeto**:
+   ```sh
+   cd estacionaboa-codeigniter
+   ```
+3. **Inicie os contêineres**:
    ```sh
    docker-compose up --build -d
    ```
-3. **Acesse o shell do contêiner web:**
+4. **Acesse o shell do contêiner web**:
    ```sh
-   docker exec -it estacionaboa-web-1 bash
+   docker exec -it nome-do-container-web bash
    ```
-4. **Instale o CodeIgniter 4 dentro do contêiner:**
+5. **Instale o CodeIgniter 4**:
    ```sh
-   cd /var/www/html && composer create-project codeigniter4/appstarter ..
+   cd /var/www/html && composer create-project codeigniter4/appstarter .
    ```
-5. **Acesse a aplicação:**
-   - CodeIgniter: [http://localhost:4500](http://localhost:4500)
+6. **Acesse a aplicação**:
+   - Aplicação CodeIgniter: [http://localhost:4500](http://localhost:4500)
    - PHPMyAdmin: [http://localhost:8080](http://localhost:8080)
-
-## ⚡ Configurações Adicionais
-
-🔹 **Banco de Dados:** Edite `app/Config/Database.php` e configure as credenciais do MySQL.  
-🔹 **Arquivo `.env`**: Copie `.env.example` para `.env` e ajuste as configurações conforme necessário.
-
-## 🛠️ Solução de Problemas
-
-### ❌ "Whoops! We seem to have hit a snag..."
-✅ Verifique permissões do diretório `writable`.
-✅ Confirme as credenciais do banco de dados em `app/Config/Database.php`.
-✅ Consulte logs em `writable/logs/`.
-✅ Certifique-se de que todas as extensões PHP estão instaladas.
-✅ Verifique se o arquivo `.env` está configurado corretamente.
-
-### ❌ "Forbidden"
-✅ Verifique permissões dos arquivos e diretórios.
-✅ Confirme a configuração do Apache e do `.htaccess`.
-✅ Verifique se as rotas do CodeIgniter estão configuradas corretamente.
-✅ Certifique-se de acessar o diretório `public`.
-
-## 💡 Sobre o WSL2 e Docker
-
-O **WSL2 (Windows Subsystem for Linux 2)** permite rodar um ambiente Linux dentro do Windows, utilizando um **kernel Linux real** otimizado para melhor desempenho. Com o WSL2, podemos:
-
-✅ Executar o **Docker nativamente**, sem necessidade de uma máquina virtual separada.
-✅ Acessar arquivos e pastas do Windows diretamente no Linux e vice-versa.
-✅ Ter melhor desempenho ao rodar aplicações que dependem de **I/O intensivo**, como bancos de dados e servidores web.
-
-No **EstacionaBoa**, rodamos os contêineres do **Docker** no WSL2, garantindo uma execução otimizada do CodeIgniter 4 com Apache, MySQL e PHPMyAdmin.
-
-## 🤝 Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir **issues** ou **pull requests**.
 
 ---
 
-**Autor:** João Manoel 
-**Licença:** MIT
+## 🔧 Configurações Adicionais
+
+- **Banco de Dados**: Edite `app/Config/Database.php` com as credenciais do MySQL.
+- **Arquivo `.env`**: Copie `.env.example` para `.env` e ajuste as variáveis.
+
+---
+
+## 🛠 Solução de Problemas
+
+### ❌ "Whoops! We seem to have hit a snag..."
+
+1. Verifique permissões do diretório writable:
+   ```sh
+   docker exec -it nome-do-container-web chmod -R 777 /var/www/html/writable
+   ```
+2. Verifique as configurações do banco de dados.
+3. Verifique logs em `writable/logs`.
+4. Verifique se as extensões PHP necessárias estão instaladas.
+5. Verifique o arquivo `.env`.
+
+### 🚫 "Forbidden"
+
+1. Verifique permissões de arquivos e diretórios.
+2. Verifique configuração do Apache e `.htaccess`.
+3. Certifique-se de acessar o diretório `public`.
+
+---
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir **issues** ou **pull requests**. 
+
+💙 Obrigado por usar o **EstacionaBoa**! 🚗💨
 
