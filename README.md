@@ -1,56 +1,89 @@
-# 🚗 EstacionaBoa - CodeIgniter 4 + Docker + WSL2
+# 🚀 EstacionaBoa - CodeIgniter 4 + Docker
 
-Este projeto utiliza CodeIgniter 4, Docker e WSL2 para criar um ambiente de desenvolvimento moderno e eficiente.
+Este projeto utiliza **Docker** para rodar uma aplicação CodeIgniter 4, juntamente com um banco de dados MySQL e uma interface de gerenciamento com PHPMyAdmin.
 
-## 🏗️ Instalação
+## 📦 Containers Utilizados
 
-### 1️⃣ Clonar o repositório
+O `docker-compose.yml` cria três containers principais:
+
+1. **Servidor Web (Apache + PHP)**  
+   📛 Nome: `estacionaboa-codeigniter-web-1`  
+   📂 Pasta do projeto: `/var/www/html`  
+   🌍 URL de acesso: [http://localhost:4500](http://localhost:4500)
+
+2. **Banco de Dados (MySQL 8.0)**  
+   📛 Nome: `estacionaboa-codeigniter-db-1`  
+   📂 Dados persistentes: `/var/lib/mysql`  
+   📌 Porta: `3306`
+
+3. **Gerenciador de Banco (PHPMyAdmin)**  
+   📛 Nome: `estacionaboa-codeigniter-phpmyadmin-1`  
+   🌍 URL de acesso: [http://localhost:8080](http://localhost:8080)
+
+## 🚀 Instalação e Execução
+
+### 1️⃣ Clonar o Repositório
 ```sh
-git clone https://github.com/seu-usuario/estacionaboa-codeigniter.git
-cd estacionaboa-codeigniter
+ git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
+ cd estacionaboa-codeigniter
 ```
 
-### 2️⃣ Construir e iniciar os contêineres
+### 2️⃣ Construir e Subir os Containers
 ```sh
 docker-compose up -d --build
 ```
-
-### 3️⃣ Instalar as dependências do CodeIgniter
-```sh
-docker exec -it estacionaboa-codeigniter-web-1 bash -c "cd /var/www/html && composer create-project codeigniter4/appstarter ."
-```
-
-### 4️⃣ Ajustar permissões
-```sh
-docker exec -it estacionaboa-codeigniter-web-1 chmod -R 777 /var/www/html/writable
-```
-
-## 🐳 Comandos Docker úteis
-
-### Acessar o terminal do contêiner web
-```sh
-docker exec -it estacionaboa-codeigniter-web-1 bash
-```
-
-### Acessar o terminal do banco de dados
-```sh
-docker exec -it estacionaboa-codeigniter-db-1 mysql -u root -p
-```
-
-### Listar os contêineres ativos
+🔍 Verifique os containers em execução:
 ```sh
 docker ps
 ```
 
-### Parar os contêineres
+### 3️⃣ Instalar o CodeIgniter no Container Web
+```sh
+docker exec -it estacionaboa-codeigniter-web-1 bash
+cd /var/www/html && composer create-project codeigniter4/appstarter .
+exit
+```
+
+### 4️⃣ Configurar Permissões
+```sh
+docker exec -it estacionaboa-codeigniter-web-1 chmod -R 777 /var/www/html/writable
+```
+
+### 5️⃣ Reiniciar os Containers
+```sh
+docker-compose restart
+```
+
+## 🌍 Acessar a Aplicação
+- **Aplicação**: [http://localhost:4500](http://localhost:4500)
+- **PHPMyAdmin**: [http://localhost:8080](http://localhost:8080)
+  - **Usuário**: root
+  - **Senha**: jotahdev
+
+## 🛠 Comandos Úteis
+
+📂 **Acessar o Container Web**:
+```sh
+docker exec -it estacionaboa-codeigniter-web-1 bash
+```
+📂 **Acessar o Banco MySQL**:
+```sh
+docker exec -it estacionaboa-codeigniter-db-1 mysql -u root -p
+```
+📌 **Parar os Containers**:
 ```sh
 docker-compose down
 ```
+📌 **Remover Containers e Imagens**:
+```sh
+docker-compose down --rmi all
+```
 
-## 🌐 Acessos
+## 📜 Observações
+- Certifique-se de que **Docker e Docker Compose** estão instalados corretamente.
+- Se houver erro de permissão, tente rodar os comandos com `sudo`.
+- Se necessário, edite o `.env` para configurar as credenciais do banco de dados.
 
-- Aplicação: [http://localhost:4500](http://localhost:4500)
-- phpMyAdmin: [http://localhost:8080](http://localhost:8080)
-
-🚀 Agora o projeto está pronto para uso!
+---
+✍️ **Feito por João Manoel** 🚀
 
