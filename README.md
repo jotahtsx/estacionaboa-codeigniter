@@ -214,6 +214,19 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ---
 
+### ⚠️ Notas Importantes
+
+#### 🛠 Permissão da pasta `www`
+
+Caso você não consiga editar os arquivos da pasta `www/` no seu host (por exemplo, erros de permissão ao tentar salvar arquivos), isso pode estar relacionado ao fato de o contêiner Docker ter criado os arquivos com outro usuário.
+
+Para resolver, execute o comando abaixo no terminal:
+
+```bash
+sudo chown -R $USER:$USER www
+
+---
+
 ## 🤝 Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir **issues** ou **pull requests**. 
