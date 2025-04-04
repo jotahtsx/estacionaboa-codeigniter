@@ -156,8 +156,14 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 1. **Clone este repositório**:
    ```sh
-   git clone https://github.com/seuusuario/estacionaboa-codeigniter.git
+   git clone git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
    ```
+   Ou, se quiser usar o HTTPS (menos indicado se você já configurou o .ssh), seria:
+
+   ```sh
+   git clone git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
+   ```
+
 2. **Navegue até o diretório do projeto**:
    ```sh
    cd estacionaboa-codeigniter
