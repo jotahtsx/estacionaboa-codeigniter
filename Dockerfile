@@ -39,6 +39,9 @@ COPY . /var/www/html
 # Configurar Apache para apontar para o diretório public
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
+# Adicionar ServerName após configuração do Apache
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Expor a porta 80
 EXPOSE 80
 
