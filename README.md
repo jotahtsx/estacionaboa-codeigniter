@@ -224,10 +224,11 @@ Para resolver, execute o comando abaixo no terminal:
 
 ```bash
 sudo chown -R $USER:$USER www
+```
 
 ---
 
-## 🤝 Contribuição
+### 🤝 Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir **issues** ou **pull requests**. 
 
