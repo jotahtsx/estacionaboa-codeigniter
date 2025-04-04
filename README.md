@@ -174,7 +174,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
    ```
 4. **Acesse o shell do contêiner web**:
    ```sh
-   docker exec -it nome-do-container-web bash
+   docker exec -it estacionaboa-web bash
    ```
 5. **Instale o CodeIgniter 4**:
    ```sh
@@ -199,7 +199,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 1. Verifique permissões do diretório writable:
    ```sh
-   docker exec -it nome-do-container-web chmod -R 777 /var/www/html/writable
+   docker exec -it estacionaboa-web chmod -R 777 /var/www/html/writable
    ```
 2. Verifique as configurações do banco de dados.
 3. Verifique logs em `writable/logs`.

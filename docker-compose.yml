@@ -1,5 +1,6 @@
 services:
   web:
+    container_name: estacionaboa-web
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,6 +17,7 @@ services:
       - codeigniter
 
   db:
+    container_name: estacionaboa-db
     image: mysql:8.0
     command: ['--default-authentication-plugin=mysql_native_password', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_general_ci']
     restart: always
@@ -30,6 +32,7 @@ services:
       - "3306:3306"
 
   phpmyadmin:
+    container_name: estacionaboa-phpmyadmin
     build:
       context: .
       dockerfile: Dockerfile.phpmyadmin
