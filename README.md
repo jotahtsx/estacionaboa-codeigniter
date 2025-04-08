@@ -176,9 +176,9 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
    ```sh
    docker exec -it estacionaboa-web bash
    ```
-5. **Instale o CodeIgniter 4**:
+5. **Rode o composer para instalar as dependências**:
    ```sh
-   cd /var/www/html && composer create-project codeigniter4/appstarter .
+   composer install
    ```
 6. **Acesse a aplicação**:
    - Aplicação CodeIgniter: [http://localhost:4500](http://localhost:4500)
