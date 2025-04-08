@@ -11579,4 +11579,17 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+
+.sb-nav-link-icon {
+  width: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #adb5bd;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+}
 /*# sourceMappingURL=app.css.map */
