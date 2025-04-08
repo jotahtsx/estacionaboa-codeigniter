@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title><?= isset($tituloPagina) ? esc($tituloPagina) : 'Título padrão do sistema' ?></title>
+    <title><?= isset($titlePage) ? esc($titlePage) : 'Título padrão do sistema' ?></title>
 
     <link href="<?= base_url('libs/simple-datatables@7.1.2/style.min.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('css/app.css') ?>" rel="stylesheet" />

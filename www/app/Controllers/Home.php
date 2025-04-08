@@ -10,7 +10,7 @@ class Home extends BaseController
     {
 
         $data = [
-            'tituloPagina' => 'Página Inicial'
+            'titlePage' => 'Página Inicial'
         ];
 
         return view('dashboard', $data);
