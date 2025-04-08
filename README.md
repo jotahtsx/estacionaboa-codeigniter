@@ -146,43 +146,114 @@ CMD ["apache2-foreground"]
 ---
 
 ### 📄 Arquivo `Dockerfile.phpmyadmin`
-```Dockerfile.phpmyadmin
+
+```Dockerfile
 FROM phpmyadmin/phpmyadmin
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 ```
 
+---
+
 ## 🚀 Instalação e Execução
 
 1. **Clone este repositório**:
    ```sh
-   git clone git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
+   git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
    ```
-   Ou, se quiser usar o HTTPS (menos indicado se você já configurou o .ssh), seria:
+   Ou, se quiser usar o HTTPS:
 
    ```sh
-   git clone git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
+   git clone https://github.com/jotahtsx/estacionaboa-codeigniter.git
    ```
 
 2. **Navegue até o diretório do projeto**:
    ```sh
    cd estacionaboa-codeigniter
    ```
+
 3. **Inicie os contêineres**:
    ```sh
    docker-compose up --build -d
    ```
+
 4. **Acesse o shell do contêiner web**:
    ```sh
    docker exec -it estacionaboa-web bash
    ```
+
 5. **Rode o composer para instalar as dependências**:
    ```sh
    composer install
    ```
+
 6. **Acesse a aplicação**:
    - Aplicação CodeIgniter: [http://localhost:4500](http://localhost:4500)
    - PHPMyAdmin: [http://localhost:8080](http://localhost:8080)
+
+---
+
+## ✅ Pós-instalação (configuração do ambiente)
+
+Dentro do contêiner `estacionaboa-web`:
+
+1. **Copie o arquivo `.env`**:
+   ```sh
+   cp env .env
+   ```
+
+2. **Defina o ambiente como development**:
+   ```sh
+   sed -i 's/^CI_ENVIRONMENT = .*/CI_ENVIRONMENT = development/' .env
+   ```
+
+3. **Limpe o cache (caso necessário)**:
+   ```sh
+   php spark cache:clear
+   ```
+
+4. **Verifique o ambiente atual**:
+   ```sh
+   php spark env
+   ```
+
+---
+
+## 🗓 Rodando as migrações
+
+Ainda no contêiner:
+
+```sh
+php spark migrate
+```
+
+Você deve ver algo como:
+
+```
+Running all new migrations...
+Done migrations.
+```
+
+### 📦 Migrations de Pacotes Externos (como `Settings`)
+
+Alguns pacotes do CodeIgniter 4, como `codeigniter4/settings` ou `codeigniter4/shield`, possuem suas próprias migrations que **não são executadas automaticamente** com `php spark migrate`.
+
+#### ✅ Para rodar todas as migrations (inclusive dos pacotes):
+```bash
+php spark migrate --all
+```
+
+#### ✅ Ou para um pacote específico (ex: `Settings`):
+```bash
+php spark migrate --namespace CodeIgniter\\Settings
+```
+
+> ⚠️ Lembre-se das duas barras `\\` no terminal para escapar corretamente o namespace.
+
+#### 🔍 Verificando o status das migrations:
+```bash
+php spark migrate:status
+```
 
 ---
 
@@ -206,7 +277,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 4. Verifique se as extensões PHP necessárias estão instaladas.
 5. Verifique o arquivo `.env`.
 
-### 🚫 "Forbidden"
+### ❌ "Forbidden"
 
 1. Verifique permissões de arquivos e diretórios.
 2. Verifique configuração do Apache e `.htaccess`.
