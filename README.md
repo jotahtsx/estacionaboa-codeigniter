@@ -255,6 +255,29 @@ php spark migrate --namespace CodeIgniter\\Settings
 php spark migrate:status
 ```
 
+Você verá:
+
++----------------------+-------------------+---------------------+---------+---------------------+------+
+| Namespace            | Versão            | Nome do arquivo     | Grupo   | Migrado em          | Lote |
++----------------------+-------------------+---------------------+---------+---------------------+------+
+| App                  | 2025-04-08-194938 | CreateSettingsTable | default | 2025-04-08 19:50:40 | 1    |
+| CodeIgniter\Shield   | 2020-12-28-223112 | create_auth_tables  | default | 2025-04-08 19:55:01 | 2    |
+| CodeIgniter\Settings | 2021-07-04-041948 | CreateSettingsTable | default | 2025-04-08 19:55:01 | 2    |
+| CodeIgniter\Settings | 2021-11-14-143905 | AddContextColumn    | default | 2025-04-08 19:55:01 | 2    |
++----------------------+-------------------+---------------------+---------+---------------------+------+
+
+E as seguintes tabelas foram criadas no banco de dados:
+
+- `auth_groups_users`
+- `auth_identities`
+- `auth_logins`
+- `auth_permissions_users`
+- `auth_remember_tokens`
+- `auth_token_logins`
+- `migrations`
+- `settings`
+- `users`
+
 ---
 
 ## 🔧 Configurações Adicionais
