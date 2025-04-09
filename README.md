@@ -13,21 +13,21 @@ Este projeto configura um ambiente de desenvolvimento **CodeIgniter 4** usando *
 
 ## 📂 Estrutura do Projeto
 
-```bash
+bash
 estacionaboa-codeigniter/
 ├── www/                    # Arquivos do CodeIgniter
 ├── docker-compose.yml      # Configuração do Docker Compose
 ├── Dockerfile              # Configuração do ambiente PHP e Apache
 └── Dockerfile.phpmyadmin   # Configuração do phpMyAdmin
-```
+
 
 ---
 
 ## ⚙️ Configuração do Docker
 
-### 📄 Arquivo `docker-compose.yml`
+### 📄 Arquivo docker-compose.yml
 
-```yaml
+yaml
 services:
   web:
     build:
@@ -85,13 +85,13 @@ volumes:
 networks:
   codeigniter:
     driver: bridge
-```
+
 
 ---
 
-### 📄 Arquivo `Dockerfile`
+### 📄 Arquivo Dockerfile
 
-```Dockerfile
+Dockerfile
 FROM php:8.1-apache
 
 # Instalar dependências do sistema
@@ -141,51 +141,57 @@ EXPOSE 80
 
 # Comando para iniciar o Apache
 CMD ["apache2-foreground"]
-```
+
 
 ---
 
-### 📄 Arquivo `Dockerfile.phpmyadmin`
+### 📄 Arquivo Dockerfile.phpmyadmin
 
-```Dockerfile
+Dockerfile
 FROM phpmyadmin/phpmyadmin
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-```
+
 
 ---
 
 ## 🚀 Instalação e Execução
 
 1. **Clone este repositório**:
-   ```sh
+   
+sh
    git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
-   ```
+
    Ou, se quiser usar o HTTPS:
 
-   ```sh
+   
+sh
    git clone https://github.com/jotahtsx/estacionaboa-codeigniter.git
-   ```
+
 
 2. **Navegue até o diretório do projeto**:
-   ```sh
+   
+sh
    cd estacionaboa-codeigniter
-   ```
+
 
 3. **Inicie os contêineres**:
-   ```sh
+   
+sh
    docker-compose up --build -d
-   ```
+
 
 4. **Acesse o shell do contêiner web**:
-   ```sh
+   
+sh
    docker exec -it estacionaboa-web bash
-   ```
+
 
 5. **Rode o composer para instalar as dependências**:
-   ```sh
+   
+sh
    composer install
-   ```
+
 
 6. **Acesse a aplicação**:
    - Aplicação CodeIgniter: [http://localhost:4500](http://localhost:4500)
@@ -195,27 +201,31 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 ## ✅ Pós-instalação (configuração do ambiente)
 
-Dentro do contêiner `estacionaboa-web`:
+Dentro do contêiner estacionaboa-web:
 
-1. **Copie o arquivo `.env`**:
-   ```sh
+1. **Copie o arquivo .env**:
+   
+sh
    cp env .env
-   ```
+
 
 2. **Defina o ambiente como development**:
-   ```sh
+   
+sh
    sed -i 's/^CI_ENVIRONMENT = .*/CI_ENVIRONMENT = development/' .env
-   ```
+
 
 3. **Limpe o cache (caso necessário)**:
-   ```sh
+   
+sh
    php spark cache:clear
-   ```
+
 
 4. **Verifique o ambiente atual**:
-   ```sh
+   
+sh
    php spark env
-   ```
+
 
 ---
 
@@ -223,41 +233,40 @@ Dentro do contêiner `estacionaboa-web`:
 
 Ainda no contêiner:
 
-```sh
+sh
 php spark migrate
-```
+
 
 Você deve ver algo como:
 
-```
 Running all new migrations...
 Done migrations.
-```
 
-### 📦 Migrations de Pacotes Externos (como `Settings`)
 
-Alguns pacotes do CodeIgniter 4, como `codeigniter4/settings` ou `codeigniter4/shield`, possuem suas próprias migrations que **não são executadas automaticamente** com `php spark migrate`.
+### 📦 Migrations de Pacotes Externos (como Settings)
+
+Alguns pacotes do CodeIgniter 4, como codeigniter4/settings ou codeigniter4/shield, possuem suas próprias migrations que **não são executadas automaticamente** com php spark migrate.
 
 #### ✅ Para rodar todas as migrations (inclusive dos pacotes):
-```bash
+bash
 php spark migrate --all
-```
 
-#### ✅ Ou para um pacote específico (ex: `Settings`):
-```bash
+
+#### ✅ Ou para um pacote específico (ex: Settings):
+bash
 php spark migrate --namespace CodeIgniter\\Settings
-```
 
-> ⚠️ Lembre-se das duas barras `\\` no terminal para escapar corretamente o namespace.
+
+> ⚠️ Lembre-se das duas barras \\ no terminal para escapar corretamente o namespace.
 
 #### 🔍 Verificando o status das migrations:
-```bash
+bash
 php spark migrate:status
-```
+
 
 ### 🗂️ Tabelas migradas
 
-Você verás as seguintes tabelas foram criadas no banco de dados após as migrações:
+Você vai se deparar com as seguintes tabelas que foram criadas no banco de dados após as migrações:
 
 | Namespace              | Versão             | Nome do Arquivo        | Grupo   | Migrado em           | Lote |
 |------------------------|--------------------|-------------------------|---------|------------------------|------|
@@ -267,24 +276,24 @@ Você verás as seguintes tabelas foram criadas no banco de dados após as migra
 | CodeIgniter\Settings   | 2021-11-14-143905  | AddContextColumn        | default | 2025-04-08 19:55:01    | 2    |
 
 
-E as seguintes tabelas foram criadas no banco de dados:
+Para confirmar, essas são as seguintes tabelas que foram criadas no seu banco de dados:
 
-- `auth_groups_users`
-- `auth_identities`
-- `auth_logins`
-- `auth_permissions_users`
-- `auth_remember_tokens`
-- `auth_token_logins`
-- `migrations`
-- `settings`
-- `users`
+- auth_groups_users
+- auth_identities
+- auth_logins
+- auth_permissions_users
+- auth_remember_tokens
+- auth_token_logins
+- migrations
+- settings
+- users
 
 ---
 
 ## 🔧 Configurações Adicionais
 
-- **Banco de Dados**: Edite `app/Config/Database.php` com as credenciais do MySQL.
-- **Arquivo `.env`**: Copie `.env.example` para `.env` e ajuste as variáveis.
+- **Banco de Dados**: Edite app/Config/Database.php com as credenciais do MySQL.
+- **Arquivo .env**: Copie .env.example para .env e ajuste as variáveis.
 
 ---
 
@@ -293,33 +302,34 @@ E as seguintes tabelas foram criadas no banco de dados:
 ### ❌ "Whoops! We seem to have hit a snag..."
 
 1. Verifique permissões do diretório writable:
-   ```sh
+   
+sh
    docker exec -it estacionaboa-web chmod -R 777 /var/www/html/writable
-   ```
+
 2. Verifique as configurações do banco de dados.
-3. Verifique logs em `writable/logs`.
+3. Verifique logs em writable/logs.
 4. Verifique se as extensões PHP necessárias estão instaladas.
-5. Verifique o arquivo `.env`.
+5. Verifique o arquivo .env.
 
 ### ❌ "Forbidden"
 
 1. Verifique permissões de arquivos e diretórios.
-2. Verifique configuração do Apache e `.htaccess`.
-3. Certifique-se de acessar o diretório `public`.
+2. Verifique configuração do Apache e .htaccess.
+3. Certifique-se de acessar o diretório public.
 
 ---
 
 ### ⚠️ Notas Importantes
 
-#### 🛠 Permissão da pasta `www`
+#### 🛠 Permissão da pasta www
 
-Caso você não consiga editar os arquivos da pasta `www/` no seu host (por exemplo, erros de permissão ao tentar salvar arquivos), isso pode estar relacionado ao fato de o contêiner Docker ter criado os arquivos com outro usuário.
+Caso você não consiga editar os arquivos da pasta www/ no seu host (por exemplo, erros de permissão ao tentar salvar arquivos), isso pode estar relacionado ao fato de o contêiner Docker ter criado os arquivos com outro usuário.
 
 Para resolver, execute o comando abaixo no terminal:
 
-```bash
+bash
 sudo chown -R $USER:$USER www
-```
+
 
 ---
 
