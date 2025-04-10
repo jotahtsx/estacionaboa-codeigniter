@@ -224,12 +224,14 @@ docker exec -it estacionaboa-web bash
    sed -i 's/^#\?\s*CI_ENVIRONMENT\s*=.*/CI_ENVIRONMENT = development/' .env
   ```
 
-4. **Limpe o cache (caso necessário)**:  
-Limpa cache e deixa a aplicação um pouco mais leve:  
+4. **Limpe o cache (caso necessário)**  
+Limpa o cache e deixa a aplicação um pouco mais leve:  
 ```bash
 php spark cache:clear
+```
 
-5. **Verifique o ambiente atual**:
+5. **Verifique o ambiente atual**  
+Confirme se o ambiente está definido corretamente como `development`:  
 ```bash
 php spark env
 ```
