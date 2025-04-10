@@ -259,13 +259,14 @@ Este projeto utiliza pacotes como `codeigniter4/settings` e `codeigniter4/shield
 
 ### 💥 Para rodar as migrations corretamente:
 ## Este comando DELETA todas as tabelas do banco. Use com cuidado!
-bash
+```bash
 php spark migrate:reset
+```
 
 # Após resetar, rode todas as migrations novamente
-bash
+```bash
 php spark migrate --all
-</pre>
+```
 
 ---
 
@@ -273,11 +274,11 @@ php spark migrate --all
 
 Se você já bagunçou todas as migrations e o banco tá parecendo um campo de batalha, segue o combo da faxina:
 
-<pre>
 ```bash
 php spark migrate:reset
+```
+```bash
 php spark migrate --all
 ```
-</pre>
 
 ---
