@@ -249,3 +249,32 @@ Para confirmar, essas são as seguintes tabelas que foram criadas no seu banco d
 - users
 
 ---
+
+Este projeto utiliza pacotes como `codeigniter4/settings` e `codeigniter4/shield`, que **já fornecem migrations próprias**.
+
+### 👉 O que você precisa saber:
+- **Não crie migrations duplicadas** com nomes de tabelas que já são criadas pelos pacotes (como `settings`, `auth_*`, etc.).
+- Já existe uma migration em `vendor/codeigniter4/settings` que cria a tabela `settings`. **Não crie outra no seu app.**
+- Rodar `php spark migrate --all` é obrigatório para aplicar também as migrations desses pacotes.
+
+### 💥 Para rodar as migrations corretamente:
+# ⚠️ Este comando DELETA todas as tabelas do banco. Use com cuidado!
+php spark migrate:reset
+
+# Após resetar, rode todas as migrations novamente
+php spark migrate --all
+
+---
+
+### ✅ Dica do Tio Jão
+
+Se você já bagunçou todas as migrations e o banco tá parecendo um campo de batalha, segue o combo da faxina:
+
+<pre>
+```bash
+php spark migrate:reset
+php spark migrate --all
+```
+</pre>
+
+---
