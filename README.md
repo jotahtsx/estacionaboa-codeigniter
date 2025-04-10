@@ -298,7 +298,11 @@ Aí o MySQL pira com razão.
 
 - Apaga ou renomeia a migration duplicada.
 - **Respira.**
+
+---
+
 - Roda com orgulho:
 
 ```bash
 php spark migrate --all
+```
