@@ -171,3 +171,25 @@ CMD ["apache2-foreground"]
    - PHPMyAdmin: [http://localhost:8080](http://localhost:8080)
 
 ---
+
+## ✅ Pós-instalação (configuração do ambiente)
+Dentro do contêiner estacionaboa-web:
+
+1. **Copie o arquivo .env**:
+Utilizando o comando:
+sh
+   cp .env.example .env
+
+2. **Defina o ambiente como development**:
+sh
+   sed -i 's/^CI_ENVIRONMENT = .*/CI_ENVIRONMENT = development/' .env 
+
+3. **Limpe o cache (caso necessário)**:
+sh
+   php spark cache:clear    
+
+4. **Verifique o ambiente atual**:
+sh
+   php spark env    
+
+---   
