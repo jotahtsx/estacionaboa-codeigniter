@@ -225,13 +225,16 @@ docker exec -it estacionaboa-web bash
   ```
 
 4. **Limpe o cache (caso necessário)**:
-```bash
-php spark cache:clear
-```
+  Limpa cache e deixa a aplicação um pouco mais leve:
+  ```bash
+  php spark cache:clear
+  ```
+
 5. **Verifique o ambiente atual**:
 ```bash
 php spark env
 ```
+
 ---
 
 ## 🗓 Rodando as migrações
