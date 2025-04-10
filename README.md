@@ -1,6 +1,6 @@
 # 🚀 EstacionaBoa - CodeIgniter 4 com Docker no WSL2
 
-> Setup rápido, portátil e sem dor de cabeça para desenvolvimento local.
+> Ambiente local portátil, rápido e fácil de configurar com Docker + WSL2.
 
 ---
 
@@ -13,13 +13,14 @@
 
 ## 📂 Estrutura do Projeto
 
-| Diretório/Arquivo            | Descrição                                      |
-| :--------------------------- | :--------------------------------------------- |
-| `estacionaboa-codeigniter/`  | Diretório raiz do projeto                      |
-| `www/`                       | Arquivos do CodeIgniter                        |
-| `docker-compose.yml`         | Configuração do Docker Compose                 |
-| `Dockerfile`                 | Configuração do ambiente PHP e Apache          |
-| `Dockerfile.phpmyadmin`      | Configuração do phpMyAdmin                     |
+| Diretório/Arquivo           | Descrição                                                                                                                       |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
+| `estacionaboa-codeigniter/` | Diretório raiz do projeto                                                                                                       |
+| `www/`                      | Contém os arquivos do CodeIgniter 4. Esse é o diretório mapeado no container.                                                   |
+| `docker-compose.yml`        | Configuração do Docker Compose                                                                                                  |
+| `Dockerfile`                | Arquivo responsável por configurar o ambiente PHP 8.1 + Apache, com suporte ao CodeIgniter 4, extensões necessárias e Composer. |
+| `Dockerfile.phpmyadmin`     | Imagem personalizada do phpMyAdmin usada pelo container, com ajuste no `ServerName`.                                            |
+                                                                                                    |
 
 ---
 
