@@ -23,6 +23,10 @@
 
 ---
 
+## ⚙️ Configuração do Docker
+
+### 📄 Arquivo `docker-compose.yml`
+
 ```yaml
 services:
   web:
