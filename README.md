@@ -190,21 +190,21 @@ docker exec -it estacionaboa-web bash
 ```
 
 1. **Dar permissão de escrita no projeto (evita erros com `.env`)**  
+   
    Antes de qualquer coisa, certifique-se de ter permissões:
+   
    Saia do container
 
    ```bash
    exit
    ```
-   
-   E depois digite:
 
    ```bash
    sudo chown -R $USER:$USER www
    ```
 
 2. **Copiar o arquivo de ambiente**  
-   Cria uma cópia base do `.env` a partir do exemplo:
+   Novamente entre no container para criar uma cópia base do `.env` a partir do exemplo:
    ```bash
    cp .env.example .env
    ```
