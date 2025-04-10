@@ -13,11 +13,14 @@
 
 ## 📂 Estrutura do Projeto
 
-estacionaboa-codeigniter/
-├── www/                    # Arquivos do CodeIgniter
-├── docker-compose.yml      # Configuração do Docker Compose
-├── Dockerfile              # Configuração do ambiente PHP e Apache
-└── Dockerfile.phpmyadmin   # Configuração do phpMyAdmin
+| Diretório/Arquivo            | Descrição                                |
+|------------------------------|------------------------------------------|
+| `estacionaboa-codeigniter/`   | Pasta principal do projeto              |
+| `├── www/`                    | Arquivos do CodeIgniter                  |
+| `├── docker-compose.yml`      | Configuração do Docker Compose           |
+| `├── Dockerfile`              | Configuração do ambiente PHP e Apache   |
+| `└── Dockerfile.phpmyadmin`   | Configuração do phpMyAdmin               |
+
 
 ---
 
