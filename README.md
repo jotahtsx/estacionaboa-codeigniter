@@ -13,10 +13,10 @@
 
 ## 📂 Estrutura do Projeto
 
-| Diretório/Arquivo       | Descrição                                 |
-| ------------------------ | ------------------------------------------ |
-| `estacionaboa-codeigniter/` | Diretório raiz do projeto               |
-| `www/`                   | Arquivos do CodeIgniter                    |
-| `docker-compose.yml`     | Configuração do Docker Compose              |
-| `Dockerfile`             | Configuração do ambiente PHP e Apache       |
-| `Dockerfile.phpmyadmin`  | Configuração do phpMyAdmin                  |
+| Diretório/Arquivo | Descrição |
+| :------------------ | :---------- |
+| `estacionaboa-codeigniter/` | Diretório raiz do projeto |
+| `www/` | Arquivos do CodeIgniter |
+| `docker-compose.yml` | Configuração do Docker Compose |
+| `Dockerfile` | Configuração do ambiente PHP e Apache |
+| `Dockerfile.phpmyadmin` | Configuração do phpMyAdmin |
