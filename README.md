@@ -304,3 +304,99 @@ Aí o MySQL pira com razão.
 ```bash
 php spark migrate --all
 ```
+---
+
+## ☠️ A DICA ASSOMBRADA DO DEV MALDITO™  
+
+> **Você achou que tinha apagado tudo... mas ela voltou.**  
+> A maldição da tabela `settings` ainda vive! 😱
+
+---
+
+### 👁️‍🗨️ O SINAL DO ERRO  
+Se ao rodar o ritual:
+```bash
+php spark migrate --all
+```
+Table 'settings' already exists
+
+⚰️ É tarde demais. Você despertou a duplicação proibida.
+
+---
+
+## 🔧 Configurações Adicionais
+
+- **Banco de Dados**: Edite app/Config/Database.php com as credenciais do MySQL.
+- **Arquivo .env**: Copie .env.example para .env e ajuste as variáveis.
+
+---
+
+## 🛠 Solução de Problemas
+
+### ❌ "Whoops! We seem to have hit a snag..."
+
+1. Verifique permissões do diretório writable:
+   
+<pre> ```bash docker exec -it estacionaboa-web chmod -R 777 /var/www/html/writable ``` </pre>
+
+2. Verifique as configurações do banco de dados.
+3. Verifique logs em writable/logs.
+4. Verifique se as extensões PHP necessárias estão instaladas.
+5. Verifique o arquivo .env.
+
+### ❌ "Forbidden"
+
+1. Verifique permissões de arquivos e diretórios.
+2. Verifique configuração do Apache e .htaccess.
+3. Certifique-se de acessar o diretório public.
+
+---
+
+### ⚠️ Notas Importantes
+
+#### 🛠 Permissão da pasta www
+
+Caso você não consiga editar os arquivos da pasta www/ no seu host (por exemplo, erros de permissão ao tentar salvar arquivos), isso pode estar relacionado ao fato de o contêiner Docker ter criado os arquivos com outro usuário.
+
+Para resolver, execute o comando abaixo no terminal:
+
+bash
+sudo chown -R $USER:$USER www
+
+---
+
+# ❓ Dúvidas Frequentes
+
+---
+
+**Q: Não consigo acessar o phpMyAdmin. O que faço?**  
+A: Verifique se o container está rodando com `docker ps` e se a porta `8080` está livre no seu sistema.
+
+---
+
+**Q: Minha aplicação mostra erro 500.**  
+A: Rode `docker logs estacionaboa-web` para verificar o erro. Também confira se o diretório `writable/` tem permissões corretas (`chmod -R 777` como último recurso).
+
+---
+
+**Q: O comando `php spark migrate` não faz nada.**  
+A: Tente usar `php spark migrate --all` para garantir que as migrations dos pacotes externos sejam executadas.
+
+---
+
+**Q: Recebo o erro "Table 'settings' already exists" ao migrar.**  
+A: O pacote `codeigniter4/settings` já cria essa tabela. Remova sua migration duplicada `CreateSettingsTable`.
+
+---
+
+**Q: Como limpo e recrio todas as tabelas do banco de dados?**  
+A: Use:
+```bash
+php spark migrate:reset
+php spark migrate --all
+
+---
+
+### 🤝 Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir **issues** ou **pull requests**. 
