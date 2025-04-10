@@ -130,3 +130,50 @@ EXPOSE 80
 CMD ["apache2-foreground"]
 ```
 ---
+
+### 📄 Arquivo `Dockerfile.phpmyadmin`
+
+```Dockerfile
+FROM phpmyadmin/phpmyadmin
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+```
+---
+
+## 🚀 Instalação e Execução
+
+1. **Clone este repositório**:
+   ```sh
+   git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
+   ```
+   Ou, se quiser usar o HTTPS:
+
+   ```sh
+   git clone https://github.com/jotahtsx/estacionaboa-codeigniter.git
+   ```
+
+2. **Navegue até o diretório do projeto**:
+   ```sh
+   cd estacionaboa-codeigniter
+   ```
+
+3. **Inicie os contêineres**:
+   ```sh
+   docker-compose up --build -d
+   ```
+
+4. **Acesse o shell do contêiner web**:
+   ```sh
+   docker exec -it estacionaboa-web bash
+   ```
+
+5. **Rode o composer para instalar as dependências**:
+   ```sh
+   composer install
+   ```
+
+6. **Acesse a aplicação**:
+   - Aplicação CodeIgniter: [http://localhost:4500](http://localhost:4500)
+   - PHPMyAdmin: [http://localhost:8080](http://localhost:8080)
+
+---
