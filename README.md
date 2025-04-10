@@ -166,9 +166,14 @@ CMD ["apache2-foreground"]
    composer install
    ```
 
-6. **Acesse a aplicação**:
-   - Aplicação CodeIgniter: [http://localhost:4500](http://localhost:4500)
-   - PHPMyAdmin: [http://localhost:8080](http://localhost:8080)
+6. **Ajuste as permissões do diretório writable**:
+   ```sh
+   docker exec -it estacionaboa-web chmod -R 777 /var/www/html/writable
+   ```
+
+7. **Acesse a aplicação**:
+- **Aplicação CodeIgniter**: [http://localhost:4500](http://localhost:4500)
+- **PHPMyAdmin**: [http://localhost:8080](http://localhost:8080)   
 
 ---
 
