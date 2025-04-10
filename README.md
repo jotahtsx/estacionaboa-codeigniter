@@ -285,8 +285,6 @@ php spark migrate --all
 
 Dá uma olhada em:
 
-```app/Database/Migrations
-
 ## 🛠️ Solução para o erro "Table already exists"
 
 Se tiver algo com nome tipo `CreateSettingsTable.php`, e você já usa o pacote que também cria essa tabela, então temos **duas migrations querendo ser mãe da mesma tabela**.  
