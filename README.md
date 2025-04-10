@@ -205,6 +205,15 @@ docker exec -it estacionaboa-web bash
 
 2. **Copiar o arquivo de ambiente**  
    Novamente entre no container para criar uma cópia base do `.env` a partir do exemplo:
+
+  Entrar no container(caso tenha esquecido... isso é preocupante se esqueceu)
+
+   ```sh
+  docker exec -it estacionaboa-web bash 
+  ```
+
+  e depois...
+
    ```bash
    cp .env.example .env
    ```
@@ -216,9 +225,8 @@ docker exec -it estacionaboa-web bash
   ```
 
 4. **Limpe o cache (caso necessário)**:
-  ```bash
-  php spark cache:clear
-  ```
+```bash
+php spark cache:clear
 
 5. **Verifique o ambiente atual**:
   ```bash
