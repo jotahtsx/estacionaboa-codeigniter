@@ -209,9 +209,10 @@ docker exec -it estacionaboa-web bash
    cp .env.example .env
    ```
 
-3. **Defina o ambiente como development**:
-  ```bash
-  sed -i 's/^CI_ENVIRONMENT = .*/CI_ENVIRONMENT = development/' .env 
+3. **Definir o ambiente como `development`**  
+   Remove o comentário e define o valor:
+   ```bash
+   sed -i 's/^#\?\s*CI_ENVIRONMENT\s*=.*/CI_ENVIRONMENT = development/' .env
   ```
 
 4. **Limpe o cache (caso necessário)**:
