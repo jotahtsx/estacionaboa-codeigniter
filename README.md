@@ -196,6 +196,7 @@ docker exec -it estacionaboa-web bash
    ```bash
    exit
    ```
+   
    E depois digite:
 
    ```bash
