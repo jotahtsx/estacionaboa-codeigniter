@@ -127,3 +127,9 @@ EXPOSE 80
 # Comando para iniciar o Apache
 CMD ["apache2-foreground"]
 ```
+
+### 📄 Arquivo Docker phpmyadmin
+```Dockerfile.phpmyadmin
+  FROM phpmyadmin/phpmyadmin
+  RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+```
