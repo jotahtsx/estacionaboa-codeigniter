@@ -287,11 +287,18 @@ Dá uma olhada em:
 
 ```app/Database/Migrations
 
----
-
 ## 🛠️ Solução para o erro "Table already exists"
 
 Se tiver algo com nome tipo `CreateSettingsTable.php`, e você já usa o pacote que também cria essa tabela, então temos **duas migrations querendo ser mãe da mesma tabela**.  
 Aí o MySQL pira com razão.
 
 ---
+
+### 🛠️ Solução para não bater o carro
+
+- Apaga ou renomeia a migration duplicada.
+- **Respira.**
+- Roda com orgulho:
+
+```bash
+php spark migrate --all
