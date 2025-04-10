@@ -13,13 +13,13 @@
 
 ## 📂 Estrutura do Projeto
 
-| Diretório/Arquivo            | Descrição                                |
-|------------------------------|------------------------------------------|
-| `estacionaboa-codeigniter/`   | Pasta principal do projeto              |
-| `├── www/`                    | Arquivos do CodeIgniter                  |
-| `├── docker-compose.yml`      | Configuração do Docker Compose           |
-| `├── Dockerfile`              | Configuração do ambiente PHP e Apache   |
-| `└── Dockerfile.phpmyadmin`   | Configuração do phpMyAdmin               |
+| Diretório/Arquivo           | Descrição                             |
+| --------------------------- | ------------------------------------- |
+| `estacionaboa-codeigniter/` | Pasta principal do projeto            |
+| `├── www/`                  | Arquivos do CodeIgniter               |
+| `├── docker-compose.yml`    | Configuração do Docker Compose        |
+| `├── Dockerfile`            | Configuração do ambiente PHP e Apache |
+| `└── Dockerfile.phpmyadmin` | Configuração do phpMyAdmin            |
 
 ---
 
@@ -182,25 +182,38 @@ CMD ["apache2-foreground"]
 ---
 
 ## ✅ Pós-instalação (configuração do ambiente)
-Dentro do contêiner estacionaboa-web:
 
-1. **Copie o arquivo .env**:
-Utilizando o comando:
-sh
+Dentro do contêiner `estacionaboa-web`:
+
+## ✅ Pós-instalação (configuração do ambiente)
+
+Dentro do contêiner `estacionaboa-web`:
+
+1. **Dar permissão de escrita no projeto (evita erros com `.env`)**  
+   Antes de qualquer coisa, certifique-se de ter permissões:
+   ```bash
+   chmod -R 777 .
+
+2. **Copiar o arquivo de ambiente**  
+   Cria uma cópia base do `.env` a partir do exemplo:
+   ```bash
    cp .env.example .env
+   ```
 
-2. **Defina o ambiente como development**:
-sh
-   sed -i 's/^CI_ENVIRONMENT = .*/CI_ENVIRONMENT = development/' .env 
+3. **Defina o ambiente como development**:
+  ```bash
+  sed -i 's/^CI_ENVIRONMENT = .*/CI_ENVIRONMENT = development/' .env 
+  ```
 
-3. **Limpe o cache (caso necessário)**:
-sh
-   php spark cache:clear    
+4. **Limpe o cache (caso necessário)**:
+  ```bash
+  php spark cache:clear
+  ```
 
-4. **Verifique o ambiente atual**:
-sh
-   php spark env    
-
+5. **Verifique o ambiente atual**:
+  ```bash
+  php spark env    
+  ```
 ---
 
 ## 🗓 Rodando as migrações
@@ -221,29 +234,32 @@ Done migrations.
 Alguns pacotes do CodeIgniter 4, como codeigniter4/settings ou codeigniter4/shield, possuem suas próprias migrations que **não são executadas automaticamente** com php spark migrate.
 
 #### ✅ Para rodar todas as migrations (inclusive dos pacotes):
-bash
+```bash
 php spark migrate --all
+```
 
 #### ✅ Ou para um pacote específico (ex: Settings):
-bash
+```bash
 php spark migrate --namespace CodeIgniter\\Settings
+```
 
 > ⚠️ Lembre-se das duas barras \\ no terminal para escapar corretamente o namespace.
 
 #### 🔍 Verificando o status das migrations:
-bash
+```bash
 php spark migrate:status
+```
 
 ### 🗂️ Tabelas migradas
 
 Você vai se deparar com as seguintes tabelas que foram criadas no banco de dados após as migrações:
 
 | Namespace            | Versão            | Nome do Arquivo     | Grupo   | Migrado em          | Lote |
-|----------------------|-------------------|---------------------|---------|----------------------|------|
-| App                  | 2025-04-08-194938 | CreateSettingsTable | default | 2025-04-08 19:50:40  | 1    |
-| CodeIgniter\Shield   | 2020-12-28-223112 | create_auth_tables  | default | 2025-04-08 19:55:01  | 2    |
-| CodeIgniter\Settings | 2021-07-04-041948 | CreateSettingsTable | default | 2025-04-08 19:55:01  | 2    |
-| CodeIgniter\Settings | 2021-11-14-143905 | AddContextColumn    | default | 2025-04-08 19:55:01  | 2    |
+| -------------------- | ----------------- | ------------------- | ------- | ------------------- | ---- |
+| App                  | 2025-04-08-194938 | CreateSettingsTable | default | 2025-04-08 19:50:40 | 1    |
+| CodeIgniter\Shield   | 2020-12-28-223112 | create_auth_tables  | default | 2025-04-08 19:55:01 | 2    |
+| CodeIgniter\Settings | 2021-07-04-041948 | CreateSettingsTable | default | 2025-04-08 19:55:01 | 2    |
+| CodeIgniter\Settings | 2021-11-14-143905 | AddContextColumn    | default | 2025-04-08 19:55:01 | 2    |
 
 Para confirmar, essas são as seguintes tabelas que foram criadas no seu banco de dados:
 
