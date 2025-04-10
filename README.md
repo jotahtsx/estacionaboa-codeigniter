@@ -151,12 +151,12 @@ CMD ["apache2-foreground"]
    cd estacionaboa-codeigniter
    ```
 
-3. **Inicie os contêineres**:
+3. **Inicie os containers**:
    ```sh
    docker-compose up --build -d
    ```
 
-4. **Acesse o shell do contêiner web**:
+4. **Acesse o shell do container web**:
    ```sh
    docker exec -it estacionaboa-web bash
    ```
@@ -165,7 +165,7 @@ CMD ["apache2-foreground"]
    ```sh
    composer install
    ```
-6. **Saia do contêiner**:
+6. **Saia do container**:
    ```sh
    exit
    ```
@@ -183,7 +183,7 @@ CMD ["apache2-foreground"]
 
 ## ✅ Pós-instalação (configuração do ambiente)
 
-Dentro do contêiner `estacionaboa-web`:
+Dentro do container `estacionaboa-web`:
 
 ```sh
 docker exec -it estacionaboa-web bash 
@@ -191,8 +191,16 @@ docker exec -it estacionaboa-web bash
 
 1. **Dar permissão de escrita no projeto (evita erros com `.env`)**  
    Antes de qualquer coisa, certifique-se de ter permissões:
+   Saia do container
+
    ```bash
-   chmod -R 777 .
+   exit
+   ```
+   E depois digite:
+
+   ```bash
+   sudo chown -R $USER:$USER www
+   ```
 
 2. **Copiar o arquivo de ambiente**  
    Cria uma cópia base do `.env` a partir do exemplo:
@@ -218,7 +226,7 @@ docker exec -it estacionaboa-web bash
 
 ## 🗓 Rodando as migrações
 
-Ainda no contêiner:
+Ainda no container:
 
 ```bash
 php spark migrate
@@ -381,7 +389,7 @@ Table 'settings' already exists
 
 #### 🛠 Permissão da pasta www
 
-Caso você não consiga editar os arquivos da pasta www/ no seu host (por exemplo, erros de permissão ao tentar salvar arquivos), isso pode estar relacionado ao fato de o contêiner Docker ter criado os arquivos com outro usuário.
+Caso você não consiga editar os arquivos da pasta www/ no seu host (por exemplo, erros de permissão ao tentar salvar arquivos), isso pode estar relacionado ao fato de o container Docker ter criado os arquivos com outro usuário.
 
 Para resolver, execute o comando abaixo no terminal:
 
