@@ -185,6 +185,10 @@ CMD ["apache2-foreground"]
 
 Dentro do contêiner `estacionaboa-web`:
 
+```sh
+docker exec -it estacionaboa-web bash 
+```
+
 1. **Dar permissão de escrita no projeto (evita erros com `.env`)**  
    Antes de qualquer coisa, certifique-se de ter permissões:
    ```bash
