@@ -258,11 +258,19 @@ Este projeto utiliza pacotes como `codeigniter4/settings` e `codeigniter4/shield
 - Rodar `php spark migrate --all` é obrigatório para aplicar também as migrations desses pacotes.
 
 ### 💥 Para rodar as migrations corretamente:
-# ⚠️ Este comando DELETA todas as tabelas do banco. Use com cuidado!
+## ⚠️ Este comando DELETA todas as tabelas do banco. Use com cuidado!
+<pre>
+```bash
 php spark migrate:reset
+```
+</pre>
 
 # Após resetar, rode todas as migrations novamente
+<pre>
+```bash
 php spark migrate --all
+```
+</pre>
 
 ---
 
