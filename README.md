@@ -165,13 +165,17 @@ CMD ["apache2-foreground"]
    ```sh
    composer install
    ```
+6. **Saia do contêiner**:
+   ```sh
+   exit
+   ```
 
-6. **Ajuste as permissões do diretório writable**:
+7. **Ajuste as permissões do diretório writable**:
    ```sh
    docker exec -it estacionaboa-web chmod -R 777 /var/www/html/writable
    ```
 
-7. **Acesse a aplicação**:
+8. **Acesse a aplicação**:
 - **Aplicação CodeIgniter**: [http://localhost:4500](http://localhost:4500)
 - **PHPMyAdmin**: [http://localhost:8080](http://localhost:8080)   
 
