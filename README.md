@@ -192,4 +192,60 @@ sh
 sh
    php spark env    
 
----   
+---
+
+## 🗓 Rodando as migrações
+
+Ainda no contêiner:
+
+```bash
+php spark migrate
+```
+
+Você verá algo como:
+
+Running all new migrations...
+Done migrations.
+
+### 📦 Migrations de Pacotes Externos (como Settings)
+
+Alguns pacotes do CodeIgniter 4, como codeigniter4/settings ou codeigniter4/shield, possuem suas próprias migrations que **não são executadas automaticamente** com php spark migrate.
+
+#### ✅ Para rodar todas as migrations (inclusive dos pacotes):
+bash
+php spark migrate --all
+
+#### ✅ Ou para um pacote específico (ex: Settings):
+bash
+php spark migrate --namespace CodeIgniter\\Settings
+
+> ⚠️ Lembre-se das duas barras \\ no terminal para escapar corretamente o namespace.
+
+#### 🔍 Verificando o status das migrations:
+bash
+php spark migrate:status
+
+### 🗂️ Tabelas migradas
+
+Você vai se deparar com as seguintes tabelas que foram criadas no banco de dados após as migrações:
+
+| Namespace            | Versão            | Nome do Arquivo     | Grupo   | Migrado em          | Lote |
+|----------------------|-------------------|---------------------|---------|----------------------|------|
+| App                  | 2025-04-08-194938 | CreateSettingsTable | default | 2025-04-08 19:50:40  | 1    |
+| CodeIgniter\Shield   | 2020-12-28-223112 | create_auth_tables  | default | 2025-04-08 19:55:01  | 2    |
+| CodeIgniter\Settings | 2021-07-04-041948 | CreateSettingsTable | default | 2025-04-08 19:55:01  | 2    |
+| CodeIgniter\Settings | 2021-11-14-143905 | AddContextColumn    | default | 2025-04-08 19:55:01  | 2    |
+
+Para confirmar, essas são as seguintes tabelas que foram criadas no seu banco de dados:
+
+- auth_groups_users
+- auth_identities
+- auth_logins
+- auth_permissions_users
+- auth_remember_tokens
+- auth_token_logins
+- migrations
+- settings
+- users
+
+---
