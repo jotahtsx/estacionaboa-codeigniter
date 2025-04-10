@@ -39,6 +39,7 @@
         "sort-packages": true
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "migrate": "php spark migrate --all"
     }
 }

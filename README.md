@@ -1,6 +1,6 @@
 # 🚀 EstacionaBoa - CodeIgniter 4 com Docker no WSL2
 
-Este projeto configura um ambiente de desenvolvimento **CodeIgniter 4** usando **Docker** e **Docker Compose**, facilitando o setup e a gestão das dependências no **WSL2**.
+> Setup rápido, portátil e sem dor de cabeça para desenvolvimento local.
 
 ---
 
@@ -13,7 +13,7 @@ Este projeto configura um ambiente de desenvolvimento **CodeIgniter 4** usando *
 
 ## 📂 Estrutura do Projeto
 
-bash
+```bash
 estacionaboa-codeigniter/
 ├── www/                    # Arquivos do CodeIgniter
 ├── docker-compose.yml      # Configuração do Docker Compose
@@ -27,7 +27,7 @@ estacionaboa-codeigniter/
 
 ### 📄 Arquivo docker-compose.yml
 
-yaml
+```yaml
 services:
   web:
     build:
@@ -57,7 +57,7 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: estacionaboa
-      MYSQL_ROOT_PASSWORD: jotahdev
+      MYSQL_ROOT_PASSWORD: sextafeira
     volumes:
       - codeigniter_mysql_data:/var/lib/mysql
     networks:
@@ -73,7 +73,7 @@ services:
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: sextafeira
+      MYSQL_ROOT_PASSWORD: jotahdev
     ports:
       - "8080:80"
     networks:
@@ -159,21 +159,23 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 1. **Clone este repositório**:
    
-sh
-   git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
+```bash
+git clone git@github.com:jotahtsx/estacionaboa-codeigniter.git
+```
 
-   Ou, se quiser usar o HTTPS:
+Ou, se quiser usar o HTTPS:
 
-   
-sh
-   git clone https://github.com/jotahtsx/estacionaboa-codeigniter.git
+<pre>
+```bash
+git clone https://github.com/jotahtsx/estacionaboa-codeigniter.git
+```
+</pre>
+
 
 
 2. **Navegue até o diretório do projeto**:
    
-sh
-   cd estacionaboa-codeigniter
-
+cd estacionaboa-codeigniter
 
 3. **Inicie os contêineres**:
    
@@ -206,7 +208,7 @@ Dentro do contêiner estacionaboa-web:
 1. **Copie o arquivo .env**:
    
 sh
-   cp env .env
+   cp .env.example .env
 
 
 2. **Defina o ambiente como development**:
@@ -233,11 +235,12 @@ sh
 
 Ainda no contêiner:
 
-sh
+```bash
 php spark migrate
+```
 
 
-Você deve ver algo como:
+Você verá algo como:
 
 Running all new migrations...
 Done migrations.
@@ -268,12 +271,12 @@ php spark migrate:status
 
 Você vai se deparar com as seguintes tabelas que foram criadas no banco de dados após as migrações:
 
-| Namespace              | Versão             | Nome do Arquivo        | Grupo   | Migrado em           | Lote |
-|------------------------|--------------------|-------------------------|---------|------------------------|------|
-| App                    | 2025-04-08-194938  | CreateSettingsTable     | default | 2025-04-08 19:50:40    | 1    |
-| CodeIgniter\Shield     | 2020-12-28-223112  | create_auth_tables      | default | 2025-04-08 19:55:01    | 2    |
-| CodeIgniter\Settings   | 2021-07-04-041948  | CreateSettingsTable     | default | 2025-04-08 19:55:01    | 2    |
-| CodeIgniter\Settings   | 2021-11-14-143905  | AddContextColumn        | default | 2025-04-08 19:55:01    | 2    |
+| Namespace            | Versão            | Nome do Arquivo     | Grupo   | Migrado em          | Lote |
+|----------------------|-------------------|---------------------|---------|----------------------|------|
+| App                  | 2025-04-08-194938 | CreateSettingsTable | default | 2025-04-08 19:50:40  | 1    |
+| CodeIgniter\Shield   | 2020-12-28-223112 | create_auth_tables  | default | 2025-04-08 19:55:01  | 2    |
+| CodeIgniter\Settings | 2021-07-04-041948 | CreateSettingsTable | default | 2025-04-08 19:55:01  | 2    |
+| CodeIgniter\Settings | 2021-11-14-143905 | AddContextColumn    | default | 2025-04-08 19:55:01  | 2    |
 
 
 Para confirmar, essas são as seguintes tabelas que foram criadas no seu banco de dados:
@@ -290,6 +293,84 @@ Para confirmar, essas são as seguintes tabelas que foram criadas no seu banco d
 
 ---
 
+## ⚠️ Importante sobre as Migrations
+
+Este projeto utiliza pacotes como `codeigniter4/settings` e `codeigniter4/shield`, que **já fornecem migrations próprias**.
+
+### 👉 O que você precisa saber:
+- **Não crie migrations duplicadas** com nomes de tabelas que já são criadas pelos pacotes (como `settings`, `auth_*`, etc.).
+- Já existe uma migration em `vendor/codeigniter4/settings` que cria a tabela `settings`. **Não crie outra no seu app.**
+- Rodar `php spark migrate --all` é obrigatório para aplicar também as migrations desses pacotes.
+
+### 💥 Para rodar as migrations corretamente:
+
+# ⚠️ Este comando DELETA todas as tabelas do banco. Use com cuidado!
+php spark migrate:reset
+
+# Após resetar, rode todas as migrations novamente
+php spark migrate --all
+
+---
+
+### ✅ Dica do Tio Jão
+
+Se você já bagunçou todas as migrations e o banco tá parecendo um campo de batalha, segue o combo da faxina:
+
+<pre>
+```bash
+php spark migrate:reset
+php spark migrate --all
+```
+</pre>
+
+
+---
+
+## 🕵️ Onde tá o vacilo?
+
+Dá uma olhada em:
+
+```app/Database/Migrations
+
+---
+
+## 🛠️ Solução para o erro "Table already exists"
+
+Se tiver algo com nome tipo `CreateSettingsTable.php`, e você já usa o pacote que também cria essa tabela, então temos **duas migrations querendo ser mãe da mesma tabela**.  
+Aí o MySQL pira com razão.
+
+---
+
+### 🛠️ Solução para não bater o carro
+
+- Apaga ou renomeia a migration duplicada.
+- **Respira.**
+- Roda com orgulho:
+
+```bash
+php spark migrate --all
+
+
+## ☠️ A DICA ASSOMBRADA DO DEV MALDITO™  
+
+> **Você achou que tinha apagado tudo... mas ela voltou.**  
+> A maldição da tabela `settings` ainda vive! 😱
+
+---
+
+### 👁️‍🗨️ O SINAL DO ERRO  
+Se ao rodar o ritual:
+
+```bash
+php spark migrate --all
+
+Table 'settings' already exists
+
+⚰️ É tarde demais. Você despertou a duplicação proibida.
+
+---
+
+
 ## 🔧 Configurações Adicionais
 
 - **Banco de Dados**: Edite app/Config/Database.php com as credenciais do MySQL.
@@ -303,8 +384,7 @@ Para confirmar, essas são as seguintes tabelas que foram criadas no seu banco d
 
 1. Verifique permissões do diretório writable:
    
-sh
-   docker exec -it estacionaboa-web chmod -R 777 /var/www/html/writable
+<pre> ```bash docker exec -it estacionaboa-web chmod -R 777 /var/www/html/writable ``` </pre>
 
 2. Verifique as configurações do banco de dados.
 3. Verifique logs em writable/logs.
@@ -330,6 +410,37 @@ Para resolver, execute o comando abaixo no terminal:
 bash
 sudo chown -R $USER:$USER www
 
+---
+
+# ❓ Dúvidas Frequentes
+
+---
+
+**Q: Não consigo acessar o phpMyAdmin. O que faço?**  
+A: Verifique se o container está rodando com `docker ps` e se a porta `8080` está livre no seu sistema.
+
+---
+
+**Q: Minha aplicação mostra erro 500.**  
+A: Rode `docker logs estacionaboa-web` para verificar o erro. Também confira se o diretório `writable/` tem permissões corretas (`chmod -R 777` como último recurso).
+
+---
+
+**Q: O comando `php spark migrate` não faz nada.**  
+A: Tente usar `php spark migrate --all` para garantir que as migrations dos pacotes externos sejam executadas.
+
+---
+
+**Q: Recebo o erro "Table 'settings' already exists" ao migrar.**  
+A: O pacote `codeigniter4/settings` já cria essa tabela. Remova sua migration duplicada `CreateSettingsTable`.
+
+---
+
+**Q: Como limpo e recrio todas as tabelas do banco de dados?**  
+A: Use:
+```bash
+php spark migrate:reset
+php spark migrate --all
 
 ---
 

@@ -17,6 +17,8 @@ class Migrations extends BaseConfig
      * and disable it back when you're done.
      */
     public bool $enabled = true;
+    public string $group = 'default';
+
 
     /**
      * --------------------------------------------------------------------------
@@ -47,4 +49,22 @@ class Migrations extends BaseConfig
      * - Y_m_d_His_
      */
     public string $timestampFormat = 'Y-m-d-His_';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Migration Paths
+     * --------------------------------------------------------------------------
+     *
+     * Array of paths to look for migrations.
+     * You can add multiple paths if needed.
+     */
+    public array $paths = [];
+
+    public array $groups = [
+        'default' => [
+            APPPATH . 'Database/Migrations',
+            ROOTPATH . 'vendor/codeigniter4/settings/src/Database/Migrations',
+            ROOTPATH . 'vendor/codeigniter4/shield/src/Database/Migrations',
+        ],
+    ];
 }
