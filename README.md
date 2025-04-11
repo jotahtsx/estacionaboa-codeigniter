@@ -290,17 +290,6 @@ Este projeto utiliza pacotes como `codeigniter4/settings` e `codeigniter4/shield
 - Já existe uma migration em `vendor/codeigniter4/settings` que cria a tabela `settings`. **Não crie outra no seu app.**
 - Rodar `php spark migrate --all` é obrigatório para aplicar também as migrations desses pacotes.
 
-### 💥 Para rodar as migrations corretamente:
-## Este comando DELETA todas as tabelas do banco. Use com cuidado!
-```bash
-php spark migrate:reset
-```
-
-# Após resetar, rode todas as migrations novamente
-```bash
-php spark migrate --all
-```
-
 ---
 
 **Acesse a aplicação**:
@@ -314,7 +303,7 @@ php spark migrate --all
 Se você já bagunçou todas as migrations e o banco tá parecendo um campo de batalha, segue o combo da faxina:
 
 ```bash
-php spark migrate:reset
+php spark migrate:refresh
 ```
 ```bash
 php spark migrate --all
