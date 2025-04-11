@@ -43,7 +43,7 @@
                 <div class="small">Logado como:</div>
                 <?php
                 $user = auth()->user();
-                echo $user->username;
+                echo (!empty($user->username)) ? $user->username : 'Usuário';
                 ?>
             </div>
         </nav>
