@@ -348,7 +348,7 @@ php spark migrate --all
 ```
 Table 'settings' already exists
 
-⚰️ É tarde demais. Você despertou a duplicação proibida.
+⚰️ É tarde demais. Você despertou a duplicação proibida. Volte 2 out 3 passos.
 
 ---
 
