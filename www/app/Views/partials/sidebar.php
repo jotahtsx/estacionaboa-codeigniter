@@ -40,8 +40,11 @@
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
-                João Manoel
+                <div class="small">Logado como:</div>
+                <?php
+                $user = auth()->user();
+                echo $user->username;
+                ?>
             </div>
         </nav>
     </div>
