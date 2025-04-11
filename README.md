@@ -173,11 +173,7 @@ CMD ["apache2-foreground"]
 7. **Ajuste as permissões do diretório writable**:
    ```sh
    docker exec -it estacionaboa-web chmod -R 777 /var/www/html/writable
-   ```
-
-8. **Acesse a aplicação**:
-- **Aplicação CodeIgniter**: [http://localhost:4500](http://localhost:4500)
-- **PHPMyAdmin**: [http://localhost:8080](http://localhost:8080)   
+   ``` 
 
 ---
 
@@ -313,6 +309,12 @@ php spark migrate:reset
 ```bash
 php spark migrate --all
 ```
+
+---
+
+**Acesse a aplicação**:
+- **Aplicação CodeIgniter**: [http://localhost:4500](http://localhost:4500)
+- **PHPMyAdmin**: [http://localhost:8080](http://localhost:8080)  
 
 ---
 
