@@ -409,7 +409,7 @@ Para resolver, execute o comando abaixo no terminal, primeiro saia do container 
 ```bash
 exit
 ```
----
+E depois:
 
 ```bash
 sudo chown -R $USER:$USER www
