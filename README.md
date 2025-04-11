@@ -404,43 +404,16 @@ Table 'settings' already exists
 
 Caso você não consiga editar os arquivos da pasta www/ no seu host (por exemplo, erros de permissão ao tentar salvar arquivos), isso pode estar relacionado ao fato de o container Docker ter criado os arquivos com outro usuário.
 
-Para resolver, execute o comando abaixo no terminal:
+Para resolver, execute o comando abaixo no terminal, primeiro saia do container com o comando exit
 
-bash
-sudo chown -R $USER:$USER www
-
----
-
-# ❓ Dúvidas Frequentes
-
----
-
-**Q: Não consigo acessar o phpMyAdmin. O que faço?**  
-A: Verifique se o container está rodando com `docker ps` e se a porta `8080` está livre no seu sistema.
-
----
-
-**Q: Minha aplicação mostra erro 500.**  
-A: Rode `docker logs estacionaboa-web` para verificar o erro. Também confira se o diretório `writable/` tem permissões corretas (`chmod -R 777` como último recurso).
-
----
-
-**Q: O comando `php spark migrate` não faz nada.**  
-A: Tente usar `php spark migrate --all` para garantir que as migrations dos pacotes externos sejam executadas.
-
----
-
-**Q: Recebo o erro "Table 'settings' already exists" ao migrar.**  
-A: O pacote `codeigniter4/settings` já cria essa tabela. Remova sua migration duplicada `CreateSettingsTable`.
-
----
-
-**Q: Como limpo e recrio todas as tabelas do banco de dados?**  
-A: Use:
 ```bash
-php spark migrate:reset
-php spark migrate --all
+exit
+```
+---
 
+```bash
+sudo chown -R $USER:$USER www
+```
 ---
 
 ### 🤝 Contribuição
