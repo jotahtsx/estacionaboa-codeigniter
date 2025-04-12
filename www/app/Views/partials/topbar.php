@@ -11,13 +11,22 @@
             <a class="nav-link dropdown-toggle d-flex align-items-center" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="<?= $imagePath ?>" alt="<?= esc($altText) ?>" title="<?= esc($altText) ?>" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Activity Log</a></li>
+            <ul class="dropdown-menu dropdown-menu-end p-0 m-0" aria-labelledby="navbarDropdown">
                 <li>
-                    <hr class="dropdown-divider" />
+                    <a class="dropdown-item rounded-top py-3" href="#">Settings</a>
                 </li>
-                <li><a class="dropdown-item" href="<?= url_to('logout') ?>">Sair</a></li>
+                <li>
+                    <hr class="dropdown-divider my-0" />
+                </li>
+                <li>
+                    <a class="dropdown-item py-3" href="#">Activity Log</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider my-0" />
+                </li>
+                <li>
+                    <a class="dropdown-item rounded-bottom py-3" href="<?= url_to('logout') ?>">Sair</a>
+                </li>
             </ul>
         </li>
     </ul>
