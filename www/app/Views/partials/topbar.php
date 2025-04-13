@@ -23,11 +23,26 @@
                 </div>
             </a>
             <ul class="dropdown-menu notifications-dropdown dropdown-menu-end p-0 m-0" aria-labelledby="notificationsDropdown">
-                <li><a class="dropdown-item py-2 px-3" href="#">🚗 Novo carro cadastrado</a></li>
-                <li><a class="dropdown-item py-2 px-3" href="#">💳 Pagamento recebido</a></li>
-                <li><a class="dropdown-item py-2 px-3" href="#">🔧 Manutenção agendada</a></li>
-                <li><hr class="dropdown-divider m-0" /></li>
-                <li><a class="dropdown-item py-2 px-3 text-center text-primary" href="#">Ver todas</a></li>
+                <li class="dropdown-header">Notificações</li>
+                <li class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div>
+                        <div class="notification-title">Existem mensalidades vencidas</div>
+                        <a href="#" class="notification-link">gerencie as mensalidades</a>
+                    </div>
+                </li>
+                <li class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div>
+                        <div class="notification-title">Existem formas de pagamento inativas</div>
+                        <a href="#" class="notification-link">gerencie as formas de pagamento</a>
+                    </div>
+                </li>
+                <button class="notification-button urgent-button">Não deixe de verificar!</button>
             </ul>
         </li>
 
