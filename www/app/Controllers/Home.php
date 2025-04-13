@@ -4,15 +4,10 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-
-
     public function index(): string
     {
-
-        $data = [
-            'titlePage' => 'Página Inicial'
-        ];
-
+        $data['active_page'] = 'home';
+        $data['titlePage'] = 'Visão Geral';
         return view('dashboard', $data);
     }
 }
