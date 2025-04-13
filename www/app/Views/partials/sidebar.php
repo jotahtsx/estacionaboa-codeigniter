@@ -3,11 +3,10 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <a class="nav-link <?= ($active_page == 'home') ? 'active' : '' ?>" href="<?= base_url() ?>">
+                    <a class="nav-link <?php echo ($active_page == 'home') ? 'active' : ''; ?>" href="<?php echo base_url(); ?>">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Visão Geral
                     </a>
-                    <div class="sb-sidenav-menu-heading">Estacionamento</div>
                     <a class="nav-link" href="charts.html">
                         <div class="sb-nav-link-icon"><i class="fas fa-parking"></i></div>
                         Estacionar
@@ -21,7 +20,7 @@
                         Mensalidades
                     </a>
                     <div class="sb-sidenav-menu-heading">Administração</div>
-                    <a class="nav-link" href="charts.html">
+                    <a class="nav-link <?php echo ($active_page == 'usuarios') ? 'active' : ''; ?>" href="<?php echo base_url(); ?>/usuarios">
                         <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                         Usuários
                     </a>
