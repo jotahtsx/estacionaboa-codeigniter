@@ -20,16 +20,33 @@
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Criado em</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($users)) : ?>
                                 <?php foreach ($users as $user) : ?>
                                     <tr>
-                                        <td><?= $user->id ?></td>
-                                        <td><?= $user->username ?></td>
-                                        <td><?= $user->email ?></td>
-                                        <td><?= $user->created_at ?></td> </tr>
+                                        <td><?= $user['id'] ?></td>
+                                        <td><?= $user['username'] ?></td>
+                                        <td><?= $user['email'] ?></td>
+                                        <td>
+                                            <?php
+                                            $createdAt = \Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $user['created_at']);
+                                            echo $createdAt->format('d/m/Y à\s H:i:s');
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <button class="icon-button" title="Visualizar">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="icon-button" title="Editar">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="icon-button" title="Excluir">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -40,6 +57,7 @@
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Criado em</th>
+                                <th>Ações</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -48,5 +66,4 @@
         </div>
     </main>
 </div>
-
 <?= $this->include('partials/scripts') ?>

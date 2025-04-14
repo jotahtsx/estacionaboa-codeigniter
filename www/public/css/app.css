@@ -11949,7 +11949,8 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0;
   font-size: 0.9rem;
-  background-color: #ffffff !important; /* Branco puro, com !important */
+  background-color: #ffffff !important;
+  /* Branco puro, com !important */
   width: 350px;
   max-height: 400px;
   overflow-y: auto;
@@ -11990,8 +11991,10 @@ body {
 }
 
 .notifications-dropdown .notification-icon i {
-  font-size: 1.2rem; /* Ajuste o tamanho do ícone */
-  color: #333; /* Cor do ícone */
+  font-size: 1.2rem;
+  /* Ajuste o tamanho do ícone */
+  color: #333;
+  /* Cor do ícone */
 }
 
 .notifications-dropdown .notification-title {
@@ -12019,10 +12022,37 @@ body {
 
 /* Botão de urgência */
 .notifications-dropdown .urgent-button {
-  background-color: #FF9800; /* Laranja para urgência */
+  background-color: #FF9800;
+  /* Laranja para urgência */
   color: white;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   font-weight: bold;
+}
+
+table.datatable td {
+  text-align: center;
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+}
+
+table.datatable th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+table.datatable th {
+  text-align: center !important;
+}
+
+.icon-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.icon-button {
+  color: #666;
 }
 /*# sourceMappingURL=app.css.map */
