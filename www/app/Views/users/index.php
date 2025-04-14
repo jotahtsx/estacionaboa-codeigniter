@@ -11,12 +11,18 @@
                     Listagem e gerenciamento dos usuários do sistema.
                 </li>
             </ol>
+
+            <div class="mb-4">
+                <button class="notification-button button-create">
+                    Cadastrar Usuário
+                </button>
+            </div>
+
             <div class="card mb-4">
                 <div class="card-body">
                     <table class="datatable">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Ativo</th>
@@ -28,7 +34,6 @@
                             <?php if (!empty($users)) : ?>
                                 <?php foreach ($users as $user) : ?>
                                     <tr>
-                                        <td><?= $user['id'] ?></td>
                                         <td><?= $user['username'] ?></td>
                                         <td><?= $user['email'] ?></td>
                                         <td>
@@ -61,7 +66,6 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>ID</th>
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Ativo</th>
