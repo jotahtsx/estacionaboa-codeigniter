@@ -19,6 +19,7 @@
                                 <th>ID</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Ativo</th>
                                 <th>Criado em</th>
                                 <th>Ações</th>
                             </tr>
@@ -30,6 +31,13 @@
                                         <td><?= $user['id'] ?></td>
                                         <td><?= $user['username'] ?></td>
                                         <td><?= $user['email'] ?></td>
+                                        <td>
+                                            <?php if ($user['active'] == 1) : ?>
+                                                <span class="badge bg-success">Sim</span>
+                                            <?php else : ?>
+                                                <span class="badge bg-danger">Não</span>
+                                            <?php endif; ?>
+                                        </td>
                                         <td>
                                             <?php
                                             $createdAt = \Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $user['created_at']);
@@ -56,6 +64,7 @@
                                 <th>ID</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Ativo</th>
                                 <th>Criado em</th>
                                 <th>Ações</th>
                             </tr>

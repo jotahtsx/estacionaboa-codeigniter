@@ -24,6 +24,7 @@ class UserController extends Controller
                 'username' => $user->username,
                 'email' => $user->email,
                 'created_at' => $createdAt->format('d/m/Y H:i:s'),
+                'active' => $user->active,
             ];
         }
 
