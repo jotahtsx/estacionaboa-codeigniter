@@ -19,10 +19,7 @@ class UserController extends Controller
         $usersData = [];
         foreach ($users as $user) {
             $createdAt = Carbon::parse($user->created_at);
-
-            // Carrega o usuário como entidade do Shield para acessar inGroup()
             $shieldUser = auth()->getProvider()->findById($user->id);
-
             $isAdmin = $shieldUser && $shieldUser->inGroup('admin');
             $role = $isAdmin ? 'Admin' : 'Usuario Comum';
 
@@ -41,5 +38,23 @@ class UserController extends Controller
             'active_page' => $activePage,
             'titlePage' => $titlePage,
         ]);
+    }
+
+    public function edit(int $id)
+    {
+        $userModel = new UserModel();
+        $user = $userModel->find($id);
+
+        if ($user === null) {
+            return redirect()->to('/usuarios')->with('error', 'Usuário não encontrado.');
+        }
+
+        $data = [
+            'user' => $user,
+            'active_page' => 'usuarios',
+            'titlePage' => 'Editar Usuário',
+        ];
+
+        return view('users/edit', $data);
     }
 }

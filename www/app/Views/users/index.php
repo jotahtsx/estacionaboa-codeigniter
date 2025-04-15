@@ -52,9 +52,9 @@
                                             <button class="icon-button" title="Visualizar">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button class="icon-button" title="Editar">
+                                            <a href="<?php echo base_url('usuarios/editar/' . $user['id']) ?>" class="icon-button" title="Editar">
                                                 <i class="fas fa-edit"></i>
-                                            </button>
+                                            </a>
                                             <button class="icon-button" title="Excluir">
                                                 <i class="fas fa-trash"></i>
                                             </button>
