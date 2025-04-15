@@ -19,12 +19,20 @@ class UserController extends Controller
         $usersData = [];
         foreach ($users as $user) {
             $createdAt = Carbon::parse($user->created_at);
+
+            // Carrega o usuário como entidade do Shield para acessar inGroup()
+            $shieldUser = auth()->getProvider()->findById($user->id);
+
+            $isAdmin = $shieldUser && $shieldUser->inGroup('admin');
+            $role = $isAdmin ? 'Admin' : 'Usuario Comum';
+
             $usersData[] = [
                 'id' => $user->id,
                 'username' => $user->username,
                 'email' => $user->email,
                 'created_at' => $createdAt->format('d/m/Y H:i:s'),
                 'active' => $user->active,
+                'role' => $role,
             ];
         }
 

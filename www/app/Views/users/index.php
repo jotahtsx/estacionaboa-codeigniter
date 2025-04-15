@@ -25,6 +25,7 @@
                             <tr>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Perfil</th>
                                 <th>Ativo</th>
                                 <th>Criado em</th>
                                 <th>Ações</th>
@@ -34,8 +35,9 @@
                             <?php if (!empty($users)) : ?>
                                 <?php foreach ($users as $user) : ?>
                                     <tr>
-                                        <td><?= $user['username'] ?></td>
-                                        <td><?= $user['email'] ?></td>
+                                        <td><?= esc($user['username']) ?></td>
+                                        <td><?= esc($user['email']) ?></td>
+                                        <td><?= esc($user['role']) ?></td>
                                         <td>
                                             <?php if ($user['active'] == 1) : ?>
                                                 <span class="badge bg-success">Sim</span>
@@ -44,10 +46,7 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php
-                                            $createdAt = \Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $user['created_at']);
-                                            echo $createdAt->format('d/m/Y à\s H:i:s');
-                                            ?>
+                                            <?= \Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $user['created_at'])->format('d/m/Y \à\s H:i:s') ?>
                                         </td>
                                         <td>
                                             <button class="icon-button" title="Visualizar">
@@ -68,6 +67,7 @@
                             <tr>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Perfil</th>
                                 <th>Ativo</th>
                                 <th>Criado em</th>
                                 <th>Ações</th>
@@ -79,4 +79,5 @@
         </div>
     </main>
 </div>
+
 <?= $this->include('partials/scripts') ?>
