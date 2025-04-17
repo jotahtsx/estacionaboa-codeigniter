@@ -21,7 +21,7 @@ class UserController extends Controller
             $createdAt = Carbon::parse($user->created_at);
             $shieldUser = auth()->getProvider()->findById($user->id);
             $isAdmin = $shieldUser && $shieldUser->inGroup('admin');
-            $role = $isAdmin ? 'Admin' : 'Usuario Comum';
+            $role = $isAdmin ? 'Administrador' : 'Usuario Comum';
 
             $usersData[] = [
                 'id' => $user->id,
