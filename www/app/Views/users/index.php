@@ -6,6 +6,13 @@
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Usuários</h1>
+
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= esc(session()->getFlashdata('error')) ?>
+                </div>
+            <?php endif ?>
+
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">
                     Listagem e gerenciamento dos usuários do sistema.
@@ -63,16 +70,6 @@
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Perfil</th>
-                                <th>Ativo</th>
-                                <th>Criado em</th>
-                                <th>Ações</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
