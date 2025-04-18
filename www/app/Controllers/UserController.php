@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use CodeIgniter\Shield\Models\UserModel;
-use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -18,10 +17,10 @@ class UserController extends Controller
 
         $usersData = [];
         foreach ($users as $user) {
-            $createdAt = Carbon::parse($user->created_at);
+            $createdAt = \Carbon\Carbon::parse($user->created_at);
             $shieldUser = auth()->getProvider()->findById($user->id);
             $isAdmin = $shieldUser && $shieldUser->inGroup('admin');
-            $role = $isAdmin ? 'Administrador' : 'Usuario Comum';
+            $role = $isAdmin ? 'Administrador' : 'Usuário Comum';
 
             $usersData[] = [
                 'id' => $user->id,
@@ -56,5 +55,47 @@ class UserController extends Controller
         ];
 
         return view('users/edit', $data);
+    }
+
+    public function update($id = null)
+    {
+        // Regras de validação
+        $rules = [
+            'username' => 'required|min_length[3]|max_length[50]',
+            'email' => [
+                'label' => 'E-mail',
+                'rules' => "required|valid_email|is_unique[auth_identities.secret,user_id,{$id},type,email]",
+                'errors' => [
+                    'is_unique' => 'Este e-mail já está sendo utilizado.',
+                ],
+            ],
+            'active' => 'required|in_list[0,1]',
+        ];
+
+        // Verifica se a validação falhou
+        if (! $this->validate($rules)) {
+            return redirect()->back()->withInput()->with('validation', $this->validator);
+        }
+
+        // Prepara os dados para atualizar na tabela 'users'
+        $userData = [
+            'username' => $this->request->getPost('username'),
+            'active'   => (int) $this->request->getPost('active'),
+        ];
+
+        // Atualiza a tabela 'users'
+        $userModel = new \App\Models\UserModel();
+        $userModel->update($id, $userData);
+
+        // Atualiza a tabela 'auth_identities' para o e-mail
+        $db = \Config\Database::connect();
+        $builder = $db->table('auth_identities');
+        $builder->set('secret', $this->request->getPost('email')); // Usa 'secret' em vez de 'email'
+        $builder->where('user_id', $id);
+        $builder->where('type', 'email'); // Garante que estamos atualizando a identidade de e-mail
+        $builder->update();
+
+        // Redireciona com a mensagem de sucesso
+        return redirect()->to('/usuarios')->with('success', 'Usuário atualizado com sucesso!');
     }
 }
