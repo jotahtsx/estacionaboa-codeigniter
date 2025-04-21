@@ -13,6 +13,12 @@
                 </div>
             <?php endif ?>
 
+            <?php if (session()->getFlashdata('success')) : ?>
+                 <div class="alert alert-success" role="alert">
+                     <?= esc(session()->getFlashdata('success')) ?>
+                 </div>
+             <?php endif ?>
+
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">
                     Listagem e gerenciamento dos usuários do sistema.

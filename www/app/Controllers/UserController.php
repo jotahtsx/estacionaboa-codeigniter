@@ -48,6 +48,14 @@ class UserController extends Controller
             return redirect()->to('/usuarios')->with('error', 'Usuário não encontrado.');
         }
 
+        $shieldUser = auth()->getProvider()->findById($user->id);
+        $grupo = 'user';
+        if ($shieldUser && $shieldUser->inGroup('admin')) {
+            $grupo = 'admin';
+        }
+
+        $user->group = $grupo;
+
         $data = [
             'user' => $user,
             'active_page' => 'usuarios',
@@ -59,7 +67,6 @@ class UserController extends Controller
 
     public function update($id = null)
     {
-        // Regras de validação
         $rules = [
             'username' => 'required|min_length[3]|max_length[50]',
             'email' => [
@@ -70,32 +77,39 @@ class UserController extends Controller
                 ],
             ],
             'active' => 'required|in_list[0,1]',
+            'role'   => 'required|in_list[user,admin]',
         ];
 
-        // Verifica se a validação falhou
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('validation', $this->validator);
         }
 
-        // Prepara os dados para atualizar na tabela 'users'
         $userData = [
             'username' => $this->request->getPost('username'),
             'active'   => (int) $this->request->getPost('active'),
         ];
 
-        // Atualiza a tabela 'users'
-        $userModel = new \App\Models\UserModel();
+        $userModel = new UserModel();
         $userModel->update($id, $userData);
 
-        // Atualiza a tabela 'auth_identities' para o e-mail
         $db = \Config\Database::connect();
         $builder = $db->table('auth_identities');
-        $builder->set('secret', $this->request->getPost('email')); // Usa 'secret' em vez de 'email'
+        $builder->set('secret', $this->request->getPost('email'));
         $builder->where('user_id', $id);
-        $builder->where('type', 'email'); // Garante que estamos atualizando a identidade de e-mail
+        $builder->where('type', 'email');
         $builder->update();
 
-        // Redireciona com a mensagem de sucesso
+        // Atualiza grupo
+        $novoGrupo = $this->request->getPost('role');
+        $provider = auth()->getProvider();
+        $shieldUser = $provider->findById($id);
+
+        if ($shieldUser) {
+            $shieldUser->removeGroup('admin');
+            $shieldUser->removeGroup('user');
+            $shieldUser->addGroup($novoGrupo);
+        }
+
         return redirect()->to('/usuarios')->with('success', 'Usuário atualizado com sucesso!');
     }
 }

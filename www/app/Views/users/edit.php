@@ -11,13 +11,6 @@
                     Editar: <b><?= esc($user->username) ?></b>
                 </li>
             </ol>
-
-            <?php if (session()->getFlashdata('success')) : ?>
-                <div class="alert alert-success" role="alert">
-                    <?= esc(session()->getFlashdata('success')) ?>
-                </div>
-            <?php endif ?>
-
             <div class="card mb-4">
                 <div class="card-body">
                     <form action="<?= base_url('usuarios/atualizar/' . $user->id) ?>" method="post">
@@ -32,6 +25,14 @@
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" value="<?= esc($user->email) ?>">
                         </div>
+                        <div class="mb-3">
+                            <label for="active" class="form-label">Perfil</label>
+                            <select name="role" class="form-select">
+                                <option value="user" <?= old('role', $user->group ?? '') === 'user' ? 'selected' : '' ?>>Usuário Comum</option>
+                                <option value="admin" <?= old('role', $user->group ?? '') === 'admin' ? 'selected' : '' ?>>Administrador</option>
+                            </select>
+                        </div>
+
                         <div class="mb-3">
                             <label for="active" class="form-label">Ativo</label>
                             <select class="form-select" id="active" name="active">
