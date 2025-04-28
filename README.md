@@ -179,21 +179,9 @@ CMD ["apache2-foreground"]
 
 ## ✅ Pós-instalação (configuração do ambiente)
 
-Dentro do container `estacionaboa-web`:
-
-```sh
-docker exec -it estacionaboa-web bash 
-```
-
 1. **Dar permissão de escrita no projeto (evita erros com `.env`)**  
    
    Antes de qualquer coisa, certifique-se de ter permissões:
-   
-   Saia do container
-
-   ```bash
-   exit
-   ```
 
    ```bash
    sudo chown -R $USER:$USER www
