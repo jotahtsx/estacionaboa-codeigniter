@@ -101,6 +101,16 @@ hr {
   opacity: 0.25;
 }
 
+ul, ol {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+li {
+  margin-bottom: 0;
+  padding: 0;
+}
+
 h6,
 .h6,
 h5,

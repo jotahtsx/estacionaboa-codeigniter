@@ -14,10 +14,10 @@
             <?php endif ?>
 
             <?php if (session()->getFlashdata('success')) : ?>
-                 <div class="alert alert-success" role="alert">
-                     <?= esc(session()->getFlashdata('success')) ?>
-                 </div>
-             <?php endif ?>
+                <div class="alert alert-success" role="alert">
+                    <?= esc(session()->getFlashdata('success')) ?>
+                </div>
+            <?php endif ?>
 
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">
@@ -26,7 +26,7 @@
             </ol>
 
             <div class="mb-4">
-                <button class="notification-button button-create">
+                <button class="notification-button button-create" onclick="window.location.href='<?= site_url('usuarios/cadastrar') ?>'">
                     Cadastrar Usuário
                 </button>
             </div>
@@ -68,9 +68,11 @@
                                             <a href="<?php echo base_url('usuarios/editar/' . $user['id']) ?>" class="icon-button" title="Editar">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <button class="icon-button" title="Excluir">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            <form action="<?= base_url('usuarios/delete/' . $user['id']) ?>" method="post" style="display:inline;">
+                                                <button type="submit" class="icon-button" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

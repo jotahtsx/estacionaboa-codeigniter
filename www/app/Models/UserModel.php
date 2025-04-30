@@ -18,6 +18,8 @@ class UserModel extends ShieldUserModel
         'last_login_at',
         'last_login_ip',
         'email_verified_at',
+        'name',
+        'surname',
     ];
 
     // Converte datas automaticamente
