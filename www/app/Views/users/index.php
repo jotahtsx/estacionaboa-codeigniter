@@ -62,9 +62,10 @@
                                             <?= \Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $user['created_at'])->format('d/m/Y \à\s H:i:s') ?>
                                         </td>
                                         <td>
-                                            <button class="icon-button" title="Visualizar">
+                                            <button class="icon-button" title="Visualizar" onclick="window.location.href='<?= base_url('usuarios/show/' . $user['id']) ?>'">
                                                 <i class="fas fa-eye"></i>
                                             </button>
+
                                             <a href="<?php echo base_url('usuarios/editar/' . $user['id']) ?>" class="icon-button" title="Editar">
                                                 <i class="fas fa-edit"></i>
                                             </a>

@@ -38,6 +38,37 @@ class UserController extends Controller
         ]);
     }
 
+    public function show($id = null)
+    {
+        $activePage = 'usuarios';
+        $titlePage = 'Usuário';
+        $userModel = new \App\Models\UserModel();
+
+        $user = $userModel->find($id);
+
+        if (! $user) {
+            return redirect()->to('/usuarios')->with('error', 'Usuário não encontrado.');
+        }
+
+        // Recupera o e-mail e grupo
+        $db = \Config\Database::connect();
+        $identity = $db->table('auth_identities')
+            ->where('user_id', $id)
+            ->where('type', 'email_password')
+            ->get()
+            ->getRow();
+
+        $user->email = $identity->secret ?? '';
+        $user->group = auth()->getProvider()->findById($id)?->getGroups()[0] ?? '';
+
+        return view('users/show', [
+            'user' => $user,
+            'active_page' => $activePage,
+            'titlePage' => 'Visualizar Usuário',
+        ]);
+    }
+
+
     public function create()
     {
         return view('users/create', [
