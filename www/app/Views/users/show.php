@@ -16,8 +16,13 @@
                     <p><strong>ID:</strong> <?= esc($user->id) ?></p>
                     <p><strong>Username:</strong> <?= esc($user->username) ?></p>
                     <p><strong>Email:</strong> <?= esc($user->email) ?></p>
-                    
+
                     <p><strong>Ativo:</strong> <?= $user->active ? 'Sim' : 'Não' ?></p>
+
+                    <p>
+                        <strong>Perfil:</strong>
+                        <?= esc($user->group) == 'admin' ? 'Administrador' : 'Usuário Comum' ?>
+                    </p>
 
                     <a href="<?= base_url('usuarios') ?>" class="btn btn-secondary mt-3">Voltar</a>
                 </div>

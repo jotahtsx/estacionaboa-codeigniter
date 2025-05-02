@@ -44,13 +44,14 @@ class UserController extends Controller
         $titlePage = 'Usuário';
         $userModel = new \App\Models\UserModel();
 
+
         $user = $userModel->find($id);
 
         if (! $user) {
             return redirect()->to('/usuarios')->with('error', 'Usuário não encontrado.');
         }
 
-        // Recupera o e-mail e grupo
+
         $db = \Config\Database::connect();
         $identity = $db->table('auth_identities')
             ->where('user_id', $id)
@@ -59,7 +60,14 @@ class UserController extends Controller
             ->getRow();
 
         $user->email = $identity->secret ?? '';
-        $user->group = auth()->getProvider()->findById($id)?->getGroups()[0] ?? '';
+
+        $shieldUser = auth()->getProvider()->findById($id);
+        if ($shieldUser) {
+            $groups = $shieldUser->getGroups();
+            $user->group = !empty($groups) ? $groups[0] : 'Nenhum grupo';
+        } else {
+            $user->group = 'Usuário não encontrado';
+        }
 
         return view('users/show', [
             'user' => $user,
