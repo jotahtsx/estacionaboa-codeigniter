@@ -220,6 +220,12 @@ class UserController extends Controller
 
     public function delete($id = null)
     {
+        $currentUserId = auth()->id();
+
+        if ((int) $id === $currentUserId) {
+            return redirect()->to('/usuarios')->with('error', 'Você não pode excluir o seu próprio usuário.');
+        }
+
         $userModel = new UserModel();
 
         $user = $userModel->find($id);
