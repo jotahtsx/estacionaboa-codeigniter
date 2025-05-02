@@ -37,16 +37,6 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password_confirm" class="form-label">Confirmar Senha</label>
-                            <input type="password" class="form-control" id="password_confirm" name="password_confirm" required>
-                        </div>
-
-                        <div class="mb-3">
                             <label for="role" class="form-label">Perfil</label>
                             <select name="role" class="form-select" required>
                                 <option value="user" <?= old('role') === 'user' ? 'selected' : '' ?>>Usuário Comum</option>
@@ -60,6 +50,16 @@
                                 <option value="1" <?= old('active') === '1' ? 'selected' : '' ?>>Sim</option>
                                 <option value="0" <?= old('active') === '0' ? 'selected' : '' ?>>Não</option>
                             </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password_confirm" class="form-label">Confirmar Senha</label>
+                            <input type="password" class="form-control" id="password_confirm" name="password_confirm" required>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Criar Usuário</button>
