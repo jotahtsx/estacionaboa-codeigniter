@@ -27,6 +27,16 @@
                         <?= csrf_field() ?>
 
                         <div class="mb-3">
+                            <label for="first_name" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="<?= old('first_name') ?>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Sobrenome</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?= old('last_name') ?>" required>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" value="<?= old('username') ?>" required>
                         </div>

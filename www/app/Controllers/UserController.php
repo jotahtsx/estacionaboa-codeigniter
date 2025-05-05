@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
-use CodeIgniter\Shield\Models\UserModel;
+use App\Models\UserModel;
 
 class UserController extends Controller
 {
@@ -28,6 +28,8 @@ class UserController extends Controller
                 'created_at' => $createdAt->format('d/m/Y H:i:s'),
                 'active' => $user->active,
                 'role' => $role,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
             ];
         }
 
@@ -41,7 +43,7 @@ class UserController extends Controller
     public function show($id = null)
     {
         $activePage = 'usuarios';
-        $titlePage = 'Usuário';
+        $titlePage = 'Visualizar Usuário';
         $userModel = new \App\Models\UserModel();
 
 
@@ -72,7 +74,7 @@ class UserController extends Controller
         return view('users/show', [
             'user' => $user,
             'active_page' => $activePage,
-            'titlePage' => 'Visualizar Usuário',
+            'titlePage' => $titlePage,
         ]);
     }
 
@@ -89,6 +91,8 @@ class UserController extends Controller
     {
         $rules = [
             'username' => 'required|min_length[3]|max_length[50]',
+            'first_name' => 'required|min_length[2]|max_length[255]',
+            'last_name' => 'required|min_length[2]|max_length[255]',
             'email' => [
                 'label' => 'E-mail',
                 'rules' => 'required|valid_email|is_unique[auth_identities.secret]',
@@ -107,10 +111,10 @@ class UserController extends Controller
 
         $userModel = new UserModel();
         $userData = [
-            'username' => $this->request->getPost('username'),
-            'email'    => $this->request->getPost('email'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-            'active'   => (int) $this->request->getPost('active'),
+            'username'   => $this->request->getPost('username'),
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name' => $this->request->getPost('last_name'),
+            'active'     => (int) $this->request->getPost('active'),
         ];
 
         $userId = $userModel->insert($userData);
@@ -164,6 +168,8 @@ class UserController extends Controller
     {
         $rules = [
             'username' => 'required|min_length[3]|max_length[50]',
+            'first_name' => 'required|min_length[2]|max_length[255]', 
+            'last_name' => 'required|min_length[2]|max_length[255]',
             'email' => [
                 'label' => 'E-mail',
                 'rules' => "required|valid_email|is_unique[auth_identities.secret,user_id,{$id},type,email_password]",
@@ -183,8 +189,10 @@ class UserController extends Controller
         }
 
         $userData = [
-            'username' => $this->request->getPost('username'),
-            'active'   => (int) $this->request->getPost('active'),
+            'username'   => $this->request->getPost('username'),
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name'  => $this->request->getPost('last_name'),
+            'active'     => (int) $this->request->getPost('active'),
         ];
 
         $userModel = new UserModel();

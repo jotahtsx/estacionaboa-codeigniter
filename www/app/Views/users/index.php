@@ -36,6 +36,7 @@
                     <table class="datatable">
                         <thead>
                             <tr>
+                                <th>Nome</th>
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Perfil</th>
@@ -48,6 +49,7 @@
                             <?php if (!empty($users)) : ?>
                                 <?php foreach ($users as $user) : ?>
                                     <tr>
+                                        <td><?= esc($user['first_name']) ?> <?= esc($user['last_name']) ?></td>
                                         <td><?= esc($user['username']) ?></td>
                                         <td><?= esc($user['email']) ?></td>
                                         <td><?= esc($user['role']) ?></td>

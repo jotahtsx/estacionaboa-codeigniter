@@ -12,8 +12,9 @@
             </ol>
             <div class="card mb-4">
                 <div class="card-body">
-
                     <p><strong>ID:</strong> <?= esc($user->id) ?></p>
+                    <p><strong>Nome:</strong> <?= esc($user->first_name) ?></p>
+                    <p><strong>Sobrenome:</strong> <?= esc($user->last_name) ?></p>
                     <p><strong>Username:</strong> <?= esc($user->username) ?></p>
                     <p><strong>Email:</strong> <?= esc($user->email) ?></p>
 

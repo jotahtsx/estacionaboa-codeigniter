@@ -31,6 +31,16 @@
                         <input type="hidden" name="id" value="<?= esc($user->id) ?>">
 
                         <div class="mb-3">
+                            <label for="first_name" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="<?= esc($user->first_name) ?>">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Sobrenome</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?= esc($user->last_name) ?>">
+                        </div>
+
+                        <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" value="<?= esc($user->username) ?>">
                         </div>
