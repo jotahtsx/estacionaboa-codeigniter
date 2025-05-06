@@ -228,11 +228,6 @@ php spark env
 php spark migrate --all
 ```
 
-Executando todas as novas migrations...
-Migrations concluídas.
-
-> ⚠️ Lembre-se das duas barras \\ no terminal para escapar corretamente o namespace.
-
 #### 🔍 Verificando o status das migrations:
 ```bash
 php spark migrate:status
