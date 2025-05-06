@@ -5,10 +5,10 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Usuário: <b><?= esc($user->username) ?></b></h1>
+            <h1 class="mt-4">Usuário: <b><?= esc($user->first_name) ?>  <?= esc($user->last_name) ?></b></h1> 
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="<?= base_url('usuarios') ?>">Usuários</a></li>
-                <li class="breadcrumb-item active">Visualizar</li>
+                <li class="breadcrumb-item active"><?= esc($user->first_name) ?>  <?= esc($user->last_name) ?></li>
             </ol>
             <div class="card mb-4">
                 <div class="card-body">
