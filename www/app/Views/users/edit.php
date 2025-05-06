@@ -4,8 +4,6 @@
 
 <div id="layoutSidenav_content">
     <main>
-
-
         <div class="container-fluid px-4">
             <h1 class="mt-4">Editar: <b><?= esc($user->first_name) ?>  <?= esc($user->last_name) ?></b></h1>
             <ol class="breadcrumb mb-4">
