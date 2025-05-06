@@ -223,30 +223,13 @@ php spark env
 
 ## 🗓 Rodando as migrações
 
-Ainda no container:
-
-```bash
-php spark migrate
-```
-
-Você verá algo como:
-
-Executando todas as novas migrations...
-Migrations concluídas.
-
-### 📦 Migrations de Pacotes Externos (como Settings)
-
-Alguns pacotes do CodeIgniter 4, como codeigniter4/settings ou codeigniter4/shield, possuem suas próprias migrations que **não são executadas automaticamente** com php spark migrate.
-
 #### ✅ Para rodar todas as migrations (inclusive dos pacotes):
 ```bash
 php spark migrate --all
 ```
 
-#### ✅ Ou para um pacote específico (ex: Settings):
-```bash
-php spark migrate --namespace CodeIgniter\\Settings
-```
+Executando todas as novas migrations...
+Migrations concluídas.
 
 > ⚠️ Lembre-se das duas barras \\ no terminal para escapar corretamente o namespace.
 
