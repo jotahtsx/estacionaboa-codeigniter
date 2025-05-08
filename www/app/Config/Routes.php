@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-$routes->get('/', 'Home::index', ['filter' => 'session']);
+$routes->get('/', 'Home::index');
 
 $routes->group('usuarios', ['filter' => 'session'], function ($routes) {
     $routes->get('/', 'UserController::index');
