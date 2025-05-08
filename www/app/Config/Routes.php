@@ -8,6 +8,12 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Home::index');
 
+
+$routes->get('/login', 'AuthController::loginForm');
+$routes->post('/login', 'AuthController::login');
+$routes->get('/logout', 'AuthController::logout');
+
+
 $routes->group('usuarios', ['filter' => 'session'], function ($routes) {
     $routes->get('/', 'UserController::index');
     $routes->get('cadastrar', 'UserController::create');
@@ -18,4 +24,5 @@ $routes->group('usuarios', ['filter' => 'session'], function ($routes) {
     $routes->get('show/(:num)', 'UserController::show/$1');
 });
 
-service('auth')->routes($routes);
+
+service('auth')->routes($routes, ['except' => ['login', 'logout', 'register']]);
