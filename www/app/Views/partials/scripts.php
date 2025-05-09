@@ -35,6 +35,28 @@
             });
         });
     });
+
+    let idleTime = 0;
+  const idleLimit = 60; // Limite de inatividade em segundos (30 segundos aqui)
+
+  // Incrementa o tempo de inatividade a cada segundo
+  setInterval(function() {
+    idleTime++;
+    if (idleTime >= idleLimit) {
+      window.location.href = '/logout';  // Redireciona para o logout após 30 segundos
+    }
+  }, 1000); // Checa a cada 1 segundo
+
+  // Reseta o contador sempre que há interação do usuário
+  window.onload = resetTimer;
+  document.onmousemove = resetTimer;
+  document.onkeypress = resetTimer;
+
+  function resetTimer() {
+    idleTime = 0;
+  }
+
+  
 </script>
 
 

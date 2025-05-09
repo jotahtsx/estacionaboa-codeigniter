@@ -525,4 +525,7 @@ class Auth extends ShieldAuth
 
         return $final_url;
     }
+
+    public int $loginCooldown = 30;
+
 }
