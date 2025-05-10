@@ -18,10 +18,7 @@
                     top: "{search}",
                     bottom: `
                         <div class="datatable-bottom">
-                            <div class="datatable-dropdown">{select}</div> <!-- Seletor de quantidade -->
-                            <div class="datatable-info">{info}</div> <!-- Info de quantos registros -->
-                            <div class="datatable-pagination">{pager}</div> <!-- Controles de página -->
-                        </div>
+                            <div class="datatable-dropdown">{select}</div> <div class="datatable-info">{info}</div> <div class="datatable-pagination">{pager}</div> </div>
                     `
                 },
                 pagination: {
@@ -37,29 +34,26 @@
     });
 
     let idleTime = 0;
-  const idleLimit = 60; // Limite de inatividade em segundos (30 segundos aqui)
+    const idleLimit = 60;
 
-  // Incrementa o tempo de inatividade a cada segundo
-  setInterval(function() {
-    idleTime++;
-    if (idleTime >= idleLimit) {
-      window.location.href = '/logout';  // Redireciona para o logout após 30 segundos
+    setInterval(function() {
+        idleTime++;
+        if (idleTime >= idleLimit) {
+            window.location.href = '/logout';
+        }
+    }, 1000);
+
+    function resetTimer() {
+        idleTime = 0;
     }
-  }, 1000); // Checa a cada 1 segundo
 
-  // Reseta o contador sempre que há interação do usuário
-  window.onload = resetTimer;
-  document.onmousemove = resetTimer;
-  document.onkeypress = resetTimer;
-
-  function resetTimer() {
-    idleTime = 0;
-  }
-
-  
+    window.addEventListener('load', resetTimer);
+    document.addEventListener('mousemove', resetTimer);
+    document.addEventListener('keypress', resetTimer);
+    document.addEventListener('mousedown', resetTimer);
+    document.addEventListener('touchstart', resetTimer);
+    document.addEventListener('scroll', resetTimer);
 </script>
 
-
 </body>
-
 </html>
