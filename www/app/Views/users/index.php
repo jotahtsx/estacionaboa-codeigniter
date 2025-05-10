@@ -41,7 +41,6 @@
                                 <th>Email</th>
                                 <th>Perfil</th>
                                 <th>Ativo</th>
-                                <th>Criado em</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -59,9 +58,6 @@
                                             <?php else : ?>
                                                 <span class="badge bg-danger">Não</span>
                                             <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <?= \Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $user['created_at'])->format('d/m/Y \à\s H:i:s') ?>
                                         </td>
                                         <td>
                                             <button class="icon-button" title="Visualizar" onclick="window.location.href='<?= base_url('usuarios/show/' . $user['id']) ?>'">

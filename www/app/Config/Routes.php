@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 $routes->get('/', 'Home::index');
+$routes->get('/dashboard', 'Home::dashboard', ['filter' => 'session']); // Adicionada a rota para o dashboard
 
 
 $routes->get('/login', 'AuthController::loginForm');
@@ -15,7 +16,7 @@ $routes->get('/logout', 'AuthController::logout');
 
 
 $routes->group('usuarios', ['filter' => 'session'], function ($routes) {
-    $routes->get('/', 'UserController::index');
+    $routes->get('/', 'UserController::index'); // Listagem de usuários em /usuarios
     $routes->get('cadastrar', 'UserController::create');
     $routes->post('cadastrar', 'UserController::store');
     $routes->get('editar/(:num)', 'UserController::edit/$1');

@@ -2,12 +2,21 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+use CodeIgniter\Controller;
+
+class Home extends Controller
 {
-    public function index(): string
+    public function index()
     {
-        $data['active_page'] = 'home';
-        $data['titlePage'] = 'Visão Geral';
-        return view('dashboard', $data);
+        if (! auth()->loggedIn()) {
+            return redirect()->to('/login');
+        } else {
+            return redirect()->to('/dashboard');
+        }
+    }
+
+    public function dashboard()
+    {
+        return view('dashboard', ['active_page' => 'home']);
     }
 }
