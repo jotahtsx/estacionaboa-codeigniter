@@ -3,81 +3,54 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use App\Models\UserModel;
-use Faker\Factory;
+use CodeIgniter\I18n\Time;
+use CodeIgniter\Shield\Entities\User;
+use CodeIgniter\Shield\Models\UserModel;
+use Config\Database;
 
 class UserSeeder extends Seeder
 {
     public function run()
     {
         $userModel = new UserModel();
-        $faker = Factory::create();
+        $db = Database::connect();
 
-        $numUsers = 5;
-        for ($i = 0; $i < $numUsers; $i++) {
-            $username = $faker->userName;
-            $email = $faker->email;
-            $password = 'senha123';
+        // Cria um novo usuário
+        $user = new User([
+            'username' => 'admin',
+            'email'    => 'admin@example.com',
+            'password' => 'senha123',
+            'active'   => 1,
+        ]);
 
-            $userData = [
-                'username'   => $username,
-                'first_name' => $faker->firstName,
-                'last_name'  => $faker->lastName,
-                'active'     => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ];
+        $userModel->save($user);
+        $userId = $userModel->getInsertID();
 
-            $userId = $userModel->insert($userData);
+        // Verifica se a tabela de grupos existe
+        if ($db->tableExists('auth_groups')) {
+            // Tenta pegar o grupo "admin"
+            $group = $db->table('auth_groups')
+                ->where('name', 'admin')
+                ->get()
+                ->getRow();
 
-            if ($userId) {
-                $this->db->table('auth_identities')->insert([
-                    'user_id' => $userId,
-                    'type'    => 'email_password',
-                    'secret'  => $email,
-                    'secret2' => password_hash($password, PASSWORD_DEFAULT),
+            // Se o grupo não existir, cria
+            if (!$group) {
+                $db->table('auth_groups')->insert([
+                    'name'        => 'admin',
+                    'description' => 'Administrador do sistema',
                 ]);
+
+                $groupId = $db->insertID();
+            } else {
+                $groupId = $group->id;
             }
+
+            // Associa o usuário ao grupo
+            $db->table('auth_groups_users')->insert([
+                'user_id'  => $userId,
+                'group_id' => $groupId,
+            ]);
         }
-
-        $existingAdmin = $userModel->where('username', 'admin')->first();
-
-        if (!$existingAdmin) {
-            $adminData = [
-                'username'   => 'admin',
-                'first_name' => 'Admin',
-                'last_name'  => 'User',
-                'active'     => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ];
-
-            $adminId = $userModel->insert($adminData);
-
-            if ($adminId) {
-                $this->db->table('auth_identities')->insert([
-                    'user_id' => $adminId,
-                    'type'    => 'email_password',
-                    'secret'  => 'admin@example.com',
-                    'secret2' => password_hash('admin123', PASSWORD_DEFAULT),
-                ]);
-
-                $adminGroup = $this->db->table('auth_groups')->where('name', 'admin')->get()->getRow();
-                if (!$adminGroup) {
-                    $this->db->table('auth_groups')->insert([
-                        'name'        => 'admin',
-                        'description' => 'Administrador do sistema',
-                    ]);
-                    $adminGroup = $this->db->table('auth_groups')->where('name', 'admin')->get()->getRow();
-                }
-
-                $this->db->table('auth_groups_users')->insert([
-                    'group_id' => $adminGroup->id,
-                    'user_id'  => $adminId,
-                ]);
-            }
-        }
-
-        echo "Seeders de usuários criados com sucesso!\n";
     }
 }
