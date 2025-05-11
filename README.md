@@ -255,8 +255,6 @@ Após executar as migrações, você pode popular o banco com dados iniciais uti
 php spark db:seed UserSeeder
 ```
 
-⚠️ Importante: O seeder pode ser executado várias vezes, mas evite duplicações ou erros garantindo que ele esteja preparado para isso (por exemplo, utilizando insertBatch() com verificações ou ignore).
-
 ---
 
 Este projeto utiliza pacotes como `codeigniter4/settings` e `codeigniter4/shield`, que **já fornecem migrations próprias**.
