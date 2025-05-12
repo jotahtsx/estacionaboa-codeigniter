@@ -3,8 +3,8 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use CodeIgniter\Shield\Entities\User;
-use CodeIgniter\Shield\Models\UserModel;
+use App\Entities\User;
+use App\Models\UserModel;
 use Config\Database;
 
 class UserSeeder extends Seeder
@@ -25,21 +25,25 @@ class UserSeeder extends Seeder
             // Recupera o ID do usuário existente
             $userId = $emailIdentity->user_id;
 
-            // Atualiza a senha
+            // Atualiza a senha e o campo test_field
             $user = $userModel->find($userId);
             if ($user) {
                 $user->fill([
-                    'password' => 'senha123', // será re-hashado automaticamente
+                    'password'    => 'senha123',
+                    'first_name' => 'Admin',
+                    'last_name'  => 'User',
+                    'test_field'  => 'teste atualizado', // <-- adiciona test_field
                 ]);
                 $userModel->save($user);
             }
         } else {
-            // Cria novo usuário
+            // Cria novo usuário com test_field
             $user = new User([
-                'username' => 'admin',
-                'email'    => 'admin@example.com',
-                'password' => 'senha123',
-                'active'   => 1,
+                'username'    => 'admin',
+                'email'       => 'admin@example.com',
+                'password'    => 'senha123',
+                'active'      => 1,
+                'test_field'  => 'teste criado', // <-- adiciona test_field
             ]);
 
             $userModel->save($user);
@@ -48,11 +52,10 @@ class UserSeeder extends Seeder
 
         // Verifica se a tabela de grupos existe
         if ($db->tableExists('auth_groups')) {
-            // Busca ou cria o grupo "admin"
             $group = $db->table('auth_groups')
-                        ->where('name', 'admin')
-                        ->get()
-                        ->getRow();
+                ->where('name', 'admin')
+                ->get()
+                ->getRow();
 
             if (!$group) {
                 $db->table('auth_groups')->insert([
@@ -64,7 +67,6 @@ class UserSeeder extends Seeder
                 $groupId = $group->id;
             }
 
-            // Evita associação duplicada
             $alreadyAssociated = $db->table('auth_groups_users')
                 ->where('user_id', $userId)
                 ->where('group_id', $groupId)

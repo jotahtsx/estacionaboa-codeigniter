@@ -13,20 +13,24 @@ class AddFirstAndLastNameToUsers extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
                 'null'       => true,
-                'after'      => 'username',
             ],
             'last_name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
                 'null'       => true,
-                'after'      => 'first_name',
+            ],
+            'test_field' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
             ],
         ]);
     }
 
     public function down()
     {
-        $this->forge->dropColumn('users', 'last_name');
         $this->forge->dropColumn('users', 'first_name');
+        $this->forge->dropColumn('users', 'last_name');
+        $this->forge->dropColumn('users', 'test_field');
     }
 }
