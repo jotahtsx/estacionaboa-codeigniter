@@ -4,14 +4,14 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddFirstAndLastNameToUsers extends Migration
+class AddFirstNameToUsers extends Migration
 {
     public function up()
     {
         $this->forge->addColumn('users', [
-            'test_field' => [
+            'first_name' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 100,
                 'null'       => true,
             ],
         ]);
@@ -19,6 +19,6 @@ class AddFirstAndLastNameToUsers extends Migration
 
     public function down()
     {
-        $this->forge->dropColumn('users', 'test_field');
+        $this->forge->dropColumn('users', 'first_name');
     }
 }

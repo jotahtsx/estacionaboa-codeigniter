@@ -15,13 +15,13 @@ class UserModel extends ShieldUserModel
     // Campos permitidos para inserção/atualização
     protected $allowedFields = [
         'username',
-        'first_name',
-        'last_name',
         'active',
         'last_login_at',
         'last_login_ip',
         'email_verified_at',
         'test_field', 
+        'first_name',
+        'last_name',
     ];
 
     // Desativa timestamps automáticos

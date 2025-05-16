@@ -30,9 +30,9 @@ class UserSeeder extends Seeder
             if ($user) {
                 $user->fill([
                     'password'    => 'senha123',
-                    'first_name' => 'Admin',
-                    'last_name'  => 'User',
-                    'test_field'  => 'teste atualizado', // <-- adiciona test_field
+                    'test_field'  => 'teste atualizado',
+                    'first_name' => 'Novo Administrador',
+                    'last_name' => 'Subítulo Admin'
                 ]);
                 $userModel->save($user);
             }
@@ -43,7 +43,9 @@ class UserSeeder extends Seeder
                 'email'       => 'admin@example.com',
                 'password'    => 'senha123',
                 'active'      => 1,
-                'test_field'  => 'teste criado', // <-- adiciona test_field
+                'test_field'  => 'teste feito',
+                'first_name' => 'Administrador',
+                'last_name' => 'Subtittulo',
             ]);
 
             $userModel->save($user);
