@@ -91,12 +91,12 @@ class UserController extends Controller
     public function store()
     {
         $rules = [
-            'username' => 'required|min_length[3]|max_length[50]',
+            'username'   => 'required|min_length[3]|max_length[50]',
             'first_name' => 'required|min_length[2]|max_length[255]',
-            'last_name' => 'required|min_length[2]|max_length[255]',
-            'email' => [
-                'label' => 'E-mail',
-                'rules' => 'required|valid_email|is_unique[auth_identities.secret]',
+            'last_name'  => 'required|min_length[2]|max_length[255]',
+            'email'      => [
+                'label'  => 'E-mail',
+                'rules'  => 'required|valid_email|is_unique[auth_identities.secret]',
                 'errors' => [
                     'is_unique' => 'Este e-mail já está em uso.',
                 ],
@@ -113,6 +113,8 @@ class UserController extends Controller
         $userModel = new UserModel();
         $userData = [
             'username'   => $this->request->getPost('username'),
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name'  => $this->request->getPost('last_name'),
             'active'     => (int) $this->request->getPost('active'),
         ];
 
