@@ -168,10 +168,12 @@ class UserController extends Controller
     public function update($id = null)
     {
         $rules = [
-            'username' => 'required|min_length[3]|max_length[50]',
-            'email' => [
-                'label' => 'E-mail',
-                'rules' => "required|valid_email|is_unique[auth_identities.secret,user_id,{$id},type,email_password]",
+            'username'   => 'required|min_length[3]|max_length[50]',
+            'first_name' => 'required|min_length[2]|max_length[255]',
+            'last_name'  => 'required|min_length[2]|max_length[255]',
+            'email'      => [
+                'label'  => 'E-mail',
+                'rules'  => "required|valid_email|is_unique[auth_identities.secret,user_id,{$id},type,email_password]",
                 'errors' => [
                     'is_unique' => 'Este e-mail já está sendo utilizado.',
                 ],
@@ -179,8 +181,8 @@ class UserController extends Controller
             'password' => [
                 'rules' => 'permit_empty|min_length[6]',
             ],
-            'active' => 'required|in_list[0,1]',
-            'role'   => 'required|in_list[user,admin]',
+            'active'   => 'required|in_list[0,1]',
+            'role'     => 'required|in_list[user,admin]',
         ];
 
         if (! $this->validate($rules)) {
@@ -189,6 +191,8 @@ class UserController extends Controller
 
         $userData = [
             'username'   => $this->request->getPost('username'),
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name'  => $this->request->getPost('last_name'),
             'active'     => (int) $this->request->getPost('active'),
         ];
 
