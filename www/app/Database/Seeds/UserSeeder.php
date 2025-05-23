@@ -25,25 +25,22 @@ class UserSeeder extends Seeder
             // Recupera o ID do usuário existente
             $userId = $emailIdentity->user_id;
 
-            // Atualiza a senha e o campo test_field
+
             $user = $userModel->find($userId);
             if ($user) {
                 $user->fill([
                     'password'    => 'senha123',
-                    'test_field'  => 'teste atualizado',
                     'first_name' => 'Novo Administrador',
                     'last_name' => 'Subítulo Admin'
                 ]);
                 $userModel->save($user);
             }
         } else {
-            // Cria novo usuário com test_field
             $user = new User([
                 'username'    => 'admin',
                 'email'       => 'admin@example.com',
                 'password'    => 'senha123',
                 'active'      => 1,
-                'test_field'  => 'teste feito',
                 'first_name' => 'Administrador',
                 'last_name' => 'Subtittulo',
             ]);

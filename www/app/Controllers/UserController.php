@@ -28,7 +28,6 @@ class UserController extends Controller
                 'created_at' => $createdAt->format('d/m/Y H:i:s'),
                 'active' => $user->active,
                 'role' => $role,
-                'test_field' => $user->test_field,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name
             ];
