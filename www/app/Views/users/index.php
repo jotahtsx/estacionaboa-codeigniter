@@ -70,7 +70,9 @@
                                     ?>
                                     <tr>
                                         <td>
-                                            <img src="<?= $finalImagePath ?>" alt="<?= esc($user['username'] ?? $user['first_name'] ?? 'Usuário') ?>" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                                            <a href="<?php echo base_url('usuarios/editar/' . $user['id']) ?>">
+                                                <img src="<?= $finalImagePath ?>" alt="<?= esc($user['username'] ?? $user['first_name'] ?? 'Usuário') ?>" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                                            </a>
                                         </td>
                                         <td valingn="middle"><?= esc($user['first_name']) ?> <?= esc($user['last_name']) ?></td>
                                         <td><?= esc($user['username']) ?></td>

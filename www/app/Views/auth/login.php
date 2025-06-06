@@ -14,19 +14,27 @@
 
     <div class="login-box">
 
-        <?php if (session('error')): ?>
-            <div class="error-box"><?= session('error') ?></div>
-        <?php endif; ?>
-
-        <?php if (session('errors')): ?>
-            <div class="error-box">
+        <?php if (session()->has('errors')): ?>
+            <div class="alert alert-danger" role="alert">
                 <ul>
-                    <?php foreach (session('errors') as $err): ?>
-                        <li><?= esc($err) ?></li>
-                    <?php endforeach; ?>
+                    <?php foreach (session('errors') as $error): ?>
+                        <li><?= esc($error) ?></li>
+                    <?php endforeach ?>
                 </ul>
             </div>
-        <?php endif; ?>
+        <?php endif ?>
+
+        <?php if (session()->has('error')): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= esc(session('error')) ?>
+            </div>
+        <?php endif ?>
+
+        <?php if (session()->has('success')): ?>
+            <div class="alert alert-success" role="alert">
+                <?= esc(session('success')) ?>
+            </div>
+        <?php endif ?>
 
         <form method="POST" action="<?= site_url('/login') ?>">
             <?= csrf_field() ?>

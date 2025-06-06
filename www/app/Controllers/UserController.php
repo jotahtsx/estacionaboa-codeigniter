@@ -4,9 +4,19 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\UserModel;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class UserController extends Controller
+
 {
+
+    protected UserModel $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = new UserModel();
+    }
+
     public function index()
     {
         $activePage = 'usuarios';
@@ -328,34 +338,32 @@ class UserController extends Controller
         return redirect()->to('/usuarios/editar/' . $id)->with('success', 'Usuário atualizado com sucesso!');
     }
 
-    public function delete($id = null)
+    public function delete($id = null): RedirectResponse
     {
+        if ($id === null) {
+            return redirect()->to('usuarios')->with('error', 'ID de usuário não fornecido para exclusão.');
+        }
+
         $currentUserId = auth()->id();
 
         if ((int) $id === $currentUserId) {
             return redirect()->to('/usuarios')->with('error', 'Você não pode excluir o seu próprio usuário.');
         }
 
-        $userModel = new UserModel();
-
-        $user = $userModel->find($id);
+        $user = $this->userModel->find($id);
         if (! $user) {
             return redirect()->to('/usuarios')->with('error', 'Usuário não encontrado.');
         }
 
-        $db = \Config\Database::connect();
-        $builder = $db->table('auth_identities');
-        $builder->where('user_id', $id)->delete();
-
-        $provider = auth()->getProvider();
-        $shieldUser = $provider->findById($id);
-        if ($shieldUser) {
-            $shieldUser->removeGroup('admin');
-            $shieldUser->removeGroup('user');
+        if (!empty($user->image) && file_exists(FCPATH . $user->image)) {
+            unlink(FCPATH . $user->image);
+            log_message('info', 'Imagem de usuário excluída: ' . FCPATH . $user->image);
         }
 
-        $userModel->delete($id, true);
-
-        return redirect()->to('/usuarios/editar/' . $id)->with('success', 'Usuário atualizado com sucesso!');
+        if ($this->userModel->delete($id, true)) { 
+            return redirect()->to('/usuarios')->with('success', 'Usuário excluído com sucesso!');
+        } else {
+            return redirect()->to('/usuarios')->with('error', 'Erro ao excluir o usuário.');
+        }
     }
 }

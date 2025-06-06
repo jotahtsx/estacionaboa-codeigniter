@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class AuthController extends Controller
 {
@@ -11,16 +12,23 @@ class AuthController extends Controller
         return view('auth/login');
     }
 
-    public function login()
+    /**
+     * Tenta logar o usuário.
+     *
+     * @return RedirectResponse
+     */
+    public function login(): RedirectResponse
     {
-        $session = session();
 
-        // Verifica se o usuário já está logado
+        // No seu AuthController, antes de usar:
+        /** @var \Config\Auth $authConfig */
+        $authConfig = config('Auth');
+
+        // Se o usuário já está logado, redireciona para a página principal.
         if (auth()->loggedIn()) {
-            return redirect()->to('/usuarios');
+            return redirect()->to($authConfig->redirects['login']);
         }
 
-        // Validação dos campos
         $rules = [
             'email'    => 'required|valid_email',
             'password' => 'required',
@@ -35,24 +43,36 @@ class AuthController extends Controller
             'password' => $this->request->getPost('password'),
         ];
 
-        try {
-            if (! auth()->attempt($credentials)) {
-                return redirect()->back()->withInput()->with('error', 'Email ou senha inválidos.');
-            }
-        } catch (\CodeIgniter\Shield\Exceptions\LogicException $e) {
-            // Se já estiver logado, força logout antes de tentar novamente
-            auth()->logout();
-            $session->destroy(); // garante que os dados antigos foram limpos
-            return redirect()->back()->with('error', 'Sessão anterior detectada. Faça login novamente.');
+        $remember = (bool) $this->request->getPost('remember');
+
+        if (! auth()->attempt($credentials, $remember)) {
+            $error = auth()->error() ?? lang('Auth.badAttempt');
+            return redirect()->back()->withInput()->with('error', $error);
         }
 
+        // --- MUDANÇA CRÍTICA AQUI ---
+        // Sempre verifique se o usuário foi obtido com sucesso.
         $user = auth()->user();
+
+        if ($user === null) {
+            // Isso DEVE ser raro, mas acontece se a sessão falhou misteriosamente após o login.
+            // Desloga preventivamente e informa o usuário.
+            auth()->logout();
+            return redirect()->back()->with('error', lang('Auth.badAttempt') . ' Por favor, tente novamente.');
+        }
+
+        // Exemplo: Verificação adicional se o usuário foi banido.
+        if ($user->isBanned()) {
+            auth()->logout();
+            return redirect()->back()->with('error', lang('Auth.userIsBanned'));
+        }
+
         $name = $user->name ?? $user->username ?? 'Usuário';
 
         return redirect()->to('/usuarios')->with('success', "Bem-vindo(a) de volta, {$name}!");
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
     {
         auth()->logout();
         session()->destroy();
