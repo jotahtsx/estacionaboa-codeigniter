@@ -27,6 +27,7 @@ use CodeIgniter\Shield\Authentication\Passwords\PwnedValidator;
 use CodeIgniter\Shield\Authentication\Passwords\ValidatorInterface;
 use CodeIgniter\Shield\Models\UserModel;
 
+
 class Auth extends ShieldAuth
 {
     /**
