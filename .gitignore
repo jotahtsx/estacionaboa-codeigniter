@@ -1,0 +1,14 @@
+.env
+/vendor
+/writable/*
+!/writable/index.html
+/.phpunit.result.cache
+*/uploads
+
+# IDEs e editores
+/.vscode
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
