@@ -276,7 +276,7 @@ php spark migrate --all
 
 ### ❌ "Forbidden" 
 
-## Caso ocorra algum problema no envio de imagens, tente essa solução abaixo:
+#### Caso ocorra algum problema no envio de imagens, tente essa solução abaixo:
 
 - Verifique permissões de arquivos/pastas.
 - Na pasta do projeto, digite: `docker exec -it estacionaboa-web bash`
