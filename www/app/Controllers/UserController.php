@@ -194,10 +194,6 @@ class UserController extends Controller
             return redirect()->to('/usuarios')->with('error', 'Usuário não encontrado.');
         }
 
-        // --- DEPURANDO AQUI ---
-        log_message('debug', 'Dados do usuário na função edit para ID ' . $id . ': ' . json_encode($user));
-        // dd($user); // Descomente esta linha para parar a execução e ver os dados em tempo real
-
         $shieldUser = auth()->getProvider()->findById($user->id);
         $grupo = 'user';
         if ($shieldUser && $shieldUser->inGroup('admin')) {
@@ -295,7 +291,7 @@ class UserController extends Controller
                 !str_contains($currentImagePath, 'defaults/') &&
                 file_exists(FCPATH . $currentImagePath)
             ) {
-                unlink(FCPATH . $currentImagePath); // Remove o arquivo antigo
+                unlink(FCPATH . $currentImagePath);
             }
             $userData['image'] = null;
         }

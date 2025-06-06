@@ -128,20 +128,11 @@
         const genderSelect = document.getElementById('gender');
         const profileImagePreview = document.getElementById('profileImagePreview');
         const fileInput = document.getElementById('image');
-
         const defaultMaleAvatar = '<?= base_url('images/defaults/avatar-male-default.png') ?>';
         const defaultFemaleAvatar = '<?= base_url('images/defaults/avatar-female-default.png') ?>';
         const defaultGenericAvatar = '<?= base_url('images/defaults/avatar-default.png') ?>';
-
-        // CAPTURE A URL INICIAL QUE FOI RENDERIZADA PELO PHP (REMOVENDO O CACHE BUSTER)
         const initialImageSrc = profileImagePreview.src.split('?')[0];
-
-        // PASSE A FLAG DO PHP PARA O JAVASCRIPT
-        // Esta variável nos diz se o PHP inicializou a imagem com uma customizada ou um default.
         const hasCustomImageInitially = <?= $userImageExists ? 'true' : 'false' ?>;
-
-        // Função para atualizar o avatar padrão (chamada APENAS se não houver imagem customizada
-        // ou se o usuário limpar o input file e não tiver imagem customizada)
         function updateAvatarBasedOnGender() {
             const selectedGender = genderSelect.value;
             let newSrc = defaultGenericAvatar;
@@ -151,15 +142,10 @@
             } else if (selectedGender === 'female') {
                 newSrc = defaultFemaleAvatar;
             }
-
-            // Apenas atualize o preview se o input de arquivo estiver vazio E
-            // a imagem atual exibida não for a imagem customizada inicial (ou for um avatar padrão)
             if (!fileInput.files || fileInput.files.length === 0) {
                 profileImagePreview.src = newSrc;
             }
         }
-
-        // Função para pré-visualizar o arquivo selecionado
         function previewFile() {
             const file = fileInput.files[0];
             const reader = new FileReader();
@@ -167,30 +153,20 @@
             reader.onloadend = function() {
                 profileImagePreview.src = reader.result;
             }
-
             if (file) {
                 reader.readAsDataURL(file);
             } else {
-                // Se o usuário limpou o campo de arquivo, restaura a imagem original ou o avatar padrão
                 if (hasCustomImageInitially) {
-                    profileImagePreview.src = initialImageSrc + '?v=' + new Date().getTime(); // Adiciona cache buster novamente
+                    profileImagePreview.src = initialImageSrc + '?v=' + new Date().getTime();
                 } else {
-                    // Se não tinha imagem customizada inicialmente, volta para o avatar de gênero
                     updateAvatarBasedOnGender();
                 }
             }
         }
-
-        // Inicialização: Se não há imagem customizada, o JS aplica o avatar de gênero
-        // Isso é feito apenas se o PHP NÃO definiu uma imagem customizada
         if (!hasCustomImageInitially) {
-            updateAvatarBasedOnGender(); // Aplica o avatar de gênero inicial
+            updateAvatarBasedOnGender();
         }
-
-        // Event Listeners
         genderSelect.addEventListener('change', function() {
-            // Se não há uma imagem customizada inicialmente OU se o usuário limpou o input file
-            // E o input de arquivo está vazio, atualiza o avatar baseado no gênero.
             if (!hasCustomImageInitially || !fileInput.files || fileInput.files.length === 0) {
                  updateAvatarBasedOnGender();
             }
