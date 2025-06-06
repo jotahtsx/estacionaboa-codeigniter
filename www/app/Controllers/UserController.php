@@ -30,10 +30,8 @@ class UserController extends Controller
                 'role' => $role,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
-                // --- ADICIONE ESTAS DUAS LINHAS ---
                 'image' => $user->image,
                 'gender' => $user->gender,
-                // ---------------------------------
             ];
         }
 
@@ -192,8 +190,13 @@ class UserController extends Controller
         $user = $userModel->find($id);
 
         if ($user === null) {
+            log_message('error', 'Usuário não encontrado para edição: ' . $id);
             return redirect()->to('/usuarios')->with('error', 'Usuário não encontrado.');
         }
+
+        // --- DEPURANDO AQUI ---
+        log_message('debug', 'Dados do usuário na função edit para ID ' . $id . ': ' . json_encode($user));
+        // dd($user); // Descomente esta linha para parar a execução e ver os dados em tempo real
 
         $shieldUser = auth()->getProvider()->findById($user->id);
         $grupo = 'user';
@@ -326,7 +329,7 @@ class UserController extends Controller
             $shieldUser->addGroup($novoGrupo);
         }
 
-        return redirect()->to('/usuarios')->with('success', 'Usuário atualizado com sucesso!');
+        return redirect()->to('/usuarios/editar/' . $id)->with('success', 'Usuário atualizado com sucesso!');
     }
 
     public function delete($id = null)
@@ -357,6 +360,6 @@ class UserController extends Controller
 
         $userModel->delete($id, true);
 
-        return redirect()->to('/usuarios')->with('success', 'Usuário excluído com sucesso!');
+        return redirect()->to('/usuarios/editar/' . $id)->with('success', 'Usuário atualizado com sucesso!');
     }
 }

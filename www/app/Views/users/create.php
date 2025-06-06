@@ -12,6 +12,19 @@
                     Criar Novo Usuário
                 </li>
             </ol>
+
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= esc(session()->getFlashdata('error')) ?>
+                </div>
+            <?php endif ?>
+
+            <?php if (session()->getFlashdata('success')) : ?>
+                <div class="alert alert-success" role="alert">
+                    <?= esc(session()->getFlashdata('success')) ?>
+                </div>
+            <?php endif ?>
+
             <div class="card mb-4">
                 <div class="card-body">
 
@@ -75,7 +88,7 @@
                         <div class="mb-3">
                             <label for="gender">Gênero</label>
                             <select name="gender" id="gender" class="form-control">
-                                <option value="">Selecione</option>
+                                <option value="" disabled hidden>Selecione</option>
                                 <option value="male">Masculino</option>
                                 <option value="female">Feminino</option>
                                 <option value="other">Outro</option>
@@ -83,6 +96,20 @@
                         </div>
 
                         <div class="mb-3">
+
+                            <?php
+                            $initialImagePath = base_url('images/defaults/avatar-default.png');
+                            if (old('gender')) {
+                                if (old('gender') === 'female') {
+                                    $initialImagePath = base_url('images/defaults/avatar-female-default.png');
+                                } elseif (old('gender') === 'male') {
+                                    $initialImagePath = base_url('images/defaults/avatar-male-default.png');
+                                }
+                            }
+                            ?>
+
+                            <img id="profileImagePreview" src="<?= $initialImagePath ?>" alt="Avatar do Usuário" class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover; border: 1px solid #ddd;">
+
                             <label for="image" class="form-label">Imagem do Usuário</label>
                             <input type="file" class="form-control" id="image" name="image" accept="image/*">
                         </div>
@@ -96,5 +123,55 @@
 
     </main>
 </div>
-
 <?= $this->include('partials/scripts') ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const genderSelect = document.getElementById('gender');
+        const profileImagePreview = document.getElementById('profileImagePreview');
+        const fileInput = document.getElementById('image');
+
+        const defaultMaleAvatar = '<?= base_url('images/defaults/avatar-male-default.png') ?>';
+        const defaultFemaleAvatar = '<?= base_url('images/defaults/avatar-female-default.png') ?>';
+        const defaultGenericAvatar = '<?= base_url('images/defaults/avatar-default.png') ?>';
+
+        function updateAvatarBasedOnGender() {
+            const selectedGender = genderSelect.value;
+            let newSrc = defaultGenericAvatar;
+
+            if (selectedGender === 'male') {
+                newSrc = defaultMaleAvatar;
+            } else if (selectedGender === 'female') {
+                newSrc = defaultFemaleAvatar;
+            }
+
+            // Só atualiza o preview se nenhuma imagem estiver sendo carregada
+            if (!fileInput.files || fileInput.files.length === 0) {
+                profileImagePreview.src = newSrc;
+            }
+        }
+
+        function previewFile() {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function() {
+                profileImagePreview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file); // Lê o arquivo como URL de dados (Base64)
+            } else {
+                // Se nenhum arquivo for selecionado, volta para o avatar padrão de gênero
+                updateAvatarBasedOnGender();
+            }
+        }
+
+        // Adiciona listeners
+        genderSelect.addEventListener('change', updateAvatarBasedOnGender);
+        fileInput.addEventListener('change', previewFile);
+
+        // Chama a função ao carregar a página para definir o avatar inicial se 'old' gender estiver presente
+        updateAvatarBasedOnGender();
+    });
+</script>

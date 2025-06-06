@@ -4,16 +4,6 @@
 
 <div id="layoutSidenav_content">
     <main>
-
-        <?php if (session('validation')): ?>
-            <div class="alert alert-danger">
-                <ul style="list-style: none; padding-left: 0; margin-bottom: 0;">
-                    <?= session('validation')->listErrors() ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-
         <div class="container-fluid px-4">
             <h1 class="mt-4">Editar: <b><?= esc($user->first_name) ?> <?= esc($user->last_name) ?></b></h1>
             <ol class="breadcrumb mb-4">
@@ -26,19 +16,21 @@
                 <li class="breadcrumb-item">Editar</li>
                 <li class="breadcrumb-item active"><?= esc($user->first_name) ?> <?= esc($user->last_name) ?></li>
             </ol>
+
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= esc(session()->getFlashdata('error')) ?>
+                </div>
+            <?php endif ?>
+
+            <?php if (session()->getFlashdata('success')) : ?>
+                <div class="alert alert-success" role="alert">
+                    <?= esc(session()->getFlashdata('success')) ?>
+                </div>
+            <?php endif ?>
+
             <div class="card mb-4">
-
                 <div class="card-body">
-
-                    <?php if (session('validation')): ?>
-                        <div class="alert alert-danger">
-                            <ul style="list-style: none; padding-left: 0; margin-bottom: 0;">
-                                <?= session('validation')->listErrors() ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
-
-
                     <form action="<?= base_url('usuarios/atualizar/' . $user->id) ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
                         <input type="hidden" name="id" value="<?= esc($user->id) ?>">
@@ -92,9 +84,32 @@
                         </div>
 
                         <div class="mb-3">
+                            <?php
+                            $userImageExists = false;
+                            $finalImagePath = base_url('images/defaults/avatar-default.png');
+                            if (!empty($user->image) && is_string($user->image)) {
+                                $fullPathOnDisk = FCPATH . $user->image;
+                                if (file_exists($fullPathOnDisk)) {
+                                    $finalImagePath = base_url($user->image);
+                                    $userImageExists = true;
+                                } else {
+                                    log_message('warning', 'Imagem do usuário ' . $user->id . ' no DB mas não encontrada no disco: ' . $fullPathOnDisk);
+                                }
+                            }
+                            if (!$userImageExists) {
+                                $genderForAvatar = old('gender', $user->gender);
+                                if ($genderForAvatar === 'female') {
+                                    $finalImagePath = base_url('images/defaults/avatar-female-default.png');
+                                } elseif ($genderForAvatar === 'male') {
+                                    $finalImagePath = base_url('images/defaults/avatar-male-default.png');
+                                }
+                            }
+                            ?>
+                            <img id="profileImagePreview" src="<?= $finalImagePath ?>?v=<?= time() ?>" alt="Avatar do Usuário" class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover; border: 1px solid #ddd;">
+                            <br>
                             <label for="image" class="form-label">Imagem de Perfil</label>
                             <input type="file" class="form-control" id="image" name="image" accept="image/jpeg,image/png,image/gif,image/webp">
-                            <small class="form-text text-muted">Formatos permitidos: JPG, PNG, GIF, WEBP. Tamanho máximo: 2MB.</small>
+                            <small class="form-text text-muted">Formatos permitidos: JPG, PNG, GIF, WEBP. Tamanho máximo: 2MB. Deixe em branco para manter a imagem atual.</small>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
@@ -107,3 +122,80 @@
 </div>
 
 <?= $this->include('partials/scripts') ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const genderSelect = document.getElementById('gender');
+        const profileImagePreview = document.getElementById('profileImagePreview');
+        const fileInput = document.getElementById('image');
+
+        const defaultMaleAvatar = '<?= base_url('images/defaults/avatar-male-default.png') ?>';
+        const defaultFemaleAvatar = '<?= base_url('images/defaults/avatar-female-default.png') ?>';
+        const defaultGenericAvatar = '<?= base_url('images/defaults/avatar-default.png') ?>';
+
+        // CAPTURE A URL INICIAL QUE FOI RENDERIZADA PELO PHP (REMOVENDO O CACHE BUSTER)
+        const initialImageSrc = profileImagePreview.src.split('?')[0];
+
+        // PASSE A FLAG DO PHP PARA O JAVASCRIPT
+        // Esta variável nos diz se o PHP inicializou a imagem com uma customizada ou um default.
+        const hasCustomImageInitially = <?= $userImageExists ? 'true' : 'false' ?>;
+
+        // Função para atualizar o avatar padrão (chamada APENAS se não houver imagem customizada
+        // ou se o usuário limpar o input file e não tiver imagem customizada)
+        function updateAvatarBasedOnGender() {
+            const selectedGender = genderSelect.value;
+            let newSrc = defaultGenericAvatar;
+
+            if (selectedGender === 'male') {
+                newSrc = defaultMaleAvatar;
+            } else if (selectedGender === 'female') {
+                newSrc = defaultFemaleAvatar;
+            }
+
+            // Apenas atualize o preview se o input de arquivo estiver vazio E
+            // a imagem atual exibida não for a imagem customizada inicial (ou for um avatar padrão)
+            if (!fileInput.files || fileInput.files.length === 0) {
+                profileImagePreview.src = newSrc;
+            }
+        }
+
+        // Função para pré-visualizar o arquivo selecionado
+        function previewFile() {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function() {
+                profileImagePreview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                // Se o usuário limpou o campo de arquivo, restaura a imagem original ou o avatar padrão
+                if (hasCustomImageInitially) {
+                    profileImagePreview.src = initialImageSrc + '?v=' + new Date().getTime(); // Adiciona cache buster novamente
+                } else {
+                    // Se não tinha imagem customizada inicialmente, volta para o avatar de gênero
+                    updateAvatarBasedOnGender();
+                }
+            }
+        }
+
+        // Inicialização: Se não há imagem customizada, o JS aplica o avatar de gênero
+        // Isso é feito apenas se o PHP NÃO definiu uma imagem customizada
+        if (!hasCustomImageInitially) {
+            updateAvatarBasedOnGender(); // Aplica o avatar de gênero inicial
+        }
+
+        // Event Listeners
+        genderSelect.addEventListener('change', function() {
+            // Se não há uma imagem customizada inicialmente OU se o usuário limpou o input file
+            // E o input de arquivo está vazio, atualiza o avatar baseado no gênero.
+            if (!hasCustomImageInitially || !fileInput.files || fileInput.files.length === 0) {
+                 updateAvatarBasedOnGender();
+            }
+        });
+
+        fileInput.addEventListener('change', previewFile);
+    });
+</script>
