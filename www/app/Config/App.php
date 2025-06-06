@@ -140,5 +140,5 @@ class App extends BaseConfig
      */
     public bool $CSPEnabled = false;
 
-    public $sessionExpiration = 30;
+    public $sessionExpiration = 600;
 }
