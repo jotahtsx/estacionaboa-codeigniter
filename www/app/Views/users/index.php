@@ -36,6 +36,7 @@
                     <table class="datatable">
                         <thead>
                             <tr>
+                                <th>Imagem</th>
                                 <th>Nome</th>
                                 <th>Username</th>
                                 <th>Email</th>
@@ -47,8 +48,31 @@
                         <tbody>
                             <?php if (!empty($users)) : ?>
                                 <?php foreach ($users as $user) : ?>
+                                    <?php
+                                    $userImagePath = null;
+                                    if (!empty($user['image']) && is_string($user['image']) && file_exists(FCPATH . $user['image'])) {
+                                        $userImagePath = $user['image'];
+                                    }
+                                    if ($userImagePath) {
+                                        $userImagePath = ltrim($userImagePath, '/');
+                                        $finalImagePath = base_url($userImagePath);
+                                    } else {
+                                        $defaultAvatar = 'images/defaults/avatar-default.png';
+                                        if (isset($user['gender']) && !empty($user['gender'])) {
+                                            if ($user['gender'] === 'female') {
+                                                $defaultAvatar = 'images/defaults/avatar-female-default.png';
+                                            } elseif ($user['gender'] === 'male') {
+                                                $defaultAvatar = 'images/defaults/avatar-male-default.png';
+                                            }
+                                        }
+                                        $finalImagePath = base_url($defaultAvatar);
+                                    }
+                                    ?>
                                     <tr>
-                                        <td><?= esc($user['first_name']) ?> <?= esc($user['last_name']) ?></td>
+                                        <td>
+                                            <img src="<?= $finalImagePath ?>" alt="<?= esc($user['username'] ?? $user['first_name'] ?? 'Usuário') ?>" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                                        </td>
+                                        <td valingn="middle"><?= esc($user['first_name']) ?> <?= esc($user['last_name']) ?></td>
                                         <td><?= esc($user['username']) ?></td>
                                         <td><?= esc($user['email']) ?></td>
                                         <td><?= esc($user['role']) ?></td>

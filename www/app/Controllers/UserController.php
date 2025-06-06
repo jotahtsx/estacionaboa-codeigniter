@@ -29,7 +29,11 @@ class UserController extends Controller
                 'active' => $user->active,
                 'role' => $role,
                 'first_name' => $user->first_name,
-                'last_name' => $user->last_name
+                'last_name' => $user->last_name,
+                // --- ADICIONE ESTAS DUAS LINHAS ---
+                'image' => $user->image,
+                'gender' => $user->gender,
+                // ---------------------------------
             ];
         }
 
