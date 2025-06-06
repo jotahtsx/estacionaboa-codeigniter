@@ -274,11 +274,12 @@ php spark migrate --all
 4. Confira se extensões PHP foram instaladas corretamente.
 5. Verifique o arquivo `.env`.
 
-### ❌ "Forbidden"
+### ❌ "Forbidden" 
 
 - Verifique permissões de arquivos/pastas.
-- Confirme que o Apache aponta para o diretório `public/`.
-- Cheque o `.htaccess`.
+- Na pasta do projeto, digite: `docker exec -it estacionaboa-web bash`
+- Então digite: `chown -R www-data:www-data public/uploads`
+- E também: `chmod -R 0755 public/uploads`
 
 ---
 
