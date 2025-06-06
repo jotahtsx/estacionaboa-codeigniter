@@ -12,3 +12,9 @@
 # Sistema operacional
 .DS_Store
 Thumbs.db
+
+# Ignora todo conteúdo dentro de uploads/
+www/public/uploads/*
+
+# Exceto o .gitkeep para manter a pasta principal
+!www/public/uploads/.gitkeep
