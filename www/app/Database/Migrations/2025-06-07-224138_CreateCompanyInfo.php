@@ -120,6 +120,6 @@ class CreateCompanyInfo extends Migration
 
     public function down()
     {
-        //
+        $this->forge->dropTable('company_info', true);
     }
 }
