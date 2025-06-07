@@ -41,7 +41,6 @@
         let idleInterval;
         let warningTimeout;
 
-        // Função para iniciar ou reiniciar o timer de inatividade
         function startIdleTimer() {
             idleTime = 0;
             if (idleInterval) {
@@ -53,47 +52,39 @@
 
             idleInterval = setInterval(function() {
                 idleTime++;
-                // Verifica se é hora de mostrar o aviso de logout
                 if (idleTime === (idleLimit - warningTime)) {
                     showLogoutWarning();
                 }
 
-                // Verifica se o limite de inatividade foi atingido
+                
                 if (idleTime >= idleLimit) {
-                    logoutViaPost(); // Aciona o logout
-                    clearInterval(idleInterval); // Para o timer de inatividade
+                    logoutViaPost();
+                    clearInterval(idleInterval);
                     if (warningTimeout) {
-                        clearTimeout(warningTimeout); // Limpa o timer do aviso
+                        clearTimeout(warningTimeout);
                     }
-                    hideLogoutWarning(); // Garante que o aviso seja escondido
+                    hideLogoutWarning();
                 }
-            }, 1000); // Roda a cada 1 segundo
+            }, 1000);
         }
 
-        // Função para resetar o timer ao interagir
         function resetTimer() {
-            // Zera o contador e reinicia o timer completo.
-            // Isso garante que a contagem sempre comece do zero após qualquer interação.
             startIdleTimer();
-            hideLogoutWarning(); // Garante que o aviso seja escondido se o usuário interagir
+            hideLogoutWarning(); 
         }
 
-        // Função para realizar o logout via POST
         function logoutViaPost() {
             fetch('/logout', {
                 method: 'POST',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': '<?= csrf_hash() ?>' // Essencial para proteção CSRF
+                    'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
                 },
                 credentials: 'same-origin'
             }).then(() => {
-                // Redireciona para a página de login após o logout bem-sucedido
                 window.location.href = '/login';
             }).catch(error => {
                 console.error('Erro ao tentar logout:', error);
-                // Em caso de erro, ainda pode redirecionar para login
-                // ou exibir uma mensagem ao usuário.
                 window.location.href = '/login';
             });
         }
