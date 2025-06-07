@@ -9,7 +9,6 @@ use CodeIgniter\HTTP\RedirectResponse;
 class UserController extends Controller
 
 {
-
     protected UserModel $userModel;
 
     public function __construct()
@@ -90,7 +89,6 @@ class UserController extends Controller
         ]);
     }
 
-
     public function create()
     {
         return view('users/create', [
@@ -145,20 +143,16 @@ class UserController extends Controller
                 }
             }
 
-            // Cria a pasta 'uploads/users' se não existir
             if (!is_dir($usersPath)) {
                 if (!mkdir($usersPath, 0755, true) && !is_dir($usersPath)) {
                     throw new \RuntimeException('Não foi possível criar a pasta uploads/users.');
                 }
             }
 
-            // Gera nome único para evitar conflito
             $newName = $imageFile->getRandomName();
 
-            // Move o arquivo para a pasta
             $imageFile->move($usersPath, $newName);
 
-            // Salva caminho relativo no banco
             $imagePath = 'uploads/users/' . $newName;
         }
 
@@ -360,7 +354,7 @@ class UserController extends Controller
             log_message('info', 'Imagem de usuário excluída: ' . FCPATH . $user->image);
         }
 
-        if ($this->userModel->delete($id, true)) { 
+        if ($this->userModel->delete($id, true)) {
             return redirect()->to('/usuarios')->with('success', 'Usuário excluído com sucesso!');
         } else {
             return redirect()->to('/usuarios')->with('error', 'Erro ao excluir o usuário.');

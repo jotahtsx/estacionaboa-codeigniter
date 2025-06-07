@@ -16,6 +16,8 @@ $routes->get('/logout', 'AuthController::logout');
 
 
 $routes->group('usuarios', ['filter' => 'session'], function ($routes) {
+    $routes->post('usuarios/toggle-active/(:num)', 'UserController::toggleActive/$1');
+
     $routes->get('/', 'UserController::index'); // Listagem de usuários em /usuarios
     $routes->get('cadastrar', 'UserController::create');
     $routes->post('cadastrar', 'UserController::store');
