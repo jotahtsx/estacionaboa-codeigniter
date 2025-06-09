@@ -23,11 +23,11 @@ class CreateCompanyInfo extends Migration
             'trade_name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
-                'null'       => false,
+                'null'       => true, // Nome fantasia pode ser nulo
             ],
             'cnpj' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '18',
+                'constraint' => '18', // Formato XX.XXX.XXX/YYYY-ZZ
                 'unique'     => true,
                 'null'       => false,
             ],
@@ -48,8 +48,8 @@ class CreateCompanyInfo extends Migration
             ],
             'email_contact' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null'       => false,
+                'constraint' => '100',
+                'null'       => true,
             ],
             'website_url' => [
                 'type'       => 'VARCHAR',
@@ -57,10 +57,6 @@ class CreateCompanyInfo extends Migration
                 'null'       => true,
             ],
             'social_media_url' => [
-                'type' => 'TEXT',
-                'null' => true,
-            ],
-            'logo_path' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
                 'null'       => true,
@@ -68,17 +64,17 @@ class CreateCompanyInfo extends Migration
             'address_zipcode' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '10',
-                'null'       => false,
+                'null'       => true,
             ],
             'address_street' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
-                'null'       => false,
+                'null'       => true,
             ],
             'address_number' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '50',
-                'null'       => false,
+                'null'       => true,
             ],
             'address_complement' => [
                 'type'       => 'VARCHAR',
@@ -87,39 +83,30 @@ class CreateCompanyInfo extends Migration
             ],
             'address_neighborhood' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null'       => false,
+                'constraint' => '100',
+                'null'       => true,
             ],
             'address_city' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null'       => false,
+                'constraint' => '100',
+                'null'       => true,
             ],
             'address_state' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '2',
-                'null'       => false,
+                'null'       => true,
             ],
-            'created_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
-            'updated_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
-            'deleted_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
+            'created_at datetime default current_timestamp',
+            'updated_at datetime default current_timestamp on update current_timestamp',
+            'deleted_at datetime default null',
         ]);
 
-        $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('company_info', true);
+        $this->forge->addKey('id', true);
+        $this->forge->createTable('company', true); // Nome da tabela será 'company'
     }
 
     public function down()
     {
-        $this->forge->dropTable('company_info', true);
+        $this->forge->dropTable('company', true);
     }
 }
