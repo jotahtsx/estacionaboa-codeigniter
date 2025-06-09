@@ -17,6 +17,7 @@ class Home extends Controller
 
     public function dashboard()
     {
-        return view('dashboard', ['active_page' => 'home']);
+        return view('dashboard', ['active_page' => 'home', 'titlePage'  
+    => 'Visão geral']);
     }
 }

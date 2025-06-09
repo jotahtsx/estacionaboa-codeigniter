@@ -138,13 +138,13 @@ class UserController extends Controller
 
             // Cria a pasta 'uploads' se não existir
             if (!is_dir($uploadsPath)) {
-                if (!mkdir($uploadsPath, 0755, true) && !is_dir($uploadsPath)) {
+                if (!mkdir($uploadsPath, 0777, true) && !is_dir($uploadsPath)) {
                     throw new \RuntimeException('Não foi possível criar a pasta uploads.');
                 }
             }
 
             if (!is_dir($usersPath)) {
-                if (!mkdir($usersPath, 0755, true) && !is_dir($usersPath)) {
+                if (!mkdir($usersPath, 0777, true) && !is_dir($usersPath)) {
                     throw new \RuntimeException('Não foi possível criar a pasta uploads/users.');
                 }
             }
