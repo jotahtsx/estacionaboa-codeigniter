@@ -162,17 +162,17 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
    cp .env.example .env
    ```
 
-4. **Configure o ambiente:**
+5. **Configure o ambiente:**
    ```bash
    sed -i 's/^#\?\s*CI_ENVIRONMENT\s*=.*/CI_ENVIRONMENT = development/' .env
    ```
 
-5. **Saia do container:**
+6. **Saia do container:**
    ```bash
    exit
    ```
 
-6. **Ajuste as permissões do diretório `writable`:**
+7. **Ajuste as permissões do diretório `writable`:**
    ```bash
    docker exec -it estacionaboa-web chmod -R 777 /var/www/html/writable
    ```
@@ -193,14 +193,19 @@ sudo chown -R $USER:$USER www
 
 ## 🔧 Configuração do ambiente e cache
 
-Verifique se o ambiente está correto:
+### Acesse novamente o bash do codeigniter
 
 ```bash
 docker exec -it estacionaboa-web bash
+```
+
+### Verifique se o ambiente está correto:
+
+```bash
 php spark env
 ```
 
-Se necessário, limpe o cache:
+### Se necessário, limpe o cache:
 
 ```bash
 php spark cache:clear
@@ -282,8 +287,9 @@ php spark migrate --all
 
 #### Caso ocorra algum problema no envio de imagens, tente essa solução abaixo:
 
-- Verifique permissões de arquivos/pastas.
+Verifique permissões de arquivos/pastas.
 - Na pasta do projeto, digite: `docker exec -it estacionaboa-web bash`
+- Após isso crie a pasta de uploads, caso não exista: `mkdir public/uploads`
 - Então digite: `chown -R www-data:www-data public/uploads`
 - E também: `chmod -R 0755 public/uploads`
 
