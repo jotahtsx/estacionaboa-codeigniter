@@ -5,9 +5,8 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-
 $routes->get('/', 'Home::index');
-$routes->get('/dashboard', 'Home::dashboard', ['filter' => 'session']); // Adicionada a rota para o dashboard
+$routes->get('/dashboard', 'Admin\Dashboard::dashboard', ['filter' => 'session']);
 
 
 $routes->get('/login', 'AuthController::loginForm');
@@ -18,7 +17,7 @@ $routes->get('/logout', 'AuthController::logout');
 $routes->group('usuarios', ['filter' => 'session'], function ($routes) {
     $routes->post('usuarios/toggle-active/(:num)', 'UserController::toggleActive/$1');
 
-    $routes->get('/', 'UserController::index'); // Listagem de usuários em /usuarios
+    $routes->get('/', 'UserController::index');
     $routes->get('cadastrar', 'UserController::create');
     $routes->post('cadastrar', 'UserController::store');
     $routes->get('editar/(:num)', 'UserController::edit/$1');
