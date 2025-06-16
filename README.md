@@ -12,10 +12,16 @@
 
 ---
 
-## 🧪 Primeiros passos: clonando o projeto
+## 🧪 Primeiro passo: clonando o projeto
 
 ```bash
 git clone https://github.com/jotahtsx/estacionaboa-codeigniter.git
+cd estacionaboa-codeigniter
+```
+
+## 📝 Segundo passo: acessando o projeto
+
+```bash
 cd estacionaboa-codeigniter
 ```
 
