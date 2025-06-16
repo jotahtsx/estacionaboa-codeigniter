@@ -160,10 +160,9 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 4. **Crie o arquivo `.env` e configure o ambiente:**
    ```bash
    cp .env.example .env
-   sed -i 's/^#\?\s*CI_ENVIRONMENT\s*=.*/CI_ENVIRONMENT = development/' .env
    ```
 
-4. **Crie o arquivo `.env` e configure o ambiente:**
+4. **Configure o ambiente:**
    ```bash
    sed -i 's/^#\?\s*CI_ENVIRONMENT\s*=.*/CI_ENVIRONMENT = development/' .env
    ```
