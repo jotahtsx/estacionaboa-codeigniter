@@ -157,13 +157,16 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
    composer install
    ```
 
-4. **Crie o arquivo `.env` e configure o ambiente:**
+4. **Crie o arquivo `.env`:**
    ```bash
    cp .env.example .env
-   sed -i 's/^#\?\s*CI_ENVIRONMENT\s*=.*/CI_ENVIRONMENT = development/' .env
    ```
+5. **Agora configure o ambiente:**   
+   ```bash
+  sed -i 's/^#\?\s*CI_ENVIRONMENT\s*=.*/CI_ENVIRONMENT = development/' .env
+  ```
 
-5. **Saia do container:**
+6. **Saia do container:**
    ```bash
    exit
    ```
