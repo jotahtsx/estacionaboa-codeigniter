@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RedirectResponse;
@@ -19,8 +19,6 @@ class AuthController extends Controller
      */
     public function login(): RedirectResponse
     {
-
-        // No seu AuthController, antes de usar:
         /** @var \Config\Auth $authConfig */
         $authConfig = config('Auth');
 
@@ -50,18 +48,16 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('error', $error);
         }
 
-        // --- MUDANÇA CRÍTICA AQUI ---
         // Sempre verifique se o usuário foi obtido com sucesso.
         $user = auth()->user();
 
         if ($user === null) {
-            // Isso DEVE ser raro, mas acontece se a sessão falhou misteriosamente após o login.
             // Desloga preventivamente e informa o usuário.
             auth()->logout();
             return redirect()->back()->with('error', lang('Auth.badAttempt') . ' Por favor, tente novamente.');
         }
 
-        // Exemplo: Verificação adicional se o usuário foi banido.
+        // Verifica se o usuário está banido.
         if ($user->isBanned()) {
             auth()->logout();
             return redirect()->back()->with('error', lang('Auth.userIsBanned'));
