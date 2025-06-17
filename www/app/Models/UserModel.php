@@ -8,10 +8,10 @@ class UserModel extends ShieldUserModel
 {
     protected $table = 'users';
     protected $primaryKey = 'id';
-
     protected $returnType = \App\Entities\User::class;
 
     protected $allowedFields = [
+        'id',
         'username',
         'active',
         'last_login_at',
@@ -23,6 +23,6 @@ class UserModel extends ShieldUserModel
         'gender',
     ];
 
-    // Desativa timestamps automáticos
-    protected $useTimestamps = false;
+    protected $useSoftDeletes = false;
+    protected $useTimestamps = true;
 }

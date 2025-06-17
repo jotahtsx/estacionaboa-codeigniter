@@ -9,6 +9,11 @@ class AuthController extends Controller
 {
     public function loginForm()
     {
+        // Se o usuário já estiver logado e tentar acessar o formulário de login,
+        // redireciona-o para o dashboard do admin.
+        if (auth()->loggedIn()) {
+            return redirect()->to(url_to('dashboard'));
+        }
         return view('auth/login');
     }
 
@@ -22,9 +27,10 @@ class AuthController extends Controller
         /** @var \Config\Auth $authConfig */
         $authConfig = config('Auth');
 
-        // Se o usuário já está logado, redireciona para a página principal.
+        // Se o usuário já está logado, redireciona para a página principal do admin.
+        // Usar url_to() com um nome de rota específico é mais robusto.
         if (auth()->loggedIn()) {
-            return redirect()->to($authConfig->redirects['login']);
+            return redirect()->to(url_to('dashboard')); // <--- CORREÇÃO AQUI!
         }
 
         $rules = [
@@ -48,16 +54,13 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('error', $error);
         }
 
-        // Sempre verifique se o usuário foi obtido com sucesso.
         $user = auth()->user();
 
         if ($user === null) {
-            // Desloga preventivamente e informa o usuário.
             auth()->logout();
             return redirect()->back()->with('error', lang('Auth.badAttempt') . ' Por favor, tente novamente.');
         }
 
-        // Verifica se o usuário está banido.
         if ($user->isBanned()) {
             auth()->logout();
             return redirect()->back()->with('error', lang('Auth.userIsBanned'));
@@ -65,13 +68,15 @@ class AuthController extends Controller
 
         $name = $user->name ?? $user->username ?? 'Usuário';
 
-        return redirect()->to('/usuarios')->with('success', "Bem-vindo(a) de volta, {$name}!");
+        // Redirecionamento após login bem-sucedido para o dashboard do admin
+        return redirect()->to(url_to('dashboard'))->with('success', "Bem-vindo(a) de volta, {$name}!");
     }
 
     public function logout(): RedirectResponse
     {
         auth()->logout();
-        session()->destroy();
-        return redirect()->to('/login')->with('success', 'Você saiu com sucesso.');
+        session()->destroy(); // Garante que a sessão seja completamente destruída
+        // Redireciona para o formulário de login usando o nome da rota
+        return redirect()->to(url_to('login'))->with('success', 'Você saiu com sucesso.');
     }
 }

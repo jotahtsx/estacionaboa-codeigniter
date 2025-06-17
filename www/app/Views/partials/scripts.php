@@ -56,7 +56,6 @@
                     showLogoutWarning();
                 }
 
-                
                 if (idleTime >= idleLimit) {
                     logoutViaPost();
                     clearInterval(idleInterval);
@@ -89,26 +88,24 @@
             });
         }
 
-        // --- Funções para o aviso de logout --- //
         function showLogoutWarning() {
-            const warningDiv = document.getElementById('logoutWarning'); // ID da div do aviso
+            const warningDiv = document.getElementById('logoutWarning');
             if (warningDiv) {
-                warningDiv.style.display = 'block'; // Mostra a div
+                warningDiv.style.display = 'block';
                 let countdown = warningTime;
                 const countdownSpan = warningDiv.querySelector('.countdown');
 
                 if (countdownSpan) {
-                    countdownSpan.textContent = countdown; // Exibe o tempo inicial
+                    countdownSpan.textContent = countdown;
                 }
 
-                // Inicia a contagem regressiva no aviso
                 warningTimeout = setInterval(() => {
                     countdown--;
                     if (countdownSpan) {
                         countdownSpan.textContent = countdown;
                     }
                     if (countdown <= 0) {
-                        clearInterval(warningTimeout); // Para a contagem regressiva
+                        clearInterval(warningTimeout);
                     }
                 }, 1000);
             }
@@ -117,22 +114,20 @@
         function hideLogoutWarning() {
             const warningDiv = document.getElementById('logoutWarning');
             if (warningDiv) {
-                warningDiv.style.display = 'none'; // Esconde a div
+                warningDiv.style.display = 'none';
                 if (warningTimeout) {
-                    clearInterval(warningTimeout); // Para o timer do aviso se estiver rodando
+                    clearInterval(warningTimeout);
                     warningTimeout = null;
                 }
             }
         }
 
-        // Inicia o timer quando o DOM estiver completamente carregado
         startIdleTimer();
 
-        // Adiciona listeners para eventos de interação do usuário
         document.addEventListener('mousemove', resetTimer);
         document.addEventListener('keypress', resetTimer);
         document.addEventListener('mousedown', resetTimer);
-        document.addEventListener('touchstart', resetTimer); // Para dispositivos de toque
+        document.addEventListener('touchstart', resetTimer);
         document.addEventListener('scroll', resetTimer);
         document.addEventListener('click', resetTimer);
 
@@ -142,7 +137,3 @@
         }
     });
 </script>
-
-</body>
-
-</html>
