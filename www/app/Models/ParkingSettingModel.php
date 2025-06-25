@@ -13,6 +13,7 @@ class ParkingSettingModel extends Model
     protected $useSoftDeletes   = false;
 
     protected $allowedFields    = [
+        'legal_name',
         'trade_name',
         'cnpj',
         'state_registration',

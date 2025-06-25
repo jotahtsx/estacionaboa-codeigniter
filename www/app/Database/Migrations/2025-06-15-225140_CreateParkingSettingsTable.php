@@ -15,6 +15,11 @@ class CreateParkingSettingsTable extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
+            'legal_name' => [
+                'type'           => 'VARCHAR',
+                'constraint'     => '255',
+                'null'           => false,
+            ],
             'trade_name' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => '255',

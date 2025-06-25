@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\ParkingSettingModel;
@@ -22,7 +22,11 @@ class ParkingSettingController extends BaseController
     {
         $config = $this->parkingSettingModel->first();
 
-        return view('admin/settings/edit', ['config' => $config]);
+        return view('admin/settings/edit', [
+            'config' => $config,
+            'active_page' => 'configuracoes',
+            'titlePage' => 'Configurações do sistema'
+        ]);
     }
 
     public function update()
@@ -30,6 +34,7 @@ class ParkingSettingController extends BaseController
         $id = $this->request->getPost('id');
 
         $data = $this->request->getPost([
+            'legal_name',
             'trade_name',
             'cnpj',
             'state_registration',

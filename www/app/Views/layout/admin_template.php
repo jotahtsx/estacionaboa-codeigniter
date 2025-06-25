@@ -7,8 +7,7 @@ $titlePage   = $titlePage ?? 'Painel de Controle';
 $viewDataForPartials = [
     'active_page' => $active_page,
     'titlePage'   => $titlePage,
-    'user'        => auth()->user(), // Passa o objeto do usuário logado para as partials
-    // Adicione aqui outras variáveis que você queira que TODAS as partials tenham acesso
+    'user'        => auth()->user(),
 ];
 ?>
 <!DOCTYPE html>

@@ -24,9 +24,9 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>Usuários
                 </a>
 
-                <a class="nav-link <?php echo ($active_page == 'sistema') ? 'active' : ''; ?>" href="<?php echo base_url('admin/settings'); ?>">
+                <a class="nav-link <?php echo ($active_page == 'configuracoes') ? 'active' : ''; ?>" href="<?php echo base_url('admin/configuracoes'); ?>">
                     <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
-                    Sistema
+                    Configurações
                 </a>
                 <a class="nav-link" href="tables.html">
                     <div class="sb-nav-link-icon"><i class="fas fas fa-tag"></i></div>
