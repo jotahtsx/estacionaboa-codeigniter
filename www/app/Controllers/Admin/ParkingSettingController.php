@@ -22,7 +22,7 @@ class ParkingSettingController extends BaseController
     {
         $config = $this->parkingSettingModel->first();
 
-        return view('settings/edit', ['config' => $config]);
+        return view('admin/settings/edit', ['config' => $config]);
     }
 
     public function update()
