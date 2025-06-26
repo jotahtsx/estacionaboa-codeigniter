@@ -12184,6 +12184,12 @@ table.datatable th {
   box-shadow: none !important;
 }
 
+.admin-form textarea:focus {
+  border-color: #ccc;
+  outline: none;
+  box-shadow: none !important;
+}
+
 .auth .error-box {
   background: #ffe0e0;
   color: #900;

@@ -417,7 +417,7 @@ class UserController extends Controller
             log_message('error', 'Shield User não encontrado durante a atualização do grupo para o ID: ' . $id . '. Possível inconsistência.');
             return redirect()->back()->withInput()->with('error', 'Erro interno: Não foi possível atualizar a permissão do usuário. Contate o suporte.');
         }
-        return redirect()->to(url_to('admin_usuarios_edit', $id))->with('success', 'Usuário atualizado com sucesso!');
+        return redirect()->to(url_to('admin_usuarios_edit', $id))->with('success', 'Usuário atualizado com sucesso.');
     }
 
     public function delete($id = null): RedirectResponse
