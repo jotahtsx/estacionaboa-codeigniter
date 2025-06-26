@@ -14,14 +14,14 @@
         <li class="breadcrumb-item active"><?= esc($titlePage) ?></li>
     </ol>
     <?php if (session()->has('success')) : ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success admin-msg alert-dismissible fade show" role="alert">
             <?= session('success') ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
 
     <?php if (session()->has('error')) : ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger admin-msg alert-dismissible fade show" role="alert">
             <?= session('error') ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

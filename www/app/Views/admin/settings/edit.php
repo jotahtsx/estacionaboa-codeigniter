@@ -12,7 +12,7 @@
     </ol>
 
     <?php if (session()->getFlashdata('success')): ?>
-        <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+        <div class="alert alert-success admin-msg"><?= session()->getFlashdata('success') ?></div>
     <?php endif; ?>
 
     <form class="admin-form mb-3" action="<?= base_url('admin/configuracoes') ?>" method="post">

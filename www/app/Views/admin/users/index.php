@@ -2,16 +2,16 @@
 
 <?= $this->section('content') ?>
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Usuários</h1>
+    <h1 class="mt-4 title-page"><b>Usuários</b></h1>
 
     <?php if (session()->getFlashdata('error')) : ?>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger admin-msg" role="alert">
             <?= esc(session()->getFlashdata('error')) ?>
         </div>
     <?php endif ?>
 
     <?php if (session()->getFlashdata('success')) : ?>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success admin-msg" role="alert">
             <?= esc(session()->getFlashdata('success')) ?>
         </div>
     <?php endif ?>

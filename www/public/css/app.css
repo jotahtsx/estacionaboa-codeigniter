@@ -12327,4 +12327,10 @@ table.datatable th {
   font-size: 1.2rem;
   text-transform: uppercase;
 }
+
+.admin-msg {
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+}
 /*# sourceMappingURL=app.css.map */
