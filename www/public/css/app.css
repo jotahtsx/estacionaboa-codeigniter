@@ -12173,4 +12173,18 @@ table.datatable th {
 .auth button:hover {
   background: #005fa3;
 }
+
+.address-readonly-styled {
+  background-color: #e9ecef;
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+.address-readonly-styled:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ced4da;
+}
+.address-readonly-styled.form-control:focus:read-only {
+  border-color: #ced4da;
+}
 /*# sourceMappingURL=app.css.map */
