@@ -50,6 +50,11 @@ class CreateParkingSettingsTable extends Migration
                 'constraint'     => '255',
                 'null'           => false,
             ],
+            'neighborhood' => [
+                'type'           => 'VARCHAR',
+                'constraint'     => '100',
+                'null'           => false,
+            ],
             'number' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => '10',

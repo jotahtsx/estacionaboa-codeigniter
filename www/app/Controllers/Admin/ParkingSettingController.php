@@ -41,6 +41,7 @@ class ParkingSettingController extends BaseController
             'phone_number',
             'zip_code',
             'address',
+            'neighborhood',
             'number',
             'city',
             'state',

@@ -16,6 +16,7 @@ class ParkingSettingSeeder extends Seeder
             'phone_number'       => '(86) 99999-9999',
             'zip_code'           => '64000-000',
             'address'            => 'Av. Dos Parques',
+            'neighborhood'       => 'Centro',
             'number'             => '1234',
             'city'               => 'Teresina',
             'state'              => 'PI',

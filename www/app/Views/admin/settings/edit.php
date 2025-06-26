@@ -43,17 +43,24 @@
         <div class="section-separator"></div>
 
         <div class="row mb-3">
-            <div class="col-md-2">
+            <div class="col-md-6">
                 <label for="zip_code">CEP</label>
-                <input type="text" name="zip_code" id="zip_code" class="form-control" value="<?= esc($config['zip_code']) ?>" required>
+                <input type="text" name="zip_code" id="zip_code" class="form-control" value="<?= esc($config['zip_code']) ?>">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <label for="address">Endereço</label>
-                <input type="text" name="address" id="address" class="form-control" value="<?= esc($config['address']) ?>" required>
+                <input type="text" name="address" id="addressInput" class="form-control" value="<?= esc($config['address']) ?>" required>
             </div>
             <div class="col-md-1">
                 <label for="number">Número</label>
                 <input type="text" name="number" id="number" class="form-control" value="<?= esc($config['number']) ?>" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="neighborhood">Bairro</label>
+                <input type="text" name="neighborhood" id="neighborhood" class="form-control" value="<?= esc($config['neighborhood']) ?>" required>
             </div>
             <div class="col-md-5">
                 <label for="city">Cidade</label>
