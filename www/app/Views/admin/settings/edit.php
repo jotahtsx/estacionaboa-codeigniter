@@ -40,6 +40,8 @@
             </div>
         </div>
 
+        <div class="section-separator"></div>
+
         <div class="row mb-3">
             <div class="col-md-2">
                 <label for="zip_code">CEP</label>
@@ -62,6 +64,8 @@
                 <input type="text" name="state" id="state" class="form-control" value="<?= esc($config['state']) ?>" required maxlength="2">
             </div>
         </div>
+
+        <div class="section-separator"></div>
 
         <div class="row mb-3">
             <div class="col-md-4">
