@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <div class="container-fluid px-4">
-    <h1 class="mt-4"><?= esc($titlePage) ?></h1>
+    <h1 class="mt-4 title-page"><b><?= esc($titlePage) ?></b></h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">
             <a href="<?= url_to('dashboard') ?>">Visão Geral</a>
@@ -43,7 +43,7 @@
         </div>
     <?php endif; ?>
 
-    <form action="<?= url_to('admin_usuarios_store') ?>" method="post" enctype="multipart/form-data">
+    <form class="admin-form mb-3" action="<?= url_to('admin_usuarios_store') ?>" method="post" enctype="multipart/form-data">
         <?= csrf_field() ?>
 
         <div class="row mb-3">
@@ -120,8 +120,8 @@
             <input type="file" class="form-control" id="image" name="image" accept="image/*">
         </div>
 
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-        <a href="<?= url_to('admin_usuarios') ?>" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary btn-submit">Cadastrar</button>
+        <a href="<?= url_to('admin_usuarios') ?>" class="btn btn-secondary btn-cancel">Cancelar</a>
     </form>
 
     <script>

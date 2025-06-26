@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Configurações</h1>
+    <h1 class="mt-4 title-page"><b>Configurações</b></h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">
             <a href="<?= url_to('dashboard') ?>">Visão Geral</a>
@@ -15,7 +15,7 @@
         <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
     <?php endif; ?>
 
-    <form action="<?= base_url('admin/configuracoes') ?>" method="post">
+    <form class="admin-form mb-3" action="<?= base_url('admin/configuracoes') ?>" method="post">
         <input type="hidden" name="id" value="<?= esc($config['id']) ?>">
 
         <div class="row mb-3">
@@ -77,10 +77,10 @@
                 <input type="text" name="phone_number" id="phone_number" class="form-control" value="<?= esc($config['phone_number']) ?>" required>
             </div>
 
-        <div class="col-md-4">
-            <label for="email">E-mail de contato</label>
-            <input type="email" name="email" id="email" class="form-control" value="<?= esc($config['email']) ?>" required>
-        </div>
+            <div class="col-md-4">
+                <label for="email">E-mail de contato</label>
+                <input type="email" name="email" id="email" class="form-control" value="<?= esc($config['email']) ?>" required>
+            </div>
 
         </div>
 
@@ -89,7 +89,7 @@
             <textarea name="ticket_footer_text" id="ticket_footer_text" class="form-control" rows="3" required><?= esc($config['ticket_footer_text']) ?></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Salvar Configurações</button>
+        <button type="submit" class="btn btn-primary btn-save">Salvar Configurações</button>
     </form>
 </div>
 

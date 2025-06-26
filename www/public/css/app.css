@@ -101,7 +101,8 @@ hr {
   opacity: 0.25;
 }
 
-ul, ol {
+ul,
+ol {
   padding-left: 0;
   margin-bottom: 0;
 }
@@ -6554,7 +6555,12 @@ fieldset:disabled .btn {
   animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name);
 }
 
-.datatable-table > tbody > tr > td, .datatable-table > tbody > tr > th, .datatable-table > tfoot > tr > td, .datatable-table > tfoot > tr > th, .datatable-table > thead > tr > td, .datatable-table > thead > tr > th {
+.datatable-table > tbody > tr > td,
+.datatable-table > tbody > tr > th,
+.datatable-table > tfoot > tr > td,
+.datatable-table > tfoot > tr > th,
+.datatable-table > thead > tr > td,
+.datatable-table > thead > tr > th {
   vertical-align: middle;
   padding: 8px 10px !important;
 }
@@ -12123,7 +12129,8 @@ table.datatable th {
   margin-bottom: 15px;
 }
 
-.auth .form-group label {
+.auth .form-group label,
+.admin-form label {
   display: block;
   margin-bottom: 5px;
   text-transform: uppercase;
@@ -12131,13 +12138,48 @@ table.datatable th {
 }
 
 .auth .form-group input[type=email],
-.auth .form-group input[type=password] {
+.admin-form input[type=text],
+.auth .form-group input[type=password],
+.admin-form input[type=password] {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
   box-shadow: none;
+}
+
+.auth .form-group input[type=password],
+.admin-form input[type=password],
+.admin-form input[type=email] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: none;
+}
+
+.admin-form select,
+.auth .form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: none;
+  background-color: white;
+  appearance: none;
+  /* Remove a aparência padrão do sistema */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.admin-form select:focus,
+.auth .form-group select:focus {
+  border-color: #ccc;
+  outline: none;
+  box-shadow: none !important;
 }
 
 .auth .error-box {
@@ -12174,6 +12216,84 @@ table.datatable th {
   background: #005fa3;
 }
 
+.admin-form .btn-submit {
+  display: inline-block;
+  width: auto;
+  padding: 12px 18px;
+  border: none;
+  background: #555;
+  color: #fff !important;
+  text-decoration: none !important;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background-color: #0DAC50;
+  text-transform: uppercase;
+}
+
+.admin-form .btn-submit:hover {
+  background: #1DBC60;
+}
+
+.admin-form .btn-cancel {
+  display: inline-block;
+  width: auto;
+  padding: 12px 18px;
+  border: none;
+  background: #555;
+  color: #fff !important;
+  text-decoration: none !important;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background-color: #404040;
+  text-transform: uppercase;
+}
+
+.admin-form .btn-cancel:hover {
+  background: #555555;
+}
+
+.admin-form .btn-save {
+  display: inline-block;
+  width: auto;
+  padding: 12px 18px;
+  border: none;
+  background: #555;
+  color: #fff !important;
+  text-decoration: none !important;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background-color: #0357AF;
+  text-transform: uppercase;
+}
+
+.admin-form .btn-save:hover {
+  background: #0180CC;
+}
+
 .address-readonly-styled {
   background-color: #e9ecef;
   opacity: 0.8;
@@ -12186,5 +12306,10 @@ table.datatable th {
 }
 .address-readonly-styled.form-control:focus:read-only {
   border-color: #ced4da;
+}
+
+.title-page {
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 /*# sourceMappingURL=app.css.map */

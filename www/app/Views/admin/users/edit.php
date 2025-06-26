@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <div class="container-fluid px-4">
-    <h1 class="mt-4"><?= esc($titlePage) ?>: <?= esc($user->first_name . ' ' . $user->last_name) ?></h1>
+    <h1 class="mt-4 title-page"><?= esc($titlePage) ?>: <b><?= esc($user->first_name . ' ' . $user->last_name) ?></b></h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">
             <a href="<?= url_to('dashboard') ?>">Visão Geral</a>
@@ -44,7 +44,7 @@
         </div>
     <?php endif; ?>
 
-    <form action="<?= url_to('admin_usuarios_update', $user->id) ?>" method="post" enctype="multipart/form-data">
+    <form class="admin-form mb-3" action="<?= url_to('admin_usuarios_update', $user->id) ?>" method="post" enctype="multipart/form-data">
         <?= csrf_field() ?>
         <?= form_hidden('_method', 'PUT') ?>
 
@@ -128,8 +128,8 @@
             <input type="file" class="form-control" id="image" name="image" accept="image/jpeg,image/png,image/gif,image/webp">
         </div>
 
-        <button type="submit" class="btn btn-primary">Atualizar</button>
-        <a href="<?= url_to('admin_usuarios') ?>" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary btn-submit">Atualizar</button>
+        <a href="<?= url_to('admin_usuarios') ?>" class="btn btn-secondary btn-cancel">Cancelar</a>
     </form>
 
     <script>
