@@ -235,7 +235,7 @@ php spark migrate:status
 ### 🌱 Rodar seeder
 
 ```bash
-php spark db:seed UserSeeder
+php spark db:seed DatabaseSeeder
 ```
 
 ---

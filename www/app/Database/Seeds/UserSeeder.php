@@ -30,8 +30,8 @@ class UserSeeder extends Seeder
             if ($user) {
                 $user->fill([
                     'password'    => 'senha123',
-                    'first_name' => 'Novo Administrador',
-                    'last_name' => 'Subítulo Admin',
+                    'first_name' => 'Jon',
+                    'last_name' => 'Doe',
                     'gender' => 'male',
                 ]);
                 $userModel->save($user);
