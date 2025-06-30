@@ -38,12 +38,16 @@
                 </a>
             </div>
         </div>
-        <div class="sb-sidenav-footer">
+
+        <div class="sb-sidenav-footer border-top pt-2">
             <div class="small">Logado como:</div>
             <?php
             $loggedInUser = auth()->user();
             echo (!empty($loggedInUser->first_name)) ? esc($loggedInUser->first_name) : 'Usuário';
             ?>
+            <div class="mt-2 text-muted small text-center" style="font-size: 11px; opacity: 0.75;">
+                <?= esc(get_settings()['trade_name'] ?? 'Nome da Empresa') ?>
+            </div>
         </div>
     </nav>
 </div>
