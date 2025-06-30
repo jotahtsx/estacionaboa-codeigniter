@@ -139,6 +139,38 @@
             });
         }
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const zipInput = document.getElementById('zipCodeInput');
+
+        if (zipInput) {
+            zipInput.addEventListener('blur', () => {
+                const cep = zipInput.value.replace(/\D/g, '');
+
+                if (cep.length !== 8) {
+                    alert('CEP inválido. Informe um CEP com 8 dígitos.');
+                    return;
+                }
+
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.erro) {
+                            alert('CEP não encontrado.');
+                            return;
+                        }
+
+                        document.getElementById('addressInput').value = data.logradouro || '';
+                        document.getElementById('neighborhood').value = data.bairro || '';
+                        document.getElementById('city').value = data.localidade || '';
+                        document.getElementById('state').value = data.uf || '';
+                    })
+                    .catch(() => {
+                        alert('Erro ao buscar informações do CEP.');
+                    });
+            });
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>
