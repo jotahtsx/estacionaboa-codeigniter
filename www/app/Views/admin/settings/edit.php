@@ -58,6 +58,7 @@
             <div class="col-md-6">
                 <label for="zipCodeInput">CEP</label>
                 <input type="text" name="zip_code" id="zipCodeInput" class="form-control" value="<?= esc(old('zip_code', $config['zip_code'] ?? '')) ?>">
+                <small id="cepLoadingMsg" class="text-primary" style="display: none;">Buscando CEP...</small>
             </div>
             <div class="col-md-5">
                 <label for="addressInput">Endereço</label>
@@ -141,15 +142,33 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
+        const cnpjInput = document.getElementById('cnpjInput');
         const zipInput = document.getElementById('zipCodeInput');
+        const phoneInput = document.getElementById('phoneInput');
+        const cepLoadingMsg = document.getElementById('cepLoadingMsg');
+
+        if (cnpjInput) {
+            IMask(cnpjInput, {
+                mask: '00.000.000/0000-00'
+            });
+        }
 
         if (zipInput) {
+            IMask(zipInput, {
+                mask: '00000-000'
+            });
+
             zipInput.addEventListener('blur', () => {
                 const cep = zipInput.value.replace(/\D/g, '');
 
                 if (cep.length !== 8) {
                     alert('CEP inválido. Informe um CEP com 8 dígitos.');
                     return;
+                }
+
+                // Mostra o loading
+                if (cepLoadingMsg) {
+                    cepLoadingMsg.style.display = 'inline';
                 }
 
                 fetch(`https://viacep.com.br/ws/${cep}/json/`)
@@ -167,7 +186,19 @@
                     })
                     .catch(() => {
                         alert('Erro ao buscar informações do CEP.');
+                    })
+                    .finally(() => {
+                        // Esconde o loading
+                        if (cepLoadingMsg) {
+                            cepLoadingMsg.style.display = 'none';
+                        }
                     });
+            });
+        }
+
+        if (phoneInput) {
+            IMask(phoneInput, {
+                mask: '(00) 00000-0000'
             });
         }
     });
