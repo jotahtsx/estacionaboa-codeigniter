@@ -17,7 +17,7 @@ $routes->get('/logout', 'Admin\AuthController::logout', ['as' => 'logout']);
 
 // Grupo de Rotas para Administração
 $routes->group('admin', ['filter' => 'session', 'namespace' => 'App\Controllers\Admin'], function ($routes) {
-    
+
     //Rotas de usuários
     $routes->get('usuarios', 'UserController::index', ['as' => 'admin_usuarios']);
     $routes->get('usuarios/cadastrar', 'UserController::create', ['as' => 'admin_usuarios_create']);
@@ -30,4 +30,12 @@ $routes->group('admin', ['filter' => 'session', 'namespace' => 'App\Controllers\
     //Rotas de configurações
     $routes->get('configuracoes', 'ParkingSettingController::edit');
     $routes->post('configuracoes', 'ParkingSettingController::update');
+
+    //Rotas de precificações
+    $routes->get('precificacoes', 'PricingController::index', ['as' => 'admin_precificacoes']);
+    $routes->get('precificacoes/cadastrar', 'PricingController::create', ['as' => 'admin_precificacoes_create']);
+    $routes->post('precificacoes/store', 'PricingController::store', ['as' => 'admin_precificacoes_store']);
+    $routes->get('precificacoes/editar/(:num)', 'PricingController::edit/$1', ['as' => 'admin_precificacoes_edit']);
+    $routes->post('precificacoes/atualizar/(:num)', 'PricingController::update/$1', ['as' => 'admin_precificacoes_update']);
+    $routes->get('precificacoes/deletar/(:num)', 'PricingController::delete/$1', ['as' => 'admin_precificacoes_delete']);
 });

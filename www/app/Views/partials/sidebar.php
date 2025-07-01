@@ -28,7 +28,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
                     Configurações
                 </a>
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link <?php echo ($active_page == 'precificacoes') ? 'active' : ''; ?>" href="<?php echo base_url('admin/precificacoes'); ?>">
                     <div class="sb-nav-link-icon"><i class="fas fas fa-tag"></i></div>
                     Precificações
                 </a>
