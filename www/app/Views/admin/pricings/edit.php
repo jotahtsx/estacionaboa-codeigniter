@@ -17,32 +17,52 @@
     <form action="<?= base_url("admin/precificacoes/atualizar/{$pricing['id']}") ?>" method="post" class="admin-form">
         <?= csrf_field() ?>
 
-        <div class="mb-3">
-            <label for="pricing_category">Categoria</label>
-            <input type="text" name="pricing_category" class="form-control" value="<?= old('pricing_category', $pricing['pricing_category']) ?>" required>
-        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="pricing_category_id" class="form-label">Categoria</label>
+                    <select name="pricing_category_id" id="pricing_category_id" class="form-select" required>
+                        <option value="">Selecione uma categoria</option>
+                        <?php foreach ($categories as $cat): ?>
+                            <option value="<?= esc($cat['id']) ?>"
+                                <?= old('pricing_category_id', $pricing['pricing_category_id'] ?? '') == $cat['id'] ? 'selected' : '' ?>>
+                                <?= esc($cat['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
 
-        <div class="mb-3">
-            <label for="pricing_by_hour">Preço por hora (R$)</label>
-            <input type="number" step="0.01" name="pricing_by_hour" class="form-control" value="<?= old('pricing_by_hour', $pricing['pricing_by_hour']) ?>" required>
-        </div>
+            <div class="col-md-2">
+                <div class="mb-3">
+                    <label for="pricing_by_hour">Preço por hora (R$)</label>
+                    <input type="number" step="0.01" name="pricing_by_hour" id="pricing_by_hour" class="form-control number" value="<?= old('pricing_by_hour', $pricing['pricing_by_hour'] ?? '') ?>" required>
+                </div>
+            </div>
 
-        <div class="mb-3">
-            <label for="pricing_by_mensality">Preço mensal (R$)</label>
-            <input type="number" step="0.01" name="pricing_by_mensality" class="form-control" value="<?= old('pricing_by_mensality', $pricing['pricing_by_mensality']) ?>" required>
-        </div>
+            <div class="col-md-2">
+                <div class="mb-3">
+                    <label for="pricing_by_mensality">Preço mensal (R$)</label>
+                    <input type="number" step="0.01" name="pricing_by_mensality" id="pricing_by_mensality" class="form-control number" value="<?= old('pricing_by_mensality', $pricing['pricing_by_mensality'] ?? '') ?>" required>
+                </div>
+            </div>
 
-        <div class="mb-3">
-            <label for="capacity">Capacidade</label>
-            <input type="number" name="capacity" class="form-control" value="<?= old('capacity', $pricing['capacity']) ?>" required>
-        </div>
+            <div class="col-md-2">
+                <div class="mb-3">
+                    <label for="capacity">Capacidade</label>
+                    <input type="number" name="capacity" id="capacity" class="form-control number" value="<?= old('capacity', $pricing['capacity'] ?? '') ?>" required>
+                </div>
+            </div>
 
-        <div class="mb-3">
-            <label for="active">Ativo?</label>
-            <select name="active" class="form-control">
-                <option value="1" <?= old('active', $pricing['active']) == '1' ? 'selected' : '' ?>>Sim</option>
-                <option value="0" <?= old('active', $pricing['active']) == '0' ? 'selected' : '' ?>>Não</option>
-            </select>
+            <div class="col-md-2">
+                <div class="mb-3">
+                    <label for="active">Ativo?</label>
+                    <select name="active" id="active" class="form-select">
+                        <option value="1" <?= old('active', $pricing['active'] ?? '1') == '1' ? 'selected' : '' ?>>Sim</option>
+                        <option value="0" <?= old('active', $pricing['active'] ?? '1') == '0' ? 'selected' : '' ?>>Não</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary btn-submit">Atualizar</button>

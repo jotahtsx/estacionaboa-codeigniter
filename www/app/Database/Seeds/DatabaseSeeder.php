@@ -10,5 +10,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call('UserSeeder');
         $this->call('ParkingSettingSeeder');
+        $this->call('PricingCategorySeeder');
+        $this->call('PricingSeeder');
     }
 }

@@ -15,9 +15,9 @@ class CreatePricingsTable extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'pricing_category' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
+            'pricing_category_id' => [
+                'type'       => 'INT',
+                'unsigned'   => true,
                 'null'       => false,
             ],
             'pricing_by_hour' => [
@@ -48,6 +48,7 @@ class CreatePricingsTable extends Migration
         ]);
 
         $this->forge->addPrimaryKey('id');
+        $this->forge->addForeignKey('pricing_category_id', 'pricing_categories', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('pricings');
     }
 

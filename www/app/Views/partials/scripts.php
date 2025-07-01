@@ -1,6 +1,8 @@
+
 <script src="<?= base_url('libs/bootstrap@5.2.3/bootstrap.bundle.min.js') ?>"></script>
 <script src="<?= base_url('js/app.js') ?>"></script>
 <script src="<?= base_url('libs/simple-datatables@7.1.2/simple-datatables.min.js') ?>"></script>
+
 
 <script>
     window.addEventListener('DOMContentLoaded', event => {
@@ -69,7 +71,7 @@
 
         function resetTimer() {
             startIdleTimer();
-            hideLogoutWarning(); 
+            hideLogoutWarning();
         }
 
         function logoutViaPost() {
@@ -135,5 +137,13 @@
         if (continueSessionBtn) {
             continueSessionBtn.addEventListener('click', resetTimer);
         }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicializa todos os selects com a classe .select2
+        $('.select2').select2({
+            placeholder: "Selecione uma opção",
+            width: '100%',
+            allowClear: true
+        });
     });
 </script>

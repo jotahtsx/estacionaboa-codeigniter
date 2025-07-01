@@ -19,12 +19,12 @@
     </div>
 
     <?php if (!empty($pricings)): ?>
-        <table class="table table-bordered table-striped">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>Categoria</th>
-                    <th>Valor Hora</th>
-                    <th>Mensal</th>
+                    <th>Preço por Hora</th>
+                    <th>Preço por Mensalidade</th>
                     <th>Capacidade</th>
                     <th>Ativo</th>
                     <th>Ações</th>
@@ -33,16 +33,26 @@
             <tbody>
                 <?php foreach ($pricings as $pricing): ?>
                     <tr>
-                        <td><?= esc($pricing['pricing_category']) ?></td>
+                        <td><?= esc($pricing['category_name']) ?></td>
                         <td>R$ <?= number_format($pricing['pricing_by_hour'], 2, ',', '.') ?></td>
                         <td>R$ <?= number_format($pricing['pricing_by_mensality'], 2, ',', '.') ?></td>
                         <td><?= esc($pricing['capacity']) ?></td>
-                        <td><?= $pricing['active'] ? 'Sim' : 'Não' ?></td>
                         <td>
-                            <a href="<?= base_url("admin/precificacoes/editar/{$pricing['id']}") ?>" class="btn btn-sm btn-warning">Editar</a>
-                            <form action="<?= base_url("admin/precificacoes/deletar/{$pricing['id']}") ?>" method="post" class="d-inline" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+                            <?php if ($pricing['active'] == 1) : ?>
+                                <span class="badge bg-success">Sim</span>
+                            <?php else : ?>
+                                <span class="badge bg-danger">Não</span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="<?= url_to('admin_precificacoes_edit', $pricing['id']) ?>" class="icon-button" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="<?= url_to('admin_precificacoes_delete', $pricing['id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Confirmar exclusão?');">
                                 <?= csrf_field() ?>
-                                <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                                <button type="submit" class="icon-button" title="Excluir">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>
