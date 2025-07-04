@@ -128,7 +128,7 @@
             <input type="file" class="form-control" id="image" name="image" accept="image/jpeg,image/png,image/gif,image/webp">
         </div>
 
-        <button type="submit" class="btn btn-primary btn-submit">Atualizar</button>
+        <button type="submit" class="btn btn-primary btn-submit">Salvar</button>
         <a href="<?= url_to('admin_usuarios') ?>" class="btn btn-secondary btn-cancel">Cancelar</a>
     </form>
 

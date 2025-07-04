@@ -39,8 +39,8 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Salvar Alterações</button>
-        <a href="<?= url_to('admin_formas_pagamento') ?>" class="btn btn-secondary mt-3">Cancelar</a>
+        <button type="submit" class="btn btn-primary btn-submit">Salvar</button>
+        <a href="<?= url_to('admin_formas_pagamento') ?>" class="btn btn-secondary btn-cancel">Cancelar</a>
     </form>
 </div>
 
