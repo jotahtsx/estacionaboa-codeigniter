@@ -4,6 +4,13 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4 title-page"><b><?= esc($titlePage) ?></b></h1>
 
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">
+            <a href="<?= url_to('dashboard') ?>">Visão Geral</a>
+        </li>
+        <li class="breadcrumb-item active"><?= esc($titlePage) ?></li>
+    </ol>
+
     <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success admin-msg"><?= esc(session('success')) ?></div>
     <?php endif; ?>

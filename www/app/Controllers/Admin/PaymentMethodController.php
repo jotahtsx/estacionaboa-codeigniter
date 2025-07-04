@@ -37,10 +37,10 @@ class PaymentMethodController extends BaseController
     public function create()
     {
         $data = [
-            'titlePage'   => 'Cadastrar Forma de Pagamento',
+            'titlePage'   => 'Cadastrar forma de pagamento',
             'active_page' => 'pagamentos', // Para marcar o menu na sidebar
         ];
-        return view('admin/payment_methods/form', $data);
+        return view('admin/payment_methods/create', $data);
     }
 
     /**
@@ -51,20 +51,17 @@ class PaymentMethodController extends BaseController
         // Define as regras de validação para os campos
         $rules = [
             'name'        => 'required|min_length[3]|max_length[100]|is_unique[payment_methods.name]',
-            'description' => 'permit_empty|max_length[255]',
             'active'      => 'required|in_list[0,1]',
         ];
 
         // Valida os dados da requisição
         if (! $this->validate($rules)) {
-            // Se a validação falhar, redireciona de volta com os erros e dados antigos
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         // Prepara os dados para salvar
         $data = [
             'name'        => $this->request->getPost('name'),
-            'description' => $this->request->getPost('description'),
             'active'      => $this->request->getPost('active'),
         ];
 
@@ -72,7 +69,7 @@ class PaymentMethodController extends BaseController
         $this->paymentMethodModel->save($data);
 
         // Redireciona para a página de listagem com mensagem de sucesso
-        return redirect()->to(base_url('admin/pagamentos'))->with('success', 'Forma de pagamento criada com sucesso.');
+        return redirect()->to(base_url('admin/formas-de-pagamento'))->with('success', 'Forma de pagamento criada com sucesso.');
     }
 
     /**
@@ -90,11 +87,11 @@ class PaymentMethodController extends BaseController
         }
 
         $data = [
-            'titlePage'     => 'Editar Forma de Pagamento',
+            'titlePage'     => 'Editar forma de pagamento',
             'active_page'   => 'pagamentos', // Para marcar o menu na sidebar
             'paymentMethod' => $paymentMethod, // Passa os dados da forma de pagamento para a view
         ];
-        return view('admin/payment_methods/form', $data);
+        return view('admin/payment_methods/edit', $data);
     }
 
     /**
@@ -109,19 +106,17 @@ class PaymentMethodController extends BaseController
         $rules = [
             'name'        => [
                 'label'  => 'Nome da Forma de Pagamento',
-                'rules'  => "required|min_length[3]|max_length[100]|is_unique[payment_methods.name,id,{$id}]", // Note: {id} para ignorar o próprio registro
+                'rules'  => "required|min_length[3]|max_length[100]|is_unique[payment_methods.name,id,{$id}]",
                 'errors' => [
                     'is_unique' => 'O nome da forma de pagamento informado já existe.'
                 ]
             ],
-            'description' => 'permit_empty|max_length[255]',
             'active'      => 'required|in_list[0,1]',
         ];
 
         // Prepara os dados para validação
         $dataToValidate = [
             'name'        => $post['name'],
-            'description' => $post['description'],
             'active'      => $post['active'],
         ];
 
@@ -130,10 +125,9 @@ class PaymentMethodController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Prepara os dados para atualização (apenas os campos que serão alterados)
+        // Prepara os dados para atualização
         $dataToUpdate = [
             'name'        => $post['name'],
-            'description' => $post['description'],
             'active'      => $post['active'],
         ];
 
@@ -141,7 +135,7 @@ class PaymentMethodController extends BaseController
         $this->paymentMethodModel->update($id, $dataToUpdate);
 
         // Redireciona para a página de listagem com mensagem de sucesso
-        return redirect()->to(base_url('admin/pagamentos'))->with('success', 'Forma de pagamento atualizada com sucesso.');
+        return redirect()->to(base_url('admin/formas-de-pagamento'))->with('success', 'Forma de pagamento atualizada com sucesso.');
     }
 
     /**
@@ -151,6 +145,6 @@ class PaymentMethodController extends BaseController
     public function delete($id)
     {
         $this->paymentMethodModel->delete($id);
-        return redirect()->to(base_url('admin/pagamentos'))->with('success', 'Forma de pagamento removida com sucesso.');
+        return redirect()->to(base_url('admin/formas-de-pagamento'))->with('success', 'Forma de pagamento removida com sucesso.');
     }
 }

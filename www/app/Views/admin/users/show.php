@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Detalhes do Usuário: <?= esc($user['username']) ?></h1>
+    <h1 class="mt-4 title-page">Detalhes do Usuário: <b><?= esc($user['username']) ?></b></h1>
 
     <?php if (session()->getFlashdata('error')) : ?>
         <div class="alert alert-danger" role="alert">
@@ -16,7 +16,10 @@
     <?php endif ?>
 
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Informações detalhadas sobre o usuário.</li>
+        <li class="breadcrumb-item">
+            <a href="<?= url_to('dashboard') ?>">Visão Geral</a>
+        </li>
+        <li class="breadcrumb-item active"><?= esc($titlePage) ?></li>
     </ol>
 
     <div class="card mb-4">

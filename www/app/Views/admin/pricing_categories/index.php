@@ -5,6 +5,12 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4 title-page"><b><?= esc($titlePage) ?></b></h1>
 
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="<?= url_to('dashboard') ?>">Visão Geral</a></li>
+        <li class="breadcrumb-item"><a href="<?= url_to('admin_precificacoes') ?>">Precificações</a></li>
+        <li class="breadcrumb-item active"><?= esc($titlePage) ?></li>
+    </ol>
+
     <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success admin-msg"><?= esc(session('success')) ?></div>
     <?php endif; ?>
@@ -12,12 +18,6 @@
     <?php if (session()->getFlashdata('error')): ?>
         <div class="alert alert-danger admin-msg"><?= esc(session('error')) ?></div>
     <?php endif; ?>
-
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">
-            Listagem e gerenciamento de categorias de precificação do sistema.
-        </li>
-    </ol>
 
     <div class="mb-4">
         <button class="notification-button button-create" onclick="window.location.href='<?= base_url('admin/categorias/cadastrar') ?>'">

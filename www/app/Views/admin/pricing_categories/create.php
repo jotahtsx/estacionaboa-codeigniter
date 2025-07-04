@@ -4,6 +4,12 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4 title-page"><b><?= esc($titlePage) ?></b></h1>
 
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="<?= url_to('dashboard') ?>">Visão Geral</a></li>
+        <li class="breadcrumb-item"><a href="<?= url_to('admin_precificacoes_categorias') ?>">Categorias de Precificação</a></li>
+        <li class="breadcrumb-item active"><?= esc($titlePage) ?></li>
+    </ol>
+
     <?php if (!empty($errors)): ?>
         <div class="alert alert-danger">
             <ul class="mb-0">

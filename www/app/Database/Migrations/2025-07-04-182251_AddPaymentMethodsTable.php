@@ -20,11 +20,6 @@ class AddPaymentMethodsTable extends Migration
                 'constraint' => '100',
                 'unique'     => true,
             ],
-            'description' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null'       => true,
-            ],
             'active' => [
                 'type'       => 'TINYINT',
                 'constraint' => 1,

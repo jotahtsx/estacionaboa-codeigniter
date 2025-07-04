@@ -6,6 +6,7 @@
 
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="<?= url_to('dashboard') ?>">Visão Geral</a></li>
+        <li class="breadcrumb-item"><a href="<?= url_to('admin_precificacoes') ?>">Precificações</a></li>
         <li class="breadcrumb-item active"><?= esc($titlePage) ?></li>
     </ol>
 

@@ -32,7 +32,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fas fa-tag"></i></div>
                     Precificações
                 </a>
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link <?php echo ($active_page == 'pagamentos') ? 'active' : ''; ?>" href="<?= url_to('admin_formas_pagamento') ?>">
                     <div class="sb-nav-link-icon"><i class="fas fas fa-credit-card"></i></div>
                     Pagamentos
                 </a>
