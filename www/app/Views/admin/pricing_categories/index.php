@@ -21,7 +21,7 @@
 
     <div class="mb-4">
         <button class="notification-button button-create" onclick="window.location.href='<?= base_url('admin/categorias/cadastrar') ?>'">
-            Cadastrar Categoria
+            Nova Categoria
         </button>
     </div>
 
@@ -53,9 +53,8 @@
                                     <a href="<?= base_url("admin/categorias/editar/{$category['id']}") ?>" class="icon-button" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form action="<?= base_url("admin/categorias/deletar/{$category['id']}") ?>" method="post" style="display:inline;" onsubmit="return confirm('Confirmar exclusão?');">
+                                    <form action="<?= url_to('admin_categorias_delete', $category['id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Confirmar exclusão?');">
                                         <?= csrf_field() ?>
-                                        <input type="hidden" name="_method" value="DELETE" />
                                         <button type="submit" class="icon-button" title="Excluir">
                                             <i class="fas fa-trash"></i>
                                         </button>

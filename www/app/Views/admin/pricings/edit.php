@@ -4,6 +4,11 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4 title-page"><b><?= esc($titlePage) ?></b></h1>
 
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="<?= url_to('dashboard') ?>">Visão Geral</a></li>
+        <li class="breadcrumb-item active"><?= esc($titlePage) ?></li>
+    </ol>
+
     <?php if (!empty($errors)) : ?>
         <div class="alert alert-danger admin-msg">
             <ul>
@@ -36,21 +41,39 @@
             <div class="col-md-2">
                 <div class="mb-3">
                     <label for="pricing_by_hour">Preço por hora (R$)</label>
-                    <input type="number" step="0.01" name="pricing_by_hour" id="pricing_by_hour" class="form-control number" value="<?= old('pricing_by_hour', $pricing['pricing_by_hour'] ?? '') ?>" required>
+                    <input
+                        type="text"
+                        name="pricing_by_hour"
+                        id="pricing_by_hour"
+                        class="form-control money-mask"
+                        value="<?= old('pricing_by_hour', $pricing['pricing_by_hour'] !== null ? str_replace('.', ',', $pricing['pricing_by_hour']) : '0,00') ?>"
+                        required>
                 </div>
             </div>
 
             <div class="col-md-2">
                 <div class="mb-3">
                     <label for="pricing_by_mensality">Preço mensal (R$)</label>
-                    <input type="number" step="0.01" name="pricing_by_mensality" id="pricing_by_mensality" class="form-control number" value="<?= old('pricing_by_mensality', $pricing['pricing_by_mensality'] ?? '') ?>" required>
+                    <input
+                        type="text"
+                        name="pricing_by_mensality"
+                        id="pricing_by_mensality"
+                        class="form-control money-mask"
+                        value="<?= old('pricing_by_mensality', $pricing['pricing_by_mensality'] !== null ? str_replace('.', ',', $pricing['pricing_by_mensality']) : '0,00') ?>"
+                        required>
                 </div>
             </div>
 
             <div class="col-md-2">
                 <div class="mb-3">
                     <label for="capacity">Capacidade</label>
-                    <input type="number" name="capacity" id="capacity" class="form-control number" value="<?= old('capacity', $pricing['capacity'] ?? '') ?>" required>
+                    <input
+                        type="number"
+                        name="capacity"
+                        id="capacity"
+                        class="form-control number"
+                        value="<?= old('capacity', $pricing['capacity'] ?? '') ?>"
+                        required>
                 </div>
             </div>
 
@@ -65,9 +88,28 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-submit">Atualizar</button>
-        <a href="<?= base_url('admin/precificacoes') ?>" class="btn btn-secondary btn-cancel">Cancelar</a>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary btn-submit">Salvar</button>
+            <a href="<?= base_url('admin/precificacoes') ?>" class="btn btn-secondary btn-cancel">Cancelar</a>
+        </div>
     </form>
 </div>
+
+<script src="https://unpkg.com/imask"></script>
+<script>
+    const moneyMaskOptions = {
+        mask: Number,
+        scale: 2,
+        signed: false,
+        thousandsSeparator: '.',
+        padFractionalZeros: true,
+        normalizeZeros: true,
+        radix: ',',
+        mapToRadix: ['.']
+    };
+
+    IMask(document.getElementById('pricing_by_hour'), moneyMaskOptions);
+    IMask(document.getElementById('pricing_by_mensality'), moneyMaskOptions);
+</script>
 
 <?= $this->endSection() ?>

@@ -16,6 +16,9 @@
         <button class="notification-button button-create" onclick="window.location.href='<?= url_to('admin_precificacoes_create') ?>'">
             Nova Precificação
         </button>
+        <button class="notification-button button-create" style="background-color: #3498db;" onclick="window.location.href='<?= url_to('admin_precificacoes_categorias') ?>'">
+            Categorias
+        </button>
     </div>
 
     <?php if (!empty($pricings)): ?>

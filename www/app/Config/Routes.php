@@ -45,4 +45,5 @@ $routes->group('admin', ['filter' => 'session', 'namespace' => 'App\Controllers\
     $routes->post('categorias/store', 'PricingCategoryController::store', ['as' => 'admin_precificacoes_categorias_store']);
     $routes->get('categorias/editar/(:num)', 'PricingCategoryController::edit/$1', ['as' => 'admin_precificacoes_categorias_edit']);
     $routes->post('categorias/atualizar/(:num)', 'PricingCategoryController::update/$1', ['as' => 'admin_precificacoes_categorias_update']);
+    $routes->post('categorias/deletar/(:num)', 'PricingCategoryController::delete/$1', ['as' => 'admin_categorias_delete']);
 });

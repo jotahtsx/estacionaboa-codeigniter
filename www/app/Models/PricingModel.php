@@ -13,7 +13,7 @@ class PricingModel extends Model
     protected $useSoftDeletes   = false;
 
     protected $allowedFields = [
-        'pricing_category',
+        'pricing_category_id',
         'pricing_by_hour',
         'pricing_by_mensality',
         'capacity',
