@@ -46,4 +46,12 @@ $routes->group('admin', ['filter' => 'session', 'namespace' => 'App\Controllers\
     $routes->get('categorias/editar/(:num)', 'PricingCategoryController::edit/$1', ['as' => 'admin_precificacoes_categorias_edit']);
     $routes->post('categorias/atualizar/(:num)', 'PricingCategoryController::update/$1', ['as' => 'admin_precificacoes_categorias_update']);
     $routes->post('categorias/deletar/(:num)', 'PricingCategoryController::delete/$1', ['as' => 'admin_categorias_delete']);
+
+    // Formas de pagamento
+    $routes->get('formas-de-pagamento', 'PaymentMethodController::index', ['as' => 'admin_formas_pagamento']);
+    $routes->get('formas-de-pagamento/cadastrar', 'PaymentMethodController::create', ['as' => 'admin_formas_pagamento_create']);
+    $routes->post('formas-de-pagamento/store', 'PaymentMethodController::store', ['as' => 'admin_formas_pagamento_store']);
+    $routes->get('formas-de-pagamento/editar/(:num)', 'PaymentMethodController::edit/$1', ['as' => 'admin_formas_pagamento_edit']);
+    $routes->post('formas-de-pagamento/atualizar/(:num)', 'PaymentMethodController::update/$1', ['as' => 'admin_formas_pagamento_update']);
+    $routes->post('formas-de-pagamento/deletar/(:num)', 'PaymentMethodController::delete/$1', ['as' => 'admin_formas_pagamento_delete']);
 });
