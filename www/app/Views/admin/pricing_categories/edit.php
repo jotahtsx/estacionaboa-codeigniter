@@ -29,7 +29,8 @@
                 </select>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Atualizar</button>
+        <button type="submit" class="btn btn-primary btn-submit">Atualizar</button>
+        <a href="<?= url_to('admin_precificacoes_categorias') ?>" class="btn btn-secondary btn-cancel">Cancelar</a>
     </form>
 </div>
 
