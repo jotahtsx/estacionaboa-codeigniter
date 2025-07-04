@@ -28,7 +28,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
                     Configurações
                 </a>
-                <a class="nav-link <?php echo ($active_page == 'precificacoes') ? 'active' : ''; ?>" href="<?php echo base_url('admin/precificacoes'); ?>">
+                <a class="nav-link <?php echo (strpos(current_url(), 'admin/precificacoes') !== false || strpos(current_url(), 'admin/categorias') !== false) ? 'active' : ''; ?>" href="<?php echo base_url('admin/precificacoes'); ?>">
                     <div class="sb-nav-link-icon"><i class="fas fas fa-tag"></i></div>
                     Precificações
                 </a>
