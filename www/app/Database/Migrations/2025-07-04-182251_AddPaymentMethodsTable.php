@@ -28,11 +28,10 @@ class AddPaymentMethodsTable extends Migration
             'active' => [
                 'type'       => 'TINYINT',
                 'constraint' => 1,
-                'default'    => 1, // Padrão para ativo
+                'default'    => 1,
             ],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
-            'deleted_at datetime default null',
         ]);
 
         $this->forge->addPrimaryKey('id');
