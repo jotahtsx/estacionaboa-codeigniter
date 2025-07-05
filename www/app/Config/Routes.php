@@ -54,4 +54,12 @@ $routes->group('admin', ['filter' => 'session', 'namespace' => 'App\Controllers\
     $routes->get('formas-de-pagamento/editar/(:num)', 'PaymentMethodController::edit/$1', ['as' => 'admin_formas_pagamento_edit']);
     $routes->post('formas-de-pagamento/atualizar/(:num)', 'PaymentMethodController::update/$1', ['as' => 'admin_formas_pagamento_update']);
     $routes->post('formas-de-pagamento/deletar/(:num)', 'PaymentMethodController::delete/$1', ['as' => 'admin_formas_pagamento_delete']);
+
+    // Rotas de Mensalistas
+    $routes->get('mensalistas', 'MonthlyPayerController::index', ['as' => 'admin_mensalistas']);
+    $routes->get('mensalistas/cadastrar', 'MonthlyPayerController::create', ['as' => 'admin_mensalistas_create']);
+    $routes->post('mensalistas/store', 'MonthlyPayerController::store', ['as' => 'admin_mensalistas_store']);
+    $routes->get('mensalistas/editar/(:num)', 'MonthlyPayerController::edit/$1', ['as' => 'admin_mensalistas_edit']);
+    $routes->post('mensalistas/atualizar/(:num)', 'MonthlyPayerController::update/$1', ['as' => 'admin_mensalistas_update']);
+    $routes->post('mensalistas/deletar/(:num)', 'MonthlyPayerController::delete/$1', ['as' => 'admin_mensalistas_delete']);
 });
