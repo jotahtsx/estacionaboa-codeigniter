@@ -17,11 +17,11 @@ class AddMonthlyPayersTable extends Migration
             ],
             'first_name' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '100',
+                'constraint'     => 100,
             ],
             'last_name' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '100',
+                'constraint'     => 100,
                 'null'           => false,
             ],
             'birth_date' => [
@@ -30,61 +30,72 @@ class AddMonthlyPayersTable extends Migration
             ],
             'cpf' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '14', // XXX.XXX.XXX-XX
+                'constraint'     => 11, // Sem máscara
                 'unique'         => true,
                 'null'           => false,
             ],
             'rg' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '20',
+                'constraint'     => 20,
                 'unique'         => true,
                 'null'           => false,
             ],
             'email' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '100',
+                'constraint'     => 100,
                 'unique'         => true,
                 'null'           => false,
             ],
             'phone' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '20', // (XX) XXXXX-XXXX
+                'constraint'     => 20,
                 'null'           => false,
             ],
             'zip_code' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '10', // XXXXX-XXX
+                'constraint'     => 10,
                 'null'           => false,
             ],
             'street' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '255',
+                'constraint'     => 255,
                 'null'           => false,
             ],
             'number' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '20',
+                'constraint'     => 20,
                 'null'           => false,
             ],
             'neighborhood' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '100',
+                'constraint'     => 100,
                 'null'           => false,
             ],
             'city' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '100',
+                'constraint'     => 100,
                 'null'           => false,
             ],
             'state' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '2', // UF (ex: SP, RJ)
+                'constraint'     => 2, // Ex: SP
                 'null'           => false,
             ],
             'complement' => [
                 'type'           => 'VARCHAR',
-                'constraint'     => '255',
+                'constraint'     => 255,
                 'null'           => true,
+            ],
+            'vehicle_plate' => [
+                'type'           => 'VARCHAR',
+                'constraint'     => 10,
+                'unique'         => true,
+                'null'           => false,
+            ],
+            'vehicle_type' => [
+                'type'           => 'ENUM("carro", "moto", "outro")',
+                'default'        => 'carro',
+                'null'           => false,
             ],
             'active' => [
                 'type'           => 'TINYINT',
@@ -93,15 +104,21 @@ class AddMonthlyPayersTable extends Migration
             ],
             'due_day' => [
                 'type'           => 'TINYINT',
-                'constraint'     => 2, // Dia do mês (1 a 31)
+                'constraint'     => 2,
                 'null'           => false,
             ],
             'notes' => [
                 'type'           => 'TEXT',
                 'null'           => true,
             ],
-            'created_at datetime default current_timestamp',
-            'updated_at datetime default current_timestamp on update current_timestamp',
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addPrimaryKey('id');

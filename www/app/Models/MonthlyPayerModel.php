@@ -10,6 +10,9 @@ class MonthlyPayerModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
+    protected $useTimestamps    = true;
+    protected $createdField     = 'created_at';
+    protected $updatedField     = 'updated_at';
 
     protected $allowedFields = [
         'first_name',
@@ -26,11 +29,10 @@ class MonthlyPayerModel extends Model
         'city',
         'state',
         'complement',
+        'vehicle_plate',
+        'vehicle_type',
         'active',
         'due_day',
         'notes',
     ];
-    protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
 }

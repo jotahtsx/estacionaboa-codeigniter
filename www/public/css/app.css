@@ -12199,6 +12199,28 @@ table.datatable th {
   box-shadow: none !important;
 }
 
+.admin-form .date,
+.auth .form-group .date {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  box-shadow: none;
+  background-color: white;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.admin-form .date:focus,
+.auth .form-group date:focus {
+  border-color: #ccc;
+  outline: none;
+  box-shadow: none !important;
+}
+
 .admin-form select:focus,
 .auth .form-group select:focus {
   border-color: #ccc;

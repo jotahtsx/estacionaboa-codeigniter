@@ -10,7 +10,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-parking"></i></div>
                     Estacionar
                 </a>
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link <?php echo ($active_page == 'mensalistas') ? 'active' : ''; ?>" href="<?= url_to('admin_mensalistas') ?>">
                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                     Mensalistas
                 </a>
