@@ -41,7 +41,7 @@
                     <tr>
                         <td><?= esc($payer['id']) ?></td>
                         <td><?= esc($payer['first_name'] . ' ' . $payer['last_name']) ?></td>
-                        <td><?= esc($payer['cpf']) ?></td>
+                        <td><?= esc(substr($payer['cpf'], 0, 3) . '.' . substr($payer['cpf'], 3, 3) . '.' . substr($payer['cpf'], 6, 3) . '-' . substr($payer['cpf'], 9, 2)) ?></td>
                         <td><?= esc($payer['email']) ?></td>
                         <td><?= esc($payer['phone']) ?></td>
                         <td><?= esc($payer['due_day']) ?></td>

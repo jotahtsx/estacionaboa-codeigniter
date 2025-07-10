@@ -164,12 +164,28 @@
             });
         }
 
-        if (plateInput) {
-            IMask(plateInput, {
-                mask: /^[a-zA-Z0-9\-]{0,10}$/,
-                prepare: str => str.toUpperCase()
-            });
+        IMask(plateInput, {
+        mask: [
+            {
+            mask: 'AAA-0000',
+            definitions: {
+                'A': /[A-Za-z]/,
+                '0': /[0-9]/
+            }
+            },
+            {
+            mask: 'AAA0A00',
+            definitions: {
+                'A': /[A-Za-z]/,
+                '0': /[0-9]/
+            }
+            }
+        ],
+        prepare: function(str) {
+            return str.toUpperCase();
         }
+        });
+
 
         if (stateInput) {
             stateInput.addEventListener('input', (e) => {
