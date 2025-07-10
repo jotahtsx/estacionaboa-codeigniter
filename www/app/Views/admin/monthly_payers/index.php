@@ -63,6 +63,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                            
                         </td>
                     </tr>
                 <?php endforeach; ?>
