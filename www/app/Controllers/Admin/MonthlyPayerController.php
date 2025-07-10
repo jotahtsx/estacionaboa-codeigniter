@@ -40,15 +40,12 @@ class MonthlyPayerController extends BaseController
 
         public function store()
     {
-    // 1. Captura os dados do formulário
     $post = $this->request->getPost();
 
-    // 2. Limpa os dados conforme necessário
     $post['cpf']           = isset($post['cpf']) ? preg_replace('/\D/', '', $post['cpf']) : '';
     $post['vehicle_plate'] = isset($post['vehicle_plate']) ? strtoupper($post['vehicle_plate']) : '';
     $post['state']         = isset($post['state']) ? strtoupper($post['state']) : '';
 
-    // 3. Define as regras de validação
     $rules = [
         'first_name' => [
             'rules' => 'required|min_length[3]|max_length[100]',
@@ -160,91 +157,97 @@ class MonthlyPayerController extends BaseController
         ],
         'notes' => 'permit_empty|max_length[65535]',
     ];
-
-    // 4. Validação dos dados já limpos
     if (! $this->validateData($post, $rules)) {
         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
     }
-
-    // 5. Salva no banco
     $this->monthlyPayerModel->save($post);
-
-    // 6. Redireciona com sucesso
     return redirect()->to(url_to('admin_mensalistas'))->with('success', 'Mensalista cadastrado com sucesso!');
 }
 
-public function edit($id)
-{
-    $mensalista = $this->monthlyPayerModel->find($id);
+    public function edit($id)
+    {
+        $mensalista = $this->monthlyPayerModel->find($id);
 
-    if (!$mensalista) {
-        return redirect()->to(url_to('admin_mensalistas'))->with('error', 'Mensalista não encontrado.');
+        if (!$mensalista) {
+            return redirect()->to(url_to('admin_mensalistas'))->with('error', 'Mensalista não encontrado.');
+        }
+
+        $data = [
+            'titlePage'   => 'Editar Mensalista',
+            'active_page' => 'mensalistas',
+            'mensalista'  => $mensalista,
+        ];
+
+        return view('admin/monthly_payers/edit', $data);
     }
 
-    $data = [
-        'titlePage'   => 'Editar Mensalista',
-        'active_page' => 'mensalistas',
-        'mensalista'  => $mensalista,
-    ];
+    public function update($id)
+    {
+        $mensalista = $this->monthlyPayerModel->find($id);
 
-    return view('admin/monthly_payers/edit', $data);
-}
+        if (!$mensalista) {
+            return redirect()->to(url_to('admin_mensalistas'))->with('error', 'Mensalista não encontrado.');
+        }
 
-public function update($id)
-{
-    $mensalista = $this->monthlyPayerModel->find($id);
+        $post = $this->request->getPost();
 
-    if (!$mensalista) {
-        return redirect()->to(url_to('admin_mensalistas'))->with('error', 'Mensalista não encontrado.');
-    }
+        // Limpeza dos dados, igual no store
+        $post['cpf']           = isset($post['cpf']) ? preg_replace('/\D/', '', $post['cpf']) : '';
+        $post['vehicle_plate'] = isset($post['vehicle_plate']) ? strtoupper($post['vehicle_plate']) : '';
+        $post['state']         = isset($post['state']) ? strtoupper($post['state']) : '';
 
-    $post = $this->request->getPost();
-
-    // Limpeza dos dados, igual no store
-    $post['cpf']           = isset($post['cpf']) ? preg_replace('/\D/', '', $post['cpf']) : '';
-    $post['vehicle_plate'] = isset($post['vehicle_plate']) ? strtoupper($post['vehicle_plate']) : '';
-    $post['state']         = isset($post['state']) ? strtoupper($post['state']) : '';
-
-    // Regras de validação, igual no store, mas precisamos ajustar o is_unique para ignorar o próprio registro atual
-    $rules = [
-        'first_name' => [
-            'rules' => 'required|min_length[3]|max_length[100]',
-            'errors' => [
-                'required'   => 'O campo Nome é obrigatório.',
-                'min_length' => 'O Nome deve ter no mínimo 3 caracteres.',
-                'max_length' => 'O Nome deve ter no máximo 100 caracteres.',
+        // Regras de validação, igual no store, mas precisamos ajustar o is_unique para ignorar o próprio registro atual
+        $rules = [
+            'first_name' => [
+                'rules' => 'required|min_length[3]|max_length[100]',
+                'errors' => [
+                    'required'   => 'O campo Nome é obrigatório.',
+                    'min_length' => 'O Nome deve ter no mínimo 3 caracteres.',
+                    'max_length' => 'O Nome deve ter no máximo 100 caracteres.',
+                ],
             ],
-        ],
-        'last_name' => 'required|min_length[3]|max_length[100]',
-        'birth_date' => 'required|valid_date[Y-m-d]',
-        // Aqui, o is_unique deve ignorar o registro atual pelo id:
-        'cpf' => "required|exact_length[11]|is_unique[monthly_payers.cpf,id,{$id}]",
-        'rg' => "required|max_length[20]|is_unique[monthly_payers.rg,id,{$id}]",
-        'email' => "required|valid_email|max_length[100]|is_unique[monthly_payers.email,id,{$id}]",
-        'phone' => 'required|max_length[20]',
-        'zip_code' => 'required|exact_length[9]',
-        'street' => 'required|max_length[255]',
-        'number' => 'required|max_length[20]',
-        'neighborhood' => 'required|max_length[100]',
-        'city' => 'required|max_length[100]',
-        'state' => 'required|exact_length[2]',
-        'complement' => 'permit_empty|max_length[255]',
-        'vehicle_plate' => "required|alpha_numeric_punct|max_length[10]|is_unique[monthly_payers.vehicle_plate,id,{$id}]",
-        'vehicle_type' => 'required|in_list[carro,moto,outro]',
-        'active' => 'required|in_list[0,1]',
-        'due_day' => 'required|integer|greater_than[0]|less_than[32]',
-        'notes' => 'permit_empty|max_length[65535]',
-    ];
+            'last_name' => 'required|min_length[3]|max_length[100]',
+            'birth_date' => 'required|valid_date[Y-m-d]',
+            // Aqui, o is_unique deve ignorar o registro atual pelo id:
+            'cpf' => "required|exact_length[11]|is_unique[monthly_payers.cpf,id,{$id}]",
+            'rg' => "required|max_length[20]|is_unique[monthly_payers.rg,id,{$id}]",
+            'email' => "required|valid_email|max_length[100]|is_unique[monthly_payers.email,id,{$id}]",
+            'phone' => 'required|max_length[20]',
+            'zip_code' => 'required|exact_length[9]',
+            'street' => 'required|max_length[255]',
+            'number' => 'required|max_length[20]',
+            'neighborhood' => 'required|max_length[100]',
+            'city' => 'required|max_length[100]',
+            'state' => 'required|exact_length[2]',
+            'complement' => 'permit_empty|max_length[255]',
+            'vehicle_plate' => "required|alpha_numeric_punct|max_length[10]|is_unique[monthly_payers.vehicle_plate,id,{$id}]",
+            'vehicle_type' => 'required|in_list[carro,moto,outro]',
+            'active' => 'required|in_list[0,1]',
+            'due_day' => 'required|integer|greater_than[0]|less_than[32]',
+            'notes' => 'permit_empty|max_length[65535]',
+        ];
 
-    if (! $this->validateData($post, $rules)) {
-        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        if (! $this->validateData($post, $rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $post['id'] = $id; // garantir que o save atualize
+
+        $this->monthlyPayerModel->save($post);
+
+        return redirect()->to(url_to('admin_mensalistas'))->with('success', 'Mensalista atualizado com sucesso!');
     }
 
-    $post['id'] = $id; // garantir que o save atualize
+    public function delete($id)
+    {
+        $mensalista = $this->monthlyPayerModel->find($id);
 
-    $this->monthlyPayerModel->save($post);
+        if (! $mensalista) {
+            return redirect()->to(url_to('admin_mensalistas'))->with('error', 'Mensalista não encontrado.');
+        }
 
-    return redirect()->to(url_to('admin_mensalistas'))->with('success', 'Mensalista atualizado com sucesso!');
-}
+        $this->monthlyPayerModel->delete($id);
 
+        return redirect()->to(url_to('admin_mensalistas'))->with('success', 'Mensalista excluído com sucesso.');
+    }
 }
