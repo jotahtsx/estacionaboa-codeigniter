@@ -11,19 +11,28 @@ class CreateMonthlyPaymentsTable extends Migration
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
-                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
             'monthly_payer_id' => [
-                'type'       => 'INT',
-                'constraint' => 11,
-                'unsigned'   => true,
+                'type'     => 'INT',
+                'unsigned' => true,
+                'null'     => false,
             ],
             'pricing_id' => [
+                'type'     => 'INT',
+                'unsigned' => true,
+                'null'     => false,
+            ],
+            'due_day' => [
                 'type'       => 'INT',
-                'constraint' => 11,
-                'unsigned'   => true,
+                'constraint' => 2,
+                'null'       => false,
+            ],
+            'amount' => [
+                'type'       => 'DECIMAL',
+                'constraint' => '10,2',
+                'null'       => false,
             ],
             'due_date' => [
                 'type' => 'DATE',
@@ -33,15 +42,10 @@ class CreateMonthlyPaymentsTable extends Migration
                 'type' => 'DATE',
                 'null' => true,
             ],
-            'amount' => [
-                'type'       => 'DECIMAL',
-                'constraint' => '10,2',
-                'null'       => false,
-            ],
             'status' => [
-                'type'       => 'ENUM("pendente", "pago", "atrasado")',
+                'type'       => 'ENUM',
+                'constraint' => ['pendente', 'pago', 'atrasado'],
                 'default'    => 'pendente',
-                'null'       => false,
             ],
             'payment_method' => [
                 'type'       => 'VARCHAR',
@@ -53,9 +57,9 @@ class CreateMonthlyPaymentsTable extends Migration
                 'null' => true,
             ],
             'active' => [
-                'type'       => 'BOOLEAN',
-                'null'       => false,
-                'default'    => true,
+                'type'       => 'TINYINT',
+                'constraint' => 1,
+                'default'    => 1,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -67,7 +71,7 @@ class CreateMonthlyPaymentsTable extends Migration
             ],
         ]);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('monthly_payer_id', 'monthly_payers', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('pricing_id', 'pricings', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('monthly_payments');

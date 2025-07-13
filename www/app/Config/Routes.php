@@ -55,7 +55,6 @@ $routes->group('admin', ['filter' => 'session', 'namespace' => 'App\Controllers\
     $routes->post('formas-de-pagamento/atualizar/(:num)', 'PaymentMethodController::update/$1', ['as' => 'admin_formas_pagamento_update']);
     $routes->post('formas-de-pagamento/deletar/(:num)', 'PaymentMethodController::delete/$1', ['as' => 'admin_formas_pagamento_delete']);
 
-
     // Rotas de Mensalistas
     $routes->get('mensalistas', 'MonthlyPayerController::index', ['as' => 'admin_mensalistas']);
     $routes->get('mensalistas/cadastrar', 'MonthlyPayerController::create', ['as' => 'admin_mensalistas_create']);
@@ -63,4 +62,12 @@ $routes->group('admin', ['filter' => 'session', 'namespace' => 'App\Controllers\
     $routes->get('mensalistas/editar/(:num)', 'MonthlyPayerController::edit/$1', ['as' => 'admin_mensalistas_edit']);
     $routes->put('admin/mensalistas/atualizar/(:num)', 'MonthlyPayerController::update/$1', ['as' => 'admin_mensalistas_update']);
     $routes->delete('mensalistas/deletar/(:num)', 'MonthlyPayerController::delete/$1', ['as' => 'admin_mensalistas_delete']);
+
+    // Rotas de Mensalidades
+    $routes->get('mensalidades', 'MonthlyPaymentController::index', ['as' => 'admin_mensalidades']);
+    $routes->get('mensalidades/cadastrar', 'MonthlyPaymentController::create', ['as' => 'admin_mensalidades_create']);
+    $routes->post('mensalidades/store', 'MonthlyPaymentController::store', ['as' => 'admin_mensalidades_store']);
+    $routes->get('mensalidades/editar/(:num)', 'MonthlyPaymentController::edit/$1', ['as' => 'admin_mensalidades_edit']);
+    $routes->put('mensalidades/atualizar/(:num)', 'MonthlyPaymentController::update/$1', ['as' => 'admin_mensalidades_update']);
+    $routes->delete('mensalidades/deletar/(:num)', 'MonthlyPaymentController::delete/$1', ['as' => 'admin_mensalidades_delete']);
 });

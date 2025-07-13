@@ -14,7 +14,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                     Mensalistas
                 </a>
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link <?php echo ($active_page == 'mensalidades') ? 'active' : ''; ?>" href="<?= url_to('admin_mensalidades') ?>">
                     <div class="sb-nav-link-icon"><i class="fas fas fa-hand-holding-usd"></i></div>
                     Mensalidades
                 </a>
